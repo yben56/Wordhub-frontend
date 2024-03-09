@@ -1,0 +1,32 @@
+{
+    "Lang" : "語言",
+    "en-US" : "English (US)",
+    "zh-TW" : "中文 (台灣)",
+
+    "Congratulations" : "恭喜!",
+    "Email" : "電子郵件",
+    "Firstname" : "名子",
+    "FullName" : "姓名",
+    "Index" : "首頁",
+    "InvalidEmailOrPassword" : "錯誤的Email或密碼",
+    "Lastname" : "姓氏",
+    "Login" : "登入",
+    "Logout" : "登出",
+    "Menu" : "選單",
+    "Message" : "訊息",
+    "Password" : "密碼",
+    "PhoneNumber" : "電話",
+    "Privacy" : "隱私政策",
+    "RePassword" : "重新輸入密碼",
+    "Search": "搜尋",
+    "Signup" : "註冊",
+    "Submit" : "提交" ,
+    "Terms" : "服務條款",
+    "VarifyEmail" : "請驗證你的Email",
+
+    "ErrorInvalidatEmail" : "請提供一個有效的電子郵件地址",
+    "ErrorInvalidatFirstname" : "至少2個字符",
+    "ErrorInvalidatLastname" : "至少2個字符",
+    "ErrorInvalidatPassword" : "密碼至少8個字符，至少一個字母和一個數字",
+    "ErrorInvalidatPasswordsMatch" : "重新輸入密碼不一樣"
+}

@@ -1,0 +1,32 @@
+{
+    "Lang" : "Language",
+    "en-US" : "English (US)",
+    "zh-TW" : "中文 (台灣)",
+
+    "Congratulations" : "Congratulations!",
+    "Email" : "Email",
+    "Firstname" : "First Name",
+    "FullName" : "Full Name",
+    "Index" : "Home",
+    "InvalidEmailOrPassword" : "Invalid Email Or Password",
+    "Lastname" : "Last Name",
+    "Login" : "Login",
+    "Logout" : "Logout",
+    "Menu" : "Menu",
+    "Message" : "Message",
+    "Password" : "Password",
+    "PhoneNumber" : "Phone Number",
+    "Privacy" : "Privacy Policy",
+    "RePassword" : "Re Password",
+    "Search": "Search",
+    "Signup" : "Sign Up",
+    "Submit" : "Submit",
+    "Terms" : "Terms of Service",
+    "VarifyEmail" : "Please verify your email",
+
+    "ErrorInvalidatEmail" : "Please provide a valid email address.",
+    "ErrorInvalidatFirstname" : "Minimum 2 characters",
+    "ErrorInvalidatLastname" : "Minimum 2 characters",
+    "ErrorInvalidatPassword" : "Minimum 8 characters, at least 1 letter and 1 number.",
+    "ErrorInvalidatPasswordsMatch" : "Password do not match"
+}
