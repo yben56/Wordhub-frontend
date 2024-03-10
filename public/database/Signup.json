@@ -1,0 +1,8 @@
+{
+    "state": 200,
+    "message": "success",
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJlbmphbWluIiwicHJvZmlsZV9waWMiOiJodHRwOi8vbmFtZXN0YWtpbmcuY29tL3Byb2ZpbGVwaWMifQ.0prhYUyB9YNwO21SQpCPdfMiklOSix1xXwSArb4Rppw",
+    "expires_in": 3600,
+    "token_type": "Bearer",
+    "firstname": "benjamin"
+}
