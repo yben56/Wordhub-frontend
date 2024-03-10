@@ -19,8 +19,7 @@
             </td>
             <td :class="{ 'd-none': !search, 'd-sm-block': search }">
                 <i @click="ToggleSearch" class="btn d-inline-block d-sm-none fa-solid fa-magnifying-glass magnifying-glass"></i>
-                <a class="firstname">Benjamin</a>
-                <MenuComp />
+                <UserComp />
             </td>
         </tr>
     </table>  
@@ -55,11 +54,6 @@ onMounted(() => {
 
     td:first-child {
         text-align: left;
-    }
-  
-    .firstname {
-        margin: 0 10px;
-        line-height: 28px;
     }
 
     button {
