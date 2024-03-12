@@ -1,0 +1,39 @@
+{
+    "state": 200,
+    "message": "success",
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJlbmphbWluIiwicHJvZmlsZV9waWMiOiJodHRwOi8vbmFtZXN0YWtpbmcuY29tL3Byb2ZpbGVwaWMifQ.0prhYUyB9YNwO21SQpCPdfMiklOSix1xXwSArb4Rppw",
+    "data" : [
+        {
+            "type" : "question",
+            "from" : "bonobo",
+            "from_prounce" : "",
+            "to" : "倭黑猩猩",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 1,
+            "accuracy" : "4/10 (40%)",
+            "options" : [
+                {"question": "義式蛋糕", "answer" : false },
+                {"question": "倭黑猩猩", "answer" : true },
+                {"question": "跑的很快", "answer" : false },
+                {"question": "異味", "answer" : false }
+            ]
+        },
+        {
+            "type" : "question",
+            "from" : "懇求",
+            "from_prounce" : "",
+            "to" : "plead",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 3,
+            "accuracy" : "4/5 (80%)",
+            "options" : [
+                {"question": "ask", "answer" : false },
+                {"question": "plead", "answer" : true },
+                {"question": "give", "answer" : false },
+                {"question": "took", "answer" : false }
+            ]
+        }
+    ]
+}

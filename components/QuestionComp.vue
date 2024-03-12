@@ -1,41 +1,44 @@
 <template>
-    <div class="question">
-        <div class="bubble">
-            <span>同義出現率: 極高</span>
-            <h2>Watch<i class="fa-solid fa-volume-high"></i></h2>
+    <div class="card">
+        <div class="top">
+            <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+            <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
         </div>
-        <div class="answer">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">時鐘</label>
+        <div class="bottom">
+            <div class="question">
+                <div class="form-check" v-for="(item, index) in data.options ">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault">
+                    <label class="form-check-label">{{ item.question }}</label>
+                </div>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">蛋糕</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">眼鏡</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">手表</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">不知道, 給我答案</label>
-            </div>
+            <a>* {{ $t('ShowAnswer') }}</a>
+            <button type="button" class="btn btn-sm btn-warning float-end">{{ $t('Submit') }}</button>
         </div>
-        <span>回答正確率: 1/5 (20%)</span>
+        <span class="card-footer">{{ $t('Accuracy') }}: {{ data.accuracy }}</span>
     </div>
 </template>
 
+<script>
+export default {
+    props: { 
+        data: {
+            type: Object,
+            require: true
+        }
+    }, setup(props) {
+        onMounted(() => {
+            //console.log(props.data)
+        });
+    }
+}
+</script>
+
 <style scoped>
-.question {
+.card {
     text-align: center;
     border: solid 1px #ccc;
-    cursor: pointer;
     background-color: #fff;
+    min-height: 320px;
 
     .fa-volume-high {
         margin-left: 5px;
@@ -43,7 +46,9 @@
         vertical-align: middle;
     }
 
-    span {
+    .card-header, .card-footer {
+        background-color: transparent;
+        border: none;
         font-size: 12px;
         margin: 10px;
     }
@@ -59,27 +64,44 @@
         margin-top: 50px;
     }
 
-    .answer {
+    .bottom {
         padding: 10px;
+        height: 150px;
 
-        .form-check {
-            text-align: left;
-            display: flex;
-            align-items: center;
+        .question {
+            border-bottom: solid 1px #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+       
 
-            .form-check-input {
-                margin-right: 5px;
-            }
-        } 
+            .form-check {
+                text-align: left;
+                display: flex;
+                align-items: center;
+
+                .form-check-input {
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+            } 
+        }
+
+        a {
+            color: red;
+            float: left;
+            font-size: 12px;
+            margin-top: 10px;
+        }
     }
 
-    .bubble {
+    .top {
         position: relative;
         background-color: #eee;
         padding: 10px;
+        min-height: 150px;
     }
 
-    .bubble:after {
+    .top:after {
         content: '';
         position: absolute;
         bottom: 0;

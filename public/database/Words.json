@@ -1,0 +1,127 @@
+{
+    "state": 200,
+    "message": "success",
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJlbmphbWluIiwicHJvZmlsZV9waWMiOiJodHRwOi8vbmFtZXN0YWtpbmcuY29tL3Byb2ZpbGVwaWMifQ.0prhYUyB9YNwO21SQpCPdfMiklOSix1xXwSArb4Rppw",
+    "data" : [
+        {
+            "type" : "card",
+            "from" : "watch",
+            "from_prounce" : "",
+            "to" : "手錶",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "4/10 (40%)"
+        },
+        {
+            "type" : "card",
+            "from" : "look",
+            "from_prounce" : "",
+            "to" : "看",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 10,
+            "accuracy" : "4/5 (80%)"
+        },
+        {
+            "type" : "card",
+            "from" : "irate",
+            "from_prounce" : "",
+            "to" : "憤怒",
+            "to_prounce" : "",
+            "class" : "adj",
+            "probability" : 3,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "type" : "card",
+            "from" : "yank",
+            "from_prounce" : "",
+            "to" : "猛拉",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 3,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "type" : "card",
+            "from" : "assumption",
+            "from_prounce" : "",
+            "to" : "假定，設想",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 2,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "type" : "card",
+            "from" : "castrate",
+            "from_prounce" : "",
+            "to" : "閹割",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 2,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "type" : "card",
+            "from" : "rabies",
+            "from_prounce" : "",
+            "to" : "狂犬病",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 5,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "type" : "card",
+            "from" : "clock",
+            "from_prounce" : "",
+            "to" : "時鐘",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "10/10 (100%)"
+        },
+        {
+            "type" : "card",
+            "from" : "abscess",
+            "from_prounce" : "",
+            "to" : "膿腫",
+            "to_prounce" : "",
+            "class" : "noun",
+            "probability" : 5,
+            "accuracy" : "2/10 (20%)"
+        },
+        {
+            "type" : "card",
+            "from" : "watch",
+            "from_prounce" : "",
+            "to" : "看",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 10,
+            "accuracy" : "10/10 (100%)"
+        },
+        {
+            "type" : "card",
+            "from" : "unleash",
+            "from_prounce" : "",
+            "to" : "解開",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 8,
+            "accuracy" : "3/10 (33%)"
+        },
+        {
+            "type" : "card",
+            "from" : "gathered",
+            "from_prounce" : "",
+            "to" : "收集",
+            "to_prounce" : "",
+            "class" : "verb",
+            "probability" : 8,
+            "accuracy" : "3/10 (33%)"
+        }
+    ]
+}

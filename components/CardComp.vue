@@ -1,18 +1,34 @@
 <template>
-    <div class="card">
-        <div class="bubble">
-            <span>同義出現率: 極高</span>
-            <h2>Watch<i class="fa-solid fa-volume-high"></i></h2>
+    <div :class="{'card' : true, [data.class] : true}">
+        <div class="top">
+            <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+            <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
         </div>
-        <h2>手錶<i class="fa-solid fa-volume-high"></i></h2>
-        <span>回答正確率: 1/5 (20%)</span>
+        <div class="bottom">
+            <h2>{{ data.to }}<i class="fa-solid fa-volume-high"></i></h2>
+        </div>
+        <span class="card-footer">{{ $t('Accuracy') }}: {{ data.accuracy }}</span>
     </div>
 </template>
+
+<script>
+export default {
+    props: { 
+        data: {
+            type: Object,
+            require: true
+        }
+    }, setup(props) {
+        onMounted(() => {
+            //console.log(props.data)
+        });
+    }
+}
+</script>
 
 <style scoped>
 .card {
     text-align: center;
-    background-color: #ED1C24;
     border: none;
     color: #fff;
     cursor: pointer;
@@ -23,7 +39,9 @@
         vertical-align: middle;
     }
 
-    span {
+    .card-header, .card-footer {
+        background-color: transparent;
+        border: none;
         font-size: 12px;
         margin: 10px;
     }
@@ -35,18 +53,23 @@
         margin: 30px 0;
     }
 
-    > h2 {
-        margin-top: 50px;
+    .bottom {
+        height: 150px;
+
+        h2 {
+            margin-top: 40px;
+        }
     }
 
-    .bubble {
+    .top {
         position: relative;
         background-color: #323132;
         padding: 10px;
-        color: #fff; 
+        color: #fff;
+        min-height: 150px;
     }
 
-    .bubble:after {
+    .top:after {
         content: '';
         position: absolute;
         bottom: 0;
@@ -60,4 +83,8 @@
         margin-bottom: -13px;
     } 
 }
+
+.noun { background-color: #ED1C24; }
+.verb { background-color: #262261; }
+.adj { background-color: #F7931D; }
 </style>
