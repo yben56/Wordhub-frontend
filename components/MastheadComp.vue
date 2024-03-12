@@ -45,6 +45,7 @@ onMounted(() => {
 .masthead {
     width: 100%;
     margin-top: 5px;
+    margin-bottom: 30px;
     border-bottom: solid 1px #eee;
 
     td {
