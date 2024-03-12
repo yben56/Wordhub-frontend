@@ -16,7 +16,8 @@ export default defineNuxtConfig({
     }
   },
   css: [
-    '@/assets/scss/app.scss'
+    '@/assets/scss/app.scss',
+    '@/assets/scss/flow.scss'
   ],
   modules: [
     '@nuxtjs/i18n',
