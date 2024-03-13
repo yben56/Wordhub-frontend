@@ -14,10 +14,11 @@
             "probability" : 1,
             "accuracy" : "4/10 (40%)",
             "options" : [
-                {"question": "義式蛋糕", "answer" : false },
-                {"question": "倭黑猩猩", "answer" : true },
-                {"question": "跑的很快", "answer" : false },
-                {"question": "異味", "answer" : false }
+                { "question": "義式蛋糕", "answer" : false },
+                { "question": "倭黑猩猩", "answer" : true },
+                { "question": "跑的很快", "answer" : false },
+                { "question": "異味", "answer" : false },
+                { "question": "放棄", "answer" : false }
             ]
         },
         {
@@ -31,10 +32,11 @@
             "probability" : 3,
             "accuracy" : "4/5 (80%)",
             "options" : [
-                {"question": "ask", "answer" : false },
-                {"question": "plead", "answer" : true },
-                {"question": "give", "answer" : false },
-                {"question": "took", "answer" : false }
+                { "question": "ask", "answer" : false },
+                { "question": "plead", "answer" : true },
+                { "question": "give", "answer" : false },
+                { "question": "took", "answer" : false },
+                { "question": "放棄", "answer" : false }
             ]
         }
     ]

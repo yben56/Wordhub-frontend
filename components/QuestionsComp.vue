@@ -4,16 +4,24 @@
             <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
             <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
         </div>
-        <div class="bottom">
+        <form class="bottom" :id="data.id">
             <div class="question">
-                <div class="form-check" v-for="(item, index) in data.options ">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault">
-                    <label class="form-check-label">{{ item.question }}</label>
-                </div>
+                <div class="form-check" v-for="(item, index) in data.options">
+                    <label>
+                        <input
+                            @click="submitanswer(data.id)" 
+                            :name="data.id" 
+                            :value="index"
+                            :data-answer="item.answer"
+                            class="form-check-input"
+                            type="radio"
+                            required
+                        >
+                        {{ item.question }}
+                    </label>
+                </div>                
             </div>
-            <a>* {{ $t('ShowAnswer') }}</a>
-            <button type="button" class="btn btn-sm btn-warning float-end">{{ $t('Submit') }}</button>
-        </div>
+        </form>
         <span class="card-footer">{{ $t('Accuracy') }}: {{ data.accuracy }}</span>
     </div>
 </template>
@@ -25,15 +33,58 @@ export default {
             type: Object,
             require: true
         }
-    }, setup(props) {
-        onMounted(() => {
-            //console.log(props.data)
-        });
+    },
+    methods: {
+        async submitanswer(id) {
+            //1. select options
+            let labels = document.getElementById(id).querySelectorAll('label')
+            let correct = false
+
+            //2. options
+            labels.forEach(label => {
+                let input = label.querySelector('input')
+
+                //css display answer & false
+                if ( input.getAttribute('data-answer') == 'true' ) {
+                    label.classList.add('correctanswer')
+                } else {
+                    label.classList.add('text-decoration-line-through')
+                }
+
+                //'correct var' for api
+                if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
+                    correct = true
+                }
+
+                //disable input radio
+                input.setAttribute('disabled', '')
+            })
+
+            const token = useCookie('token').value
+            const body = '{token:' + token + '}'
+            
+            //3. send to api
+            try {
+                const submitanswerresponse  = await $fetch('/database/Answer.json', {
+                    method: 'GET',
+                    //body: body
+                })
+                console.log
+                //console.log(submitanswerresponse)
+            } catch (error) {
+                console.log('Error:' + error)
+            }
+        }
     }
 }
 </script>
 
 <style scoped>
+.correctanswer {
+    color: red;
+    pointer-events: none;
+}
+
 .card {
     text-align: center;
     border: solid 1px #ccc;
@@ -69,19 +120,21 @@ export default {
         height: 150px;
 
         .question {
-            border-bottom: solid 1px #eee;
             padding: 10px;
             margin-bottom: 10px;
        
-
             .form-check {
                 text-align: left;
                 display: flex;
                 align-items: center;
 
-                .form-check-input {
-                    margin-right: 10px;
+                label {
                     cursor: pointer;
+                    
+                    .form-check-input {
+                        margin-top: 7px;
+                        margin-right: 10px;
+                    }
                 }
             } 
         }
