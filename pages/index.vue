@@ -3,10 +3,10 @@
     <div class="wrapper">
         <template v-for="(item, index) in outputdata">
             <template v-if="item.type === 'card'">
-                <CardComp :data="item" :key="index" />
+                <WordsComp :data="item" :key="index" />
             </template>
             <template v-else>
-                <QuestionComp :data="item" :key="index" />
+                <QuestionsComp :data="item" :key="index" />
             </template>
         </template>
     </div>
@@ -20,7 +20,7 @@ onMounted( async () => {
     try {
         const body = '{token:' + token + '}'
 
-        //CARDS
+        //WORDS
         const cardsresponse  = await $fetch('/database/Words.json', {
             method: 'GET',
             //body: body
