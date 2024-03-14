@@ -10,7 +10,7 @@
                                 <button @click="ToggleSearch" class="btn d-inline-block d-sm-none" type="button">
                                     <i class="fa-solid fa-arrow-left"></i>
                                 </button>
-                                <input class="form-control" name="search" :placeholder="$t('Search')" type="text" />
+                                <input class="form-control" name="search" :placeholder="$t('Search')" type="text" :value="$route.query.search" />
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
