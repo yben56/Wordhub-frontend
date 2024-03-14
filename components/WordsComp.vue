@@ -1,13 +1,19 @@
 <template>
     <div :class="{'card' : true, [data.class] : true}">
         <div class="top">
-            <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+            <span class="card-header">
+                {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
+            </span>
             <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
         </div>
         <div class="bottom">
             <h2>{{ data.to }}<i class="fa-solid fa-volume-high"></i></h2>
         </div>
-        <span class="card-footer">{{ $t('Accuracy') }}: {{ data.accuracy }}</span>
+        <div class="card-footer">
+            <span>{{ $t('Accuracy') }}: </span>
+            <span v-if="token">{{ data.accuracy }}</span>
+            <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+        </div>
     </div>
 </template>
 
@@ -19,9 +25,8 @@ export default {
             require: true
         }
     }, setup(props) {
-        onMounted(() => {
-            //console.log(props.data)
-        });
+        const token = useCookie('token').value
+        return { token }
     }
 }
 </script>
@@ -30,7 +35,6 @@ export default {
 .card {
     text-align: center;
     border: none;
-    color: #fff;
     cursor: pointer;
 
     .fa-volume-high {
@@ -42,8 +46,11 @@ export default {
     .card-header, .card-footer {
         background-color: transparent;
         border: none;
-        font-size: 12px;
         margin: 10px;
+    }
+
+    .card-header, .card-footer span, .card-footer a {
+        font-size: 12px; 
     }
     
     h2 {
@@ -85,6 +92,6 @@ export default {
 }
 
 .noun { background-color: #ED1C24; }
-.verb { background-color: #262261; }
+.verb { background-color: #262261; color: #fff; a { color: #fff; }}
 .adj { background-color: #F7931D; }
 </style>

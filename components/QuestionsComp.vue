@@ -22,7 +22,11 @@
                 </div>                
             </div>
         </form>
-        <span class="card-footer">{{ $t('Accuracy') }}: {{ data.accuracy }}</span>
+        <div class="card-footer">
+            <span>{{ $t('Accuracy') }}: </span>
+            <span v-if="token">{{ data.accuracy }}</span>
+            <span class="text-decoration-underline" v-else><a href="/Login">{{ $t('LoginActive') }}</a></span>
+        </div>
     </div>
 </template>
 
@@ -75,6 +79,9 @@ export default {
                 console.log('Error:' + error)
             }
         }
+    }, setup(props) {
+        const token = useCookie('token').value
+        return { token }
     }
 }
 </script>
@@ -100,8 +107,11 @@ export default {
     .card-header, .card-footer {
         background-color: transparent;
         border: none;
-        font-size: 12px;
         margin: 10px;
+
+        span, a {
+            font-size: 12px;
+        }
     }
     
     h2 {

@@ -15,6 +15,13 @@
     </div>
 </template>
 
+<script setup>
+const token = useCookie('token').value
+const router = useRouter()
+
+if ( token ) { router.replace('/') }
+</script>
+
 <style scoped lang="scss">
 h5 {
     color: #fff;

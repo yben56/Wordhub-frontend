@@ -27,26 +27,22 @@ const loaddata = onMounted( async () => {
         })
 
         outputdata.value.push(...cardsresponse.data)
-        
-        //if ( token ) {
-            //QUESTIONS
-            const questionsresponse  = await $fetch('/database/Questions.json', {
-                method: 'GET',
-                //body: body
-            })
-            
-            outputdata.value.push(...questionsresponse.data[0])
-            outputdata.value.push(...questionsresponse.data[1])
-        //}
 
+        //QUESTIONS
+        const questionsresponse  = await $fetch('/database/Questions.json', {
+            method: 'GET',
+            //body: body
+        })
+        
+        outputdata.value.push(...questionsresponse.data[0])
+        outputdata.value.push(...questionsresponse.data[1])
+  
     } catch (error) {
         console.log('Error:' + error)
     }  
 })
 
-
 const handleScroll = () => {
-
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         loaddata()
     }
