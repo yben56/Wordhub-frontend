@@ -1,5 +1,5 @@
 <template>
-    <ClassificationComp />
+    <TypeComp />
     <div class="wrapper">
         <template v-for="(item, index) in outputdata">
             <template v-if="item.type === 'card'">

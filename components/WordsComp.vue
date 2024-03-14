@@ -90,8 +90,4 @@ export default {
         margin-bottom: -13px;
     } 
 }
-
-.noun { background-color: #ED1C24; }
-.verb { background-color: #262261; color: #fff; a { color: #fff; }}
-.adj { background-color: #F7931D; }
 </style>
