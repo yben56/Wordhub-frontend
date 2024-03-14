@@ -12,6 +12,7 @@
     "InvalidEmailOrPassword" : "錯誤的Email或密碼",
     "Lastname" : "姓氏",
     "Login" : "登入",
+    "LoginActive" : "登入啟用",
     "Logout" : "登出",
     "Menu" : "選單",
     "Message" : "訊息",

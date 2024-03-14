@@ -12,6 +12,7 @@
     "InvalidEmailOrPassword" : "Invalid Email Or Password",
     "Lastname" : "Last Name",
     "Login" : "Login",
+    "LoginActive" : "Login Active",
     "Logout" : "Logout",
     "Menu" : "Menu",
     "Message" : "Message",
