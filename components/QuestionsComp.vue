@@ -1,87 +1,96 @@
 <template>
-    <div class="card">
-        <div class="top">
-            <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
-            <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
-        </div>
-        <form class="bottom" :id="data.id">
-            <div class="question">
-                <div class="form-check" v-for="(item, index) in data.options">
-                    <label>
-                        <input
-                            @click="submitanswer(data.id)" 
-                            :name="data.id" 
-                            :value="index"
-                            :data-answer="item.answer"
-                            class="form-check-input"
-                            type="radio"
-                            required
-                        >
-                        {{ item.question }}
-                    </label>
-                </div>                
+    <div v-for="(data, index) in outputdata">
+        <div class="card">
+            <div class="top">
+                <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
             </div>
-        </form>
-        <div class="card-footer">
-            <span>{{ $t('Accuracy') }}: </span>
-            <span v-if="token">{{ data.accuracy }}</span>
-            <span class="text-decoration-underline" v-else><a href="/Login">{{ $t('LoginActive') }}</a></span>
+            <form class="bottom" :id="data.id">
+                <div class="question">
+                    <div class="form-check" v-for="(item, index) in data.options">
+                        <label>
+                            <input
+                                @click="submitanswer(data.id)" 
+                                :name="data.id" 
+                                :value="index"
+                                :data-answer="item.answer"
+                                class="form-check-input"
+                                type="radio"
+                                required
+                            >
+                            {{ item.question }}
+                        </label>
+                    </div>                
+                </div>
+            </form>
+            <div class="card-footer">
+                <span>{{ $t('Accuracy') }}: </span>
+                <span v-if="token">{{ data.accuracy }}</span>
+                <span class="text-decoration-underline" v-else><a href="/Login">{{ $t('LoginActive') }}</a></span>
+            </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    props: { 
-        data: {
-            type: Object,
-            require: true
+<script setup>
+const token = useCookie('token').value
+const outputdata = ref([])
+
+const loaddata = onMounted( async () => {
+    try {
+        const body = '{token:' + token + '}'
+
+        //QUESTIONS
+        const questionsresponse  = await $fetch('/database/Questions.json', {
+            method: 'GET',
+            //body: body
+        })
+        
+        outputdata.value.push(...questionsresponse.data)
+
+    } catch (error) {
+        console.log('Error:' + error)
+    }  
+})
+
+const submitanswer = async (id) => {
+    //1. select options
+    let labels = document.getElementById(id).querySelectorAll('label')
+    let correct = false
+
+    //2. options
+    labels.forEach(label => {
+        let input = label.querySelector('input')
+
+        //css display answer & false
+        if ( input.getAttribute('data-answer') == 'true' ) {
+            label.classList.add('correctanswer')
+        } else {
+            label.classList.add('text-decoration-line-through')
         }
-    },
-    methods: {
-        async submitanswer(id) {
-            //1. select options
-            let labels = document.getElementById(id).querySelectorAll('label')
-            let correct = false
 
-            //2. options
-            labels.forEach(label => {
-                let input = label.querySelector('input')
-
-                //css display answer & false
-                if ( input.getAttribute('data-answer') == 'true' ) {
-                    label.classList.add('correctanswer')
-                } else {
-                    label.classList.add('text-decoration-line-through')
-                }
-
-                //'correct var' for api
-                if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
-                    correct = true
-                }
-
-                //disable input radio
-                input.setAttribute('disabled', '')
-            })
-
-            const token = useCookie('token').value
-            const body = '{token:' + token + '}'
-            
-            //3. send to api
-            try {
-                const submitanswerresponse  = await $fetch('/database/Answer.json', {
-                    method: 'GET',
-                    //body: body
-                })
-                console.log
-                //console.log(submitanswerresponse)
-            } catch (error) {
-                console.log('Error:' + error)
-            }
+        //'correct var' for api
+        if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
+            correct = true
         }
-    }, setup(props) {
-        const token = useCookie('token').value
-        return { token }
+
+        //disable input radio
+        input.setAttribute('disabled', '')
+    })
+
+    const token = useCookie('token').value
+    const body = '{token:' + token + '}'
+    
+    //3. send to api
+    try {
+        const submitanswerresponse  = await $fetch('/database/Answer.json', {
+            method: 'GET',
+            //body: body
+        })
+        
+        console.log(submitanswerresponse)
+    } catch (error) {
+        //console.log('Error:' + error)
     }
 }
 </script>

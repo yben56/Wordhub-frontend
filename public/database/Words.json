@@ -49,24 +49,6 @@
         },
         {
             "id" : 5,
-            "type" : "question",
-            "from" : "bonobo",
-            "from_prounce" : "",
-            "to" : "倭黑猩猩",
-            "to_prounce" : "",
-            "class" : "noun",
-            "probability" : 1,
-            "accuracy" : "4/10 (40%)",
-            "options" : [
-                { "question": "義式蛋糕", "answer" : false },
-                { "question": "倭黑猩猩", "answer" : true },
-                { "question": "跑的很快", "answer" : false },
-                { "question": "異味", "answer" : false },
-                { "question": "放棄", "answer" : false }
-            ]
-        },
-        {
-            "id" : 6,
             "type" : "card",
             "from" : "assumption",
             "from_prounce" : "",
@@ -77,7 +59,7 @@
             "accuracy" : "0/10 (0%)"
         },
         {
-            "id" : 7,
+            "id" : 6,
             "type" : "card",
             "from" : "castrate",
             "from_prounce" : "",
@@ -88,7 +70,7 @@
             "accuracy" : "0/10 (0%)"
         },
         {
-            "id" : 8,
+            "id" : 7,
             "type" : "card",
             "from" : "rabies",
             "from_prounce" : "",
@@ -99,7 +81,7 @@
             "accuracy" : "0/10 (0%)"
         },
         {
-            "id" : 9,
+            "id" : 8,
             "type" : "card",
             "from" : "clock",
             "from_prounce" : "",
@@ -110,25 +92,7 @@
             "accuracy" : "10/10 (100%)"
         },
         {
-            "id" : 10,
-            "type" : "question",
-            "from" : "懇求",
-            "from_prounce" : "",
-            "to" : "plead",
-            "to_prounce" : "",
-            "class" : "verb",
-            "probability" : 3,
-            "accuracy" : "4/5 (80%)",
-            "options" : [
-                { "question": "ask", "answer" : false },
-                { "question": "plead", "answer" : true },
-                { "question": "give", "answer" : false },
-                { "question": "took", "answer" : false },
-                { "question": "放棄", "answer" : false }
-            ]
-        },
-        {
-            "id" : 11,
+            "id" : 9,
             "type" : "card",
             "from" : "abscess",
             "from_prounce" : "",
@@ -139,7 +103,7 @@
             "accuracy" : "2/10 (20%)"
         },
         {
-            "id" : 12,
+            "id" : 10,
             "type" : "card",
             "from" : "watch",
             "from_prounce" : "",
@@ -150,7 +114,7 @@
             "accuracy" : "10/10 (100%)"
         },
         {
-            "id" : 13,
+            "id" : 11,
             "type" : "card",
             "from" : "unleash",
             "from_prounce" : "",
@@ -161,7 +125,7 @@
             "accuracy" : "3/10 (33%)"
         },
         {
-            "id" : 14,
+            "id" : 12,
             "type" : "card",
             "from" : "gathered",
             "from_prounce" : "",

@@ -1,34 +1,44 @@
 <template>
-    <div :class="{'card' : true, [data.class] : true}">
-        <div class="top">
-            <span class="card-header">
-                {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
-            </span>
-            <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
-        </div>
-        <div class="bottom">
-            <h2>{{ data.to }}<i class="fa-solid fa-volume-high"></i></h2>
-        </div>
-        <div class="card-footer">
-            <span>{{ $t('Accuracy') }}: </span>
-            <span v-if="token">{{ data.accuracy }}</span>
-            <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+    <div v-for="(data, index) in outputdata">
+        <div :class="['card', data.class ]">
+            <div class="top">
+                <span class="card-header">
+                    {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
+                </span>
+                <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
+            </div>
+            <div class="bottom">
+                <h2>{{ data.to }}<i class="fa-solid fa-volume-high"></i></h2>
+            </div>
+            <div class="card-footer">
+                <span>{{ $t('Accuracy') }}: </span>
+                <span v-if="token">{{ data.accuracy }}</span>
+                <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+            </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    props: { 
-        data: {
-            type: Object,
-            require: true
-        }
-    }, setup(props) {
-        const token = useCookie('token').value
-        return { token }
-    }
-}
+<script setup>
+const token = useCookie('token').value
+const outputdata = ref([])
+
+const loaddata = onMounted( async () => {
+    try {
+        const body = '{token:' + token + '}'
+
+        //WORDS
+        const wordsresponse  = await $fetch('/database/Words.json', {
+            method: 'GET',
+            //body: body
+        })
+        
+        outputdata.value.push(...wordsresponse.data)
+
+    } catch (error) {
+        console.log('Error:' + error)
+    }  
+})
 </script>
 
 <style scoped>
