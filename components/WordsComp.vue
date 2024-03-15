@@ -1,6 +1,6 @@
 <template>
     <div v-for="(data, index) in outputdata">
-        <div :class="['card', data.class ]">
+        <a :class="['card', data.class ]" href="/Word">
             <div class="top">
                 <span class="card-header">
                     {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
@@ -15,7 +15,7 @@
                 <span v-if="token">{{ data.accuracy }}</span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -61,6 +61,7 @@ const loaddata = async (page) => {
     text-align: center;
     border: none;
     cursor: pointer;
+    
 
     .fa-volume-high {
         margin-left: 5px;
