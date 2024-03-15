@@ -118,9 +118,11 @@ const submitanswer = async (id) => {
 
 .card {
     text-align: center;
-    border: solid 1px #ccc;
     background-color: #fff;
     min-height: 320px;
+    -webkit-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    -moz-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
 
     .fa-volume-high {
         margin-left: 5px;
@@ -174,7 +176,7 @@ const submitanswer = async (id) => {
 
     .bottom {
         padding: 10px;
-        height: 130px;
+        height: 160px;
 
         .question {
             padding: 10px;

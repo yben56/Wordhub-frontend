@@ -95,7 +95,7 @@ const prounce = (url) => {
     }
 
     .bottom {
-        height: 130px;
+        height: 160px;
 
         h2 {
             margin-top: 60px;
