@@ -1,22 +1,22 @@
 <template>
-    <div v-for="(data, index) in outputdata">
-        <a :class="['card', data.class ]" href="/Word">
+    <a href="/Word" v-for="(data, index) in outputdata">
+        <div :class="['card', data.class ]">
             <div class="top">
                 <span class="card-header">
                     {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
                 </span>
-                <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
+                <h2>{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h2>
             </div>
             <div class="bottom">
-                <h2>{{ data.to }}<i class="fa-solid fa-volume-high"></i></h2>
+                <h2>{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></h2>
             </div>
             <div class="card-footer">
                 <span>{{ $t('Accuracy') }}: </span>
                 <span v-if="token">{{ data.accuracy }}</span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
             </div>
-        </a>
-    </div>
+        </div>
+    </a>
 </template>
 
 <script setup>
@@ -53,6 +53,12 @@ const loaddata = async (page) => {
     } catch (error) {
         console.log('Error:' + error)
     }  
+}
+
+const prounce = (url) => {
+    const audio = new Audio(url)
+    audio.play()
+    event.preventDefault()
 }
 </script>
 
