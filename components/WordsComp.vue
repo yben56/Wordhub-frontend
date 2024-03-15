@@ -67,7 +67,9 @@ const prounce = (url) => {
     text-align: center;
     border: none;
     cursor: pointer;
-    
+    -webkit-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    -moz-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
 
     .fa-volume-high {
         margin-left: 5px;
@@ -93,10 +95,10 @@ const prounce = (url) => {
     }
 
     .bottom {
-        height: 150px;
+        height: 130px;
 
         h2 {
-            margin-top: 40px;
+            margin-top: 60px;
         }
     }
 
@@ -106,20 +108,22 @@ const prounce = (url) => {
         padding: 10px;
         color: #fff;
         min-height: 150px;
+        border-radius: 4px;
     }
 
     .top:after {
         content: '';
         position: absolute;
         bottom: 0;
-        left: 50%;
+        left: 84%;
         width: 0;
         height: 0;
-        border: 15px solid transparent;
+        border: 20px solid transparent;
         border-top-color: #323132;
         border-bottom: 0;
+        border-left: 0;
         margin-left: -15px;
-        margin-bottom: -13px;
+        margin-bottom: -15px;
     } 
 }
 </style>

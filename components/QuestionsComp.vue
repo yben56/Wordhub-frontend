@@ -149,9 +149,32 @@ const submitanswer = async (id) => {
         margin-top: 50px;
     }
 
+    .top {
+        position: relative;
+        background-color: #eee;
+        padding: 10px;
+        min-height: 150px;
+        border-radius: 4px;
+    }
+
+    .top:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 84%;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-top-color: #eee;
+        border-bottom: 0;
+        border-left: 0;
+        margin-left: -15px;
+        margin-bottom: -15px;
+    } 
+
     .bottom {
         padding: 10px;
-        height: 150px;
+        height: 130px;
 
         .question {
             padding: 10px;
@@ -180,27 +203,5 @@ const submitanswer = async (id) => {
             margin-top: 10px;
         }
     }
-
-    .top {
-        position: relative;
-        background-color: #eee;
-        padding: 10px;
-        min-height: 150px;
-    }
-
-    .top:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 84%;
-        width: 0;
-        height: 0;
-        border: 20px solid transparent;
-        border-top-color: #eee;
-        border-bottom: 0;
-        border-left: 0;
-        margin-left: -15px;
-        margin-bottom: -15px;
-    } 
 }
 </style>
