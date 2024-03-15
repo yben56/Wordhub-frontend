@@ -35,10 +35,24 @@
 <script setup>
 const token = useCookie('token').value
 const outputdata = ref([])
+const props = defineProps({
+    page: {
+        type: Number,
+        default: 1
+    }
+})
 
-const loaddata = onMounted( async () => {
+onMounted(() => {
+    loaddata(props.page)
+})
+
+watch(() => props.page, () => {
+    loaddata(props.page)
+})
+
+const loaddata = async (page) => {
     try {
-        const body = '{token:' + token + '}'
+        const body = '{token:' + token + ', page:' + page + '}'
 
         //QUESTIONS
         const questionsresponse  = await $fetch('/database/Questions.json', {
@@ -46,12 +60,13 @@ const loaddata = onMounted( async () => {
             //body: body
         })
         
-        outputdata.value.push(...questionsresponse.data)
+        outputdata.value = questionsresponse.data
+        //outputdata.value.push(...questionsresponse.data)
 
     } catch (error) {
         console.log('Error:' + error)
     }  
-})
+}
 
 const submitanswer = async (id) => {
     //1. select options

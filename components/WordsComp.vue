@@ -22,10 +22,24 @@
 <script setup>
 const token = useCookie('token').value
 const outputdata = ref([])
+const props = defineProps({
+    page: {
+        type: Number,
+        default: 1
+    }
+})
 
-const loaddata = onMounted( async () => {
+onMounted(() => {
+    loaddata(props.page)
+})
+
+watch(() => props.page, () => {
+    loaddata(props.page)
+})
+
+const loaddata = async (page) => {
     try {
-        const body = '{token:' + token + '}'
+        const body = '{token:' + token + ', page:' + page + '}'
 
         //WORDS
         const wordsresponse  = await $fetch('/database/Words.json', {
@@ -33,12 +47,13 @@ const loaddata = onMounted( async () => {
             //body: body
         })
         
-        outputdata.value.push(...wordsresponse.data)
+        outputdata.value = wordsresponse.data
+        //outputdata.value.push(...wordsresponse.data)
 
     } catch (error) {
         console.log('Error:' + error)
     }  
-})
+}
 </script>
 
 <style scoped>
