@@ -43,6 +43,7 @@ div {
     .firstname {
         margin: 0 10px;
         line-height: 28px;
+        color: #fff;
     }
 
     .login-btn, .signup-btn {

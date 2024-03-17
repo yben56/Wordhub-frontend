@@ -1,6 +1,6 @@
 <template>
-    <div id="container" class="container">
-        <MastheadComp />
+    <MastheadComp />
+    <div id="container" class="container">  
         <slot />
         <FooterComp />
     </div>
