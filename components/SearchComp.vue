@@ -1,20 +1,20 @@
 <template>
-    <a href="/Word" v-for="(data, index) in outputdata">
-        <div :class="['card', data.class ]">
-            <div class="left">
-                <h2>{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h2>
-            </div>
-            <div class="right">
-                <span class="card-header">
-                    {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
-                </span>
-                <h2>{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></h2>
-                <div class="card-footer">
-                    <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="token">{{ data.accuracy }}</span>
-                    <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
-                </div>
-            </div>
+    <a :href="'/Word/' + [ data.id ]" v-for="(data, index) in outputdata">
+        <div class="card mb-1">
+            <h1 class="from">{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
+            <b class="to">{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
+            <p class="info">
+                <i :class="[ data.class ]" class="fa-solid fa-square"></i>
+                <span>{{ data.class }}</span>
+                <br />
+                <i class="fa-solid fa-square synonyms"></i>
+                <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                <br />
+                <i class="fa-solid fa-square accuracy"></i>
+                <span>{{ $t('Accuracy') }}: </span>
+                <span v-if="token">{{ data.accuracy }}</span>
+                <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+            </p>
         </div>
     </a>
 </template>
@@ -41,14 +41,14 @@ const loaddata = async (page) => {
     try {
         const body = '{token:' + token + ', page:' + page + '}'
 
-        //WORDS
-        const wordsresponse  = await $fetch('/database/Search.json', {
+        //SEARCH
+        const searchresponse  = await $fetch('/database/Search.json', {
             method: 'GET',
             //body: body
         })
         
-        outputdata.value = wordsresponse.data
-        //outputdata.value.push(...wordsresponse.data)
+        outputdata.value = searchresponse.data
+        //outputdata.value.push(...searchresponse.data)
 
     } catch (error) {
         console.log('Error:' + error)
@@ -62,74 +62,49 @@ const prounce = (url) => {
 }
 </script>
 
-<style scoped>
+<style scoped type="scss">
 .card {
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    -webkit-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    -moz-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    flex-direction: row;
-    margin-bottom: 15px;
+    background-color: #2d3134;
+    color: #fff;
+    padding: 10px 15px;
+    border: solid 1px #3535;
 
+    .from {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+        color: #fff;
+        margin-bottom: 0;
+    }
+
+    .to {
+        margin-bottom: 50px;
+        color: #aaa;
+    }
+ 
     .fa-volume-high {
         margin-left: 5px;
-        font-size: 13px;
+        font-size: 12px;
         vertical-align: middle;
     }
 
-    .card-header, .card-footer {
-        background-color: transparent;
-        border: none;
-        margin: 10px;
+    .info {
+        margin-bottom: 0;
+        span, a {
+            font-size: 12px;
+        }
+
+        a {
+            color: #fff;
+        }
     }
 
-    .card-header, .card-footer span, .card-footer a {
-        font-size: 12px; 
+    .fa-square {
+        margin-right: 5px;
+        font-size: 12px;
     }
     
-    h2 {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 500;
-        font-style: normal;
-    }
-
-    .left {
-        position: relative;
-        background-color: #323132;
-        padding: 10px;
-        color: #fff;
-        min-height: 130px;
-        border-radius: 4px;
-        width: 30%;
-
-        h2 {
-            margin:  70px 0;
-        }
-    }
-
-    .left:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        width: 0;
-        height: 0;
-        border: 20px solid transparent;
-        border-left-color: #323132;
-        border-right: 0;
-        border-top: 0;
-        margin-top: -10px;
-        margin-right: -20px;
-    } 
-
-    .right {
-        width: 70%;
-
-        h2 {
-           margin: 60px 0;
-        }
-    }
+    .synonyms { color: #f1e47e; }
+    .accuracy { color: red; }
 }
 </style>

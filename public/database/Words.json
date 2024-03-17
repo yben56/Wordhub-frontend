@@ -134,6 +134,94 @@
             "class" : "verb",
             "probability" : 8,
             "accuracy" : "3/10 (33%)"
+        },
+        {
+            "id" : 13,
+            "type" : "card",
+            "from" : "Origins",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "起源",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 8,
+            "accuracy" : "1/10 (10%)"
+        },
+        {
+            "id" : 14,
+            "type" : "card",
+            "from" : "Astronomers",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "天文學家",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 8,
+            "accuracy" : "1/10 (10%)"
+        },
+        {
+            "id" : 15,
+            "type" : "card",
+            "from" : "deploy",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "部屬",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 4,
+            "accuracy" : "2/10 (20%)"
+        },
+        {
+            "id" : 16,
+            "type" : "card",
+            "from" : "aggregate",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "聚集",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 4,
+            "accuracy" : "2/10 (20%)"
+        },
+        {
+            "id" : 17,
+            "type" : "card",
+            "from" : "scarce",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "缺法",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "adj",
+            "probability" : 8,
+            "accuracy" : "5/10 (50%)"
+        },
+        {
+            "id" : 18,
+            "type" : "card",
+            "from" : "intuition",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "直覺",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 8,
+            "accuracy" : "8/10 (80%)"
+        },
+        {
+            "id" : 19,
+            "type" : "card",
+            "from" : "alumni",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "校友",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 8,
+            "accuracy" : "8/10 (80%)"
+        },
+        {
+            "id" : 20,
+            "type" : "card",
+            "from" : "mingle",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "交融",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 8,
+            "accuracy" : "8/10 (80%)"
         }
     ]
 }

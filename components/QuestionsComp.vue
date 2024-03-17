@@ -1,11 +1,9 @@
 <template>
     <div v-for="(data, index) in outputdata">
         <div class="card">
-            <div class="top">
-                <span class="card-header">{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
-                <h2>{{ data.from }}<i class="fa-solid fa-volume-high"></i></h2>
-            </div>
-            <form class="bottom" :id="data.id">
+            <h1 class="from">{{ data.from }}<i class="fa-solid fa-volume-high"></i></h1>
+            
+            <form class="answer" :id="data.id">
                 <div class="question">
                     <div class="form-check" v-for="(item, index) in data.options">
                         <label>
@@ -23,11 +21,16 @@
                     </div>                
                 </div>
             </form>
-            <div class="card-footer">
+
+            <p class="info">
+                <i class="fa-solid fa-square synonyms"></i>
+                <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                <br />
+                <i class="fa-solid fa-square accuracy"></i>
                 <span>{{ $t('Accuracy') }}: </span>
                 <span v-if="token">{{ data.accuracy }}</span>
-                <span class="text-decoration-underline" v-else><a href="/Login">{{ $t('LoginActive') }}</a></span>
-            </div>
+                <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+            </p>
         </div>
     </div>
 </template>
@@ -111,77 +114,49 @@ const submitanswer = async (id) => {
 </script>
 
 <style scoped>
-.correctanswer {
-    color: red;
-    pointer-events: none;
-}
-
 .card {
-    text-align: center;
-    background-color: #fff;
-    min-height: 320px;
-    -webkit-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    -moz-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    background-color: #434344;
+    color: #fff;
+    padding: 10px 15px;
+    border: solid 1px #3535;
 
+    .from {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+        color: #fff;
+        margin-bottom:  20px;
+    }
+    
     .fa-volume-high {
         margin-left: 5px;
         font-size: 13px;
         vertical-align: middle;
     }
 
-    .card-header, .card-footer {
-        background-color: transparent;
-        border: none;
-        margin: 10px;
-
+    .info {
+        margin-bottom: 0;
         span, a {
             font-size: 12px;
         }
+
+        a {
+            color: #fff;
+        }
+    }
+
+    .fa-square {
+        margin-right: 5px;
+        font-size: 12px;
     }
     
-    h2 {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 500;
-        font-style: normal;
-        margin: 30px 0;
-    }
+    .synonyms { color: #f1e47e; }
+    .accuracy { color: red; }
 
-    > h2 {
-        margin-top: 50px;
-    }
-
-    .top {
-        position: relative;
-        background-color: #eee;
-        padding: 10px;
-        min-height: 150px;
-        border-radius: 4px;
-    }
-
-    .top:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 84%;
-        width: 0;
-        height: 0;
-        border: 20px solid transparent;
-        border-top-color: #eee;
-        border-bottom: 0;
-        border-left: 0;
-        margin-left: -15px;
-        margin-bottom: -15px;
-    } 
-
-    .bottom {
-        padding: 10px;
-        height: 160px;
-
+    .answer {
+       margin-bottom: 20px;
+        
         .question {
-            padding: 10px;
-            margin-bottom: 10px;
-       
             .form-check {
                 text-align: left;
                 display: flex;
@@ -198,11 +173,12 @@ const submitanswer = async (id) => {
             } 
         }
 
-        a {
-            color: red;
-            float: left;
-            font-size: 12px;
-            margin-top: 10px;
+        .correctanswer {
+            pointer-events: none;
+        }
+
+        .text-decoration-line-through {
+            color: #555;
         }
     }
 }

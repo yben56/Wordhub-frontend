@@ -1,20 +1,20 @@
 <template>
     <a href="/Word" v-for="(data, index) in outputdata">
-        <div :class="['card', data.class ]">
-            <div class="top">
-                <span class="card-header">
-                    {{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}
-                </span>
-                <h2>{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h2>
-            </div>
-            <div class="bottom">
-                <h2>{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></h2>
-            </div>
-            <div class="card-footer">
+        <div class="card mb-1">
+            <h1 class="from">{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
+            <b class="to">{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
+            <p class="info">
+                <i :class="[ data.class ]" class="fa-solid fa-square"></i>
+                <span>{{ data.class }}</span>
+                <br />
+                <i class="fa-solid fa-square synonyms"></i>
+                <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                <br />
+                <i class="fa-solid fa-square accuracy"></i>
                 <span>{{ $t('Accuracy') }}: </span>
                 <span v-if="token">{{ data.accuracy }}</span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
-            </div>
+            </p>
         </div>
     </a>
 </template>
@@ -64,66 +64,47 @@ const prounce = (url) => {
 
 <style scoped>
 .card {
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    -webkit-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    -moz-box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
-    box-shadow: 2px 2px 11px -4px rgba(0,0,0,0.43);
+    background-color: #2d3134;
+    color: #fff;
+    padding: 10px 15px;
+    border: solid 1px #3535;
 
+    .from {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+        color: #fff;
+        margin-bottom:  0;
+    }
+
+    .to {
+        margin-bottom: 112px;
+        color: #aaa;
+    }
+ 
     .fa-volume-high {
         margin-left: 5px;
         font-size: 13px;
         vertical-align: middle;
     }
 
-    .card-header, .card-footer {
-        background-color: transparent;
-        border: none;
-        margin: 10px;
-    }
+    .info {
+        margin-bottom: 0;
+        span, a {
+            font-size: 12px;
+        }
 
-    .card-header, .card-footer span, .card-footer a {
-        font-size: 12px; 
-    }
-    
-    h2 {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 500;
-        font-style: normal;
-        margin: 30px 0;
-    }
-
-    .bottom {
-        height: 160px;
-
-        h2 {
-            margin-top: 60px;
+        a {
+            color: #fff;
         }
     }
 
-    .top {
-        position: relative;
-        background-color: #323132;
-        padding: 10px;
-        color: #fff;
-        min-height: 150px;
-        border-radius: 4px;
+    .fa-square {
+        margin-right: 5px;
+        font-size: 12px;
     }
-
-    .top:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 84%;
-        width: 0;
-        height: 0;
-        border: 20px solid transparent;
-        border-top-color: #323132;
-        border-bottom: 0;
-        border-left: 0;
-        margin-left: -15px;
-        margin-bottom: -15px;
-    } 
+    
+    .synonyms { color: #f1e47e; }
+    .accuracy { color: red; }
 }
 </style>
