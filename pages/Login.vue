@@ -23,8 +23,8 @@ if ( token ) { router.replace('/') }
 </script>
 
 <style scoped lang="scss">
-h5 {
+.card {
+    background-color: transparent;
     color: #fff;
-    background-color: #2E3092;
 }
 </style>

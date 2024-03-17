@@ -5,7 +5,7 @@
 				<label class="form-label">{{ $t('Email') }}</label>
 				<input 
 					type="text"
-					:class="['form-control', {'is-invalid': emailError, 'is-valid': !emailError && submit}]" 
+					:class="['form-control', 'form-control-sm', {'is-invalid': emailError, 'is-valid': !emailError && submit}]" 
 					v-model="email" 
 					required
 				>
@@ -15,14 +15,14 @@
 				<label class="form-label">{{ $t('Password') }}</label>
 				<input 
 					type="password" 
-					:class="['form-control', {'is-invalid': passwordError, 'is-valid': !passwordError && submit}]" 
+					:class="['form-control', 'form-control-sm', {'is-invalid': passwordError, 'is-valid': !passwordError && submit}]" 
 					v-model="password" 
 					required
 				>
 				<div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
 			</div>
 			<div class="col-md-12">
-				<button type="submit" class="btn btn-danger submit">{{ $t('Submit')}}</button>
+				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
 			</div>
         </form>
     </div>
@@ -96,5 +96,11 @@ const submitForm = async () => {
 .login {
 	min-width: 300px;
 	text-align: left;
+
+	.form-control {
+		background-color: transparent;
+		border-color: #555;
+		color: #fff;
+	}
 }
 </style>

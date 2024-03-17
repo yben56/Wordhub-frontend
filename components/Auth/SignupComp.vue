@@ -5,7 +5,7 @@
                 <label class="form-label">{{ $t('Firstname') }}</label>
                 <input 
 					type="text" 
-					:class="['form-control', { 'is-invalid': firstnameError, 'is-valid': !firstnameError && submit }]"
+					:class="['form-control', 'form-control-sm', { 'is-invalid': firstnameError, 'is-valid': !firstnameError && submit }]"
 					v-model="firstname" 
 					required
 				>
@@ -15,7 +15,7 @@
                 <label class="form-label">{{ $t('Lastname') }}</label>
                 <input 
 					type="text" 
-					:class="['form-control', { 'is-invalid': lastnameError, 'is-valid': !lastnameError && submit }]"
+					:class="['form-control', 'form-control-sm', { 'is-invalid': lastnameError, 'is-valid': !lastnameError && submit }]"
 					v-model="lastname"
 					required
 				>
@@ -25,7 +25,7 @@
                 <label class="form-label">{{ $t('Email') }}</label>
                 <input 
 					type="text"
-					:class="['form-control', {'is-invalid': emailError, 'is-valid': !emailError && submit }]" 
+					:class="['form-control', 'form-control-sm', {'is-invalid': emailError, 'is-valid': !emailError && submit }]" 
 					v-model="email"
 					required
 				>
@@ -35,7 +35,7 @@
                 <label class="form-label">{{ $t('Password') }}</label>
                 <input
 					type="password"
-					:class="['form-control', { 'is-invalid': passwordError, 'is-valid': !passwordError && submit }]"
+					:class="['form-control', 'form-control-sm', { 'is-invalid': passwordError, 'is-valid': !passwordError && submit }]"
 					v-model="password"
 					required
 				>
@@ -45,14 +45,14 @@
                 <label class="form-label">{{ $t('RePassword') }}</label>
                 <input
 					type="password"
-					:class="['form-control', {'is-invalid': repasswordError, 'is-valid': !repasswordError && submit }]" 
+					:class="['form-control', 'form-control-sm', {'is-invalid': repasswordError, 'is-valid': !repasswordError && submit }]" 
 					v-model="repassword"
 					required
 				>
                 <div class="invalid-feedback" v-if="errors[4]">{{ errors[4].message }}</div>
             </div>
             <div class="col-md-12">
-				<button type="submit" class="btn btn-danger submit">{{ $t('Submit') }}</button>
+				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
 			</div>
         </form>
     </div>
@@ -172,5 +172,11 @@ const submitForm = async () => {
 .signup {
 	min-width: 300px;
 	text-align: left;
+
+	.form-control {
+		background-color: transparent;
+		border-color: #555;
+		color: #fff;
+	}
 }
 </style>

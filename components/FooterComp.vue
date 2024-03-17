@@ -19,9 +19,8 @@
 #footer {
 	margin-top: 60px;
 	padding: 60px 0;
-    border-top: solid 1px #eee;
+    border-top: solid 1px #555;
 	text-align: center;
-    background-color: #fdfdfd;
     color: #555;
 
     .fa-brands {
