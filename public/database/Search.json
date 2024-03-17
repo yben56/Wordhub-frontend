@@ -1,0 +1,139 @@
+{
+    "state": 200,
+    "message": "success",
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJlbmphbWluIiwicHJvZmlsZV9waWMiOiJodHRwOi8vbmFtZXN0YWtpbmcuY29tL3Byb2ZpbGVwaWMifQ.0prhYUyB9YNwO21SQpCPdfMiklOSix1xXwSArb4Rppw",
+    "data" : [
+        {
+            "id" : 1,
+            "type" : "card",
+            "from" : "watch",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "手錶",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "4/10 (40%)"
+        },
+        {
+            "id" : 2,
+            "type" : "card",
+            "from" : "look",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "看",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 10,
+            "accuracy" : "4/5 (80%)"
+        },
+        {
+            "id" : 3,
+            "type" : "card",
+            "from" : "irate",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "憤怒",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "adj",
+            "probability" : 3,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "id" : 4,
+            "type" : "card",
+            "from" : "yank",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "猛拉",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 3,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "id" : 5,
+            "type" : "card",
+            "from" : "assumption",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "假定，設想",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 2,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "id" : 6,
+            "type" : "card",
+            "from" : "castrate",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "閹割",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 2,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "id" : 7,
+            "type" : "card",
+            "from" : "rabies",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "狂犬病",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 5,
+            "accuracy" : "0/10 (0%)"
+        },
+        {
+            "id" : 8,
+            "type" : "card",
+            "from" : "clock",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "時鐘",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "10/10 (100%)"
+        },
+        {
+            "id" : 9,
+            "type" : "card",
+            "from" : "abscess",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "膿腫",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 5,
+            "accuracy" : "2/10 (20%)"
+        },
+        {
+            "id" : 10,
+            "type" : "card",
+            "from" : "watch",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "看",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 10,
+            "accuracy" : "10/10 (100%)"
+        },
+        {
+            "id" : 11,
+            "type" : "card",
+            "from" : "unleash",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "解開",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 8,
+            "accuracy" : "3/10 (33%)"
+        },
+        {
+            "id" : 12,
+            "type" : "card",
+            "from" : "gathered",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "收集",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "verb",
+            "probability" : 8,
+            "accuracy" : "3/10 (33%)"
+        }
+    ]
+}

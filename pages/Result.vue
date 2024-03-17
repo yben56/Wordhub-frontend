@@ -1,17 +1,10 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-9">
-                <div class="card">
-                    <div class="left">
-                        <h2>Apple<i class="fa-solid fa-volume-high"></i></h2>
-                    </div>
-                    <div class="right">
-                        <h2>蘋果<i class="fa-solid fa-volume-high"></i></h2>
-                    </div>
-                </div>
+            <div class="col-md-9">
+                <SearchComp />
             </div>
-            <div class="col-3 d-none d-sm-block right">
+            <div class="col-md-3 d-none d-sm-block right">
                 <QuestionsComp />
                 <WordsComp />
             </div>
@@ -88,7 +81,7 @@
 
 <style>
 .right {
-    > div {
+    > div, > a > div {
         margin-bottom:  15px;
     }
 }
