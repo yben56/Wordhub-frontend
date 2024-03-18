@@ -9,6 +9,7 @@
     "Firstname" : "First Name",
     "FullName" : "Full Name",
     "Homonym" : "Homonym",
+    "Homophones" : "同音異字",
     "Index" : "Home",
     "InvalidEmailOrPassword" : "Invalid Email Or Password",
     "Lastname" : "Last Name",

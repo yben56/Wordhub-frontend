@@ -1,0 +1,29 @@
+{
+    "state": 200,
+    "message": "success",
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJlbmphbWluIiwicHJvZmlsZV9waWMiOiJodHRwOi8vbmFtZXN0YWtpbmcuY29tL3Byb2ZpbGVwaWMifQ.0prhYUyB9YNwO21SQpCPdfMiklOSix1xXwSArb4Rppw",
+    "data" : [
+        {
+            "id" : 1,
+            "type" : "card",
+            "from" : "son",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "兒子",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "4/10 (40%)"
+        },
+        {
+            "id" : 2,
+            "type" : "card",
+            "from" : "sun",
+            "from_prounce" : "/sounds/ding.mp3",
+            "to" : "太陽",
+            "to_prounce" : "/sounds/ding.mp3",
+            "class" : "noun",
+            "probability" : 10,
+            "accuracy" : "4/10 (40%)"
+        }
+    ]
+}

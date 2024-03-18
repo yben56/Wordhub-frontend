@@ -24,9 +24,11 @@
                 </div>
             </div>
             <div class="col-md-3 d-none d-sm-block side">
-                <h4>{{ $t('Homonym') }}</h4>
+                <h4 class="title">{{ $t('Homonym') }}</h4>
                 <HomonymsComp />
-                <h4>{{ $t('Quiz') }}</h4>
+                <h4 class="title">{{ $t('Homophones') }}</h4>
+                <HomophonesComp />
+                <h4 class="title">{{ $t('Quiz') }}</h4>
                 <QuestionsComp />
             </div>
         </div>
@@ -115,7 +117,7 @@ const prounce = (url) => {
 .side {
     margin-top: 15px;
     
-    h4 {
+    .title {
         color: #fff;
         padding: 10px 0;
         border-bottom: solid 1px #555;
