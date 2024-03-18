@@ -1,5 +1,5 @@
 <template>
-    <a href="/Word/1" v-for="(data, index) in outputdata">
+    <a href="/Word" v-for="(data, index) in outputdata">
         <div class="card mb-1">
             <h1 class="from">{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
             <b class="to">{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
@@ -41,14 +41,13 @@ const loaddata = async (page) => {
     try {
         const body = '{token:' + token + ', page:' + page + '}'
 
-        //WORDS
-        const wordsresponse  = await $fetch('/database/Words.json', {
+        //Homonyms/{word}
+        const homonymsresponse  = await $fetch('/database/Homonyms.json', {
             method: 'GET',
             //body: body
         })
         
-        outputdata.value = wordsresponse.data
-        //outputdata.value.push(...wordsresponse.data)
+        outputdata.value = homonymsresponse.data
 
     } catch (error) {
         console.log('Error:' + error)

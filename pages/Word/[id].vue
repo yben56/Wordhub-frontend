@@ -24,6 +24,9 @@
                 </div>
             </div>
             <div class="col-md-3 d-none d-sm-block side">
+                <h4>{{ $t('Homonym') }}</h4>
+                <HomonymsComp />
+                <h4>{{ $t('Quiz') }}</h4>
                 <QuestionsComp />
             </div>
         </div>
@@ -112,6 +115,12 @@ const prounce = (url) => {
 .side {
     margin-top: 15px;
     
+    h4 {
+        color: #fff;
+        padding: 10px 0;
+        border-bottom: solid 1px #555;
+    }
+
     .card {
         margin-bottom: 15px;
     }
