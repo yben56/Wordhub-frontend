@@ -1,5 +1,6 @@
 export default defineNuxtPlugin(nuxtApp => {
-    
+    const token = useCookie('token').value
+
     nuxtApp.Login = async (data) => {
         try {
             //1. fetch api
@@ -96,6 +97,12 @@ export default defineNuxtPlugin(nuxtApp => {
             window.location.href = '/'
         } catch (error) {
             console.log('Error:' + error)
+        }
+    }
+
+    return {
+        provide: {
+            token: token
         }
     }
 })

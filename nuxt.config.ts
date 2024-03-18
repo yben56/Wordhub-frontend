@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   },
   css: [
     '@/assets/scss/app.scss',
-    '@/assets/scss/flow.scss',
+    '@/assets/scss/words.scss',
     '@/assets/googlefonts.css'
   ],
   modules: [
@@ -25,5 +25,8 @@ export default defineNuxtConfig({
   ],
   i18n: {
     vueI18n: '@/i18n.config.ts'
-  }
+  },
+  plugins: [
+    { src: '@/plugins/Global.ts'}
+  ]
 })

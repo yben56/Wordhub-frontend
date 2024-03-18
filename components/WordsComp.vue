@@ -1,68 +1,31 @@
 <template>
-    <a href="/Word/1" v-for="(data, index) in outputdata">
-        <div class="card mb-1">
-            <h1 class="from">{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
-            <b class="to">{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
-            <p class="info">
-                <i :class="[ data.class ]" class="fa-solid fa-square"></i>
-                <span>{{ data.class }}</span>
-                <br />
-                <i class="fa-solid fa-square synonyms"></i>
-                <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
-                <br />
-                <i class="fa-solid fa-square accuracy"></i>
-                <span>{{ $t('Accuracy') }}: </span>
-                <span v-if="token">{{ data.accuracy }}</span>
-                <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
-            </p>
-        </div>
-    </a>
+    <div v-for="(data, index) in props.data">
+        <a :href="'/Word/' + data.id">
+            <div class="card mb-1">
+                <h1 class="from">{{ data.from }}<i @click="$prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
+                <b class="to">{{ data.to }}<i @click="$prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
+                <p class="info">
+                    <i :class="[ data.class ]" class="fa-solid fa-square"></i>
+                    <span>{{ data.class }}</span>
+                    <br />
+                    <i class="fa-solid fa-square synonyms"></i>
+                    <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                    <br />
+                    <i class="fa-solid fa-square accuracy"></i>
+                    <span>{{ $t('Accuracy') }}: </span>
+                    <span v-if="$token">{{ data.accuracy }}</span>
+                    <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+                </p>
+            </div>
+        </a>
+    </div>
 </template>
 
 <script setup>
-const token = useCookie('token').value
-const outputdata = ref([])
-const props = defineProps({
-    page: {
-        type: Number,
-        default: 1
-    }
-})
-
-onMounted(() => {
-    loaddata(props.page)
-})
-
-watch(() => props.page, () => {
-    loaddata(props.page)
-})
-
-const loaddata = async (page) => {
-    try {
-        const body = '{token:' + token + ', page:' + page + '}'
-
-        //WORDS
-        const wordsresponse  = await $fetch('/database/Words.json', {
-            method: 'GET',
-            //body: body
-        })
-        
-        outputdata.value = wordsresponse.data
-        //outputdata.value.push(...wordsresponse.data)
-
-    } catch (error) {
-        console.log('Error:' + error)
-    }  
-}
-
-const prounce = (url) => {
-    const audio = new Audio(url)
-    audio.play()
-    event.preventDefault()
-}
+const props = defineProps(['data'])
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card {
     background-color: #2d3134;
     color: #fff;
