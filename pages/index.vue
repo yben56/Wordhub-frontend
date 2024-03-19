@@ -6,26 +6,27 @@
             <QuestionsComp :page="index" />
         </template>
     </div>
+    <div class="observer"></div>
 </template>
 
 <script setup>
-const api = useNuxtApp().$api
-const token = useCookie('token').value
 const data = ref([])
 const page = ref(1)
 
-const handleScroll = () => {
-    if ( (window.innerHeight + window.scrollY) >= document.body.scrollHeight ) {
-        page.value++
-    }
-}
-
 onMounted( async () => {
-    data.value = await api('GET', '/database/Words.json', page, token)
-    window.addEventListener('scroll', handleScroll)
-})
+    data.value = await useNuxtApp().$api('GET', '/database/Words.json', page, useCookie('token').value)
 
-onBeforeUnmount(() => {
-    window.removeEventListener('scroll', handleScroll)
+    //scroll bottom load data
+    const observer = new IntersectionObserver((enteries) => {
+        enteries.forEach((entry) => {
+            if ( entry.intersectionRatio > 0 ) {
+                page.value++
+            }
+        })
+    })
+
+    document.querySelectorAll('.observer').forEach((section) => {
+        observer.observe(section)
+    })
 })
 </script>
