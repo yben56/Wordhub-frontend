@@ -1,14 +1,14 @@
 <template>
     <div id="container" class="container">
         <div class="row">
-            <div class="col-md-9 result-wrapper">
+            <div class="col-md-9 wrapper">
                 <template v-for="index in page" :key="index">
-                    <WordsComp :data="data"/>
+                    <WordsComp :data="data" :href="true"/>
                 </template>
                 <div class="observer"></div>
             </div>
             <div class="col-md-3 d-none d-sm-block">
-                <div class="result-wrapper">
+                <div class="wrapper">
                     <QuizsComp :data="quiz" />
                 </div>
             </div>
@@ -43,9 +43,8 @@ onMounted( async () => {
 })
 </script>
 
-
 <style scoped lang="scss">
-.result-wrapper {
+.wrapper {
     margin-top: 15px;
     display: grid;
     grid-row-gap: 10px;

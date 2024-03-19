@@ -2,7 +2,7 @@
     <TypeComp />
     <div class="wrapper">
         <template v-for="index in page" :key="index">
-            <WordsComp :data="data"/>
+            <WordsComp :data="data" :href="true"/>
             <QuizsComp :data="quiz" />
         </template>
     </div>

@@ -1,6 +1,6 @@
 <template>
     <div v-for="(data, index) in props.data">
-        <a :href="'/Word/' + data.id">
+        <a :href="props.href ? '/Word/' + data.id : '#'">
             <div class="card mb-1">
                 <h1 class="from">{{ data.from }}<i @click="$prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
                 <b class="to">{{ data.to }}<i @click="$prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['data'])
+const props = defineProps(['data', 'href'])
 </script>
 
 <style scoped lang="scss">

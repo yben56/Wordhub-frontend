@@ -1,130 +1,68 @@
 <template>
     <div id="container" class="container">
         <div class="row">
-            <div class="col-md-9 word">
-                <div class="card">
-                    <h1 class="from">{{ data.from }}<i @click="prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
-                    <b class="to">{{ data.to }}<i @click="prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
-                    <p class="info">
-                        <i :class="[ data.class ]" class="fa-solid fa-square"></i>
-                        <span>{{ data.class }}</span>
-                        <br />
-                        <i class="fa-solid fa-square synonyms"></i>
-                        <span>{{ $t('SynonymsProbability') }}: {{ data.probability }}</span>
-                        <br />
-                        <i class="fa-solid fa-square accuracy"></i>
-                        <span>{{ $t('Accuracy') }}: </span>
-                        <span v-if="token">{{ data.accuracy }}</span>
-                        <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
-                    </p>
-                </div>
-                <div class="card"  v-for="(sentence, index) in data.sentences">
-                    <span>{{ sentence.from }}</span>
-                    <span>{{ sentence.to }}</span>
+            <div class="col-md-9 wrapper">
+                <WordsComp :data="data"/>
+                <div v-for="(item, index) in sent">
+                    <div class="card">{{ item.from }}</div>
+                    <div class="card">{{ item.to }}</div>
                 </div>
             </div>
-            <div class="col-md-3 d-none d-sm-block side">
-                <h4 class="title">{{ $t('Homonym') }}</h4>
-                <HomonymsComp />
-                <h4 class="title">{{ $t('Homophones') }}</h4>
-                <HomophonesComp />
-                <h4 class="title">{{ $t('Quiz') }}</h4>
-                <QuestionsComp />
+            <div class="col-md-3 d-none d-sm-block">
+                <div class="wrapper">
+                    <h4 class="title">{{ $t('Quiz') }}</h4>
+                    <QuizsComp :data="quiz" />
+
+                    <h4 class="title">{{ $t('Homonym') }}</h4>
+                    <WordsComp :data="homon" :href="true"/>
+
+                    <h4 class="title">{{ $t('Homophones') }}</h4>
+                    <WordsComp :data="homop" :href="true"/>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-const token = useCookie('token').value
 const data = ref([])
+const sent = ref([])
+const quiz = ref([])
+const homon = ref([])
+const homop = ref([])
+const page = ref(1)
 
 onMounted( async () => {
-    try {
-        const body = '{token:' + token + '}'
+    const d = await useNuxtApp().$api('GET', '/database/Word.json', false, useCookie('token').value)
+    const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
+    const n = await useNuxtApp().$api('GET', '/database/Homonyms.json', page, useCookie('token').value)
+    const p = await useNuxtApp().$api('GET', '/database/Homophones.json', page, useCookie('token').value)
 
-        //WORD (/database/Word/{id})
-        const wordresponse  = await $fetch('/database/Word.json', {
-            method: 'GET',
-            //body: body
-        })
-        
-        data.value = wordresponse.data
-
-    } catch (error) {
-        console.log('Error:' + error)
-    }  
+    data.value.push(d.data)
+    sent.value = d.data.sentences
+    quiz.value = q.data
+    homon.value = n.data
+    homop.value = p.data
 })
-
-const prounce = (url) => {
-    const audio = new Audio(url)
-    audio.play()
-    event.preventDefault()
-}
 </script>
 
-<style>
-.word {
+<style scoped lang="scss">
+.wrapper {
     margin-top: 15px;
+    display: grid;
+    grid-row-gap: 10px;
 
-    .card {
-        background-color: #2d3134;
-        color: #fff;
-        padding: 10px 15px;
-        border: solid 1px #3535;
-        margin-bottom: 15px;
-
-        .from {
-            font-family: "Barlow Condensed", sans-serif;
-            font-weight: 200;
-            font-style: normal;
-            color: #fff;
-            margin-bottom:  0;
-        }
-
-        .to {
-            margin-bottom: 112px;
-            color: #aaa;
-        }
-    
-        .fa-volume-high {
-            margin-left: 5px;
-            font-size: 13px;
-            vertical-align: middle;
-        }
-
-        .info {
-            margin-bottom: 0;
-            span, a {
-                font-size: 12px;
-            }
-
-            a {
-                color: #fff;
-            }
-        }
-
-        .fa-square {
-            margin-right: 5px;
-            font-size: 12px;
-        }
-        
-        .synonyms { color: #f1e47e; }
-        .accuracy { color: red; }
-    }
-}
-
-.side {
-    margin-top: 15px;
-    
-    .title {
+    h4 {
         color: #fff;
         padding: 10px 0;
         border-bottom: solid 1px #555;
     }
 
     .card {
-        margin-bottom: 15px;
+        background-color: #2d3134;
+        color: #fff;
+        padding: 10px 15px;
+        border: solid 1px #3535;
     }
 }
 </style>
