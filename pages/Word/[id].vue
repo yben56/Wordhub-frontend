@@ -4,8 +4,10 @@
             <div class="col-md-9 wrapper">
                 <WordsComp :data="data"/>
                 <div v-for="(item, index) in sent">
-                    <div class="card">{{ item.from }}</div>
-                    <div class="card">{{ item.to }}</div>
+                    <div class="card">
+                        <div>{{ item.from }}</div>
+                        <div>{{ item.to }}</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 d-none d-sm-block">
