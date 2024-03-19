@@ -30,3 +30,18 @@ onMounted( async () => {
     })
 })
 </script>
+
+<style scoped lang="scss">
+.wrapper {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+@media (min-width: 1400px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; } }
+@media (max-width: 1400px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
+@media (max-width: 1200px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+@media (max-width: 992px) { .wrapper { grid-template-columns: 1fr 1fr 1fr; } }
+@media (max-width: 768px) { .wrapper { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 576px) { .wrapper { grid-template-columns: 1fr; } }
+</style>

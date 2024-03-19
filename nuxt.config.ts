@@ -17,7 +17,6 @@ export default defineNuxtConfig({
   },
   css: [
     '@/assets/scss/app.scss',
-    '@/assets/scss/words.scss',
     '@/assets/googlefonts.css'
   ],
   modules: [

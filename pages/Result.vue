@@ -1,30 +1,46 @@
 <template>
     <div id="container" class="container">
         <div class="row">
-            <div class="col-md-9 searchs">
-                <SearchComp />
+            <div class="col-md-9 result-wrapper">
+                <template v-for="index in page" :key="index">
+                    <WordsComp :data="data"/>
+                </template>
+                <div class="observer"></div>
             </div>
             <div class="col-md-3 d-none d-sm-block questions">
-                <QuestionsComp />
+               
             </div>
         </div>
     </div>
 </template>
 
-<style>
-.searchs {
-    margin-top: 15px;
+<script setup>
+const data = ref([])
+const page = ref(1)
 
-    .card {
-        margin-bottom: 15px !important;
-    }
-}
+onMounted( async () => {
+    data.value = await useNuxtApp().$api('GET', '/database/Words.json', page, useCookie('token').value)
 
-.questions {
+    //scroll bottom load data
+    const observer = new IntersectionObserver((enteries) => {
+        enteries.forEach((entry) => {
+            if ( entry.intersectionRatio > 0 ) {
+                page.value++
+            }
+        })
+    })
+
+    document.querySelectorAll('.observer').forEach((section) => {
+        observer.observe(section)
+    })
+})
+</script>
+
+
+<style scoped lang="scss">
+.result-wrapper {
     margin-top: 15px;
-    
-    .card {
-        margin-bottom: 15px;
-    }
+    display: grid;
+    grid-row-gap: 10px;
 }
 </style>
