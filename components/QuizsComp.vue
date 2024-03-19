@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(data, index) in outputdata">
+    <div v-for="(data, index) in data">
         <div class="card">
             <h1 class="from">{{ data.from }}<i class="fa-solid fa-volume-high"></i></h1>
             
@@ -28,7 +28,7 @@
                 <br />
                 <i class="fa-solid fa-square accuracy"></i>
                 <span>{{ $t('Accuracy') }}: </span>
-                <span v-if="token">{{ data.accuracy }}</span>
+                <span v-if="$token">{{ data.accuracy }}</span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
             </p>
         </div>
@@ -36,40 +36,7 @@
 </template>
 
 <script setup>
-const token = useCookie('token').value
-const outputdata = ref([])
-const props = defineProps({
-    page: {
-        type: Number,
-        default: 1
-    }
-})
-
-onMounted(() => {
-    loaddata(props.page)
-})
-
-watch(() => props.page, () => {
-    loaddata(props.page)
-})
-
-const loaddata = async (page) => {
-    try {
-        const body = '{token:' + token + ', page:' + page + '}'
-
-        //QUESTIONS
-        const questionsresponse  = await $fetch('/database/Questions.json', {
-            method: 'GET',
-            //body: body
-        })
-        
-        outputdata.value = questionsresponse.data
-        //outputdata.value.push(...questionsresponse.data)
-
-    } catch (error) {
-        console.log('Error:' + error)
-    }  
-}
+const props = defineProps(['data'])
 
 const submitanswer = async (id) => {
     //1. select options
@@ -100,20 +67,12 @@ const submitanswer = async (id) => {
     const body = '{token:' + token + '}'
     
     //3. send to api
-    try {
-        const submitanswerresponse  = await $fetch('/database/Answer.json', {
-            method: 'GET',
-            //body: body
-        })
-        
-        console.log(submitanswerresponse)
-    } catch (error) {
-        //console.log('Error:' + error)
-    }
+    const a = await useNuxtApp().$api('GET', '/database/Answer.json', false, useCookie('token').value)
+    //console.log(a)
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card {
     background-color: #434344;
     color: #fff;
@@ -132,6 +91,11 @@ const submitanswer = async (id) => {
         margin-left: 5px;
         font-size: 13px;
         vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .fa-volume-high:hover {
+        color: red;
     }
 
     .info {

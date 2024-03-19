@@ -16,7 +16,7 @@ const api = async (method, url, page = false, token = false) => {
         //body: body
     })
 
-    return response.data
+    return response
 
   } catch (error) {
       console.log('Error:' + error)

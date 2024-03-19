@@ -51,6 +51,10 @@ const props = defineProps(['data'])
         vertical-align: middle;
     }
 
+    .fa-volume-high:hover {
+        color: red;
+    }
+
     .info {
         margin-bottom: 0;
         span, a {

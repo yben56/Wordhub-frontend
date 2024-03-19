@@ -3,7 +3,7 @@
     <div class="wrapper">
         <template v-for="index in page" :key="index">
             <WordsComp :data="data"/>
-            <QuestionsComp :page="index" />
+            <QuizsComp :data="quiz" />
         </template>
     </div>
     <div class="observer"></div>
@@ -11,10 +11,15 @@
 
 <script setup>
 const data = ref([])
+const quiz = ref([])
 const page = ref(1)
 
 onMounted( async () => {
-    data.value = await useNuxtApp().$api('GET', '/database/Words.json', page, useCookie('token').value)
+    const d = await useNuxtApp().$api('GET', '/database/Words.json', page, useCookie('token').value)
+    const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
+
+    data.value = d.data
+    quiz.value = q.data
 
     //scroll bottom load data
     const observer = new IntersectionObserver((enteries) => {
