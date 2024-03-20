@@ -51,7 +51,21 @@
 				>
                 <div class="invalid-feedback" v-if="errors[4]">{{ errors[4].message }}</div>
             </div>
+			<div class="col-md-12">
+				<div class="form-check form-check-inline">
+					<label class="form-check-label">
+						<input class="form-check-input" name="gender" type="radio" value="1" v-model="gender" required />
+						{{ $t('Male') }}</label>
+					</div>
+				<div class="form-check form-check-inline">
+					<label class="form-check-label">
+						<input class="form-check-input" name="gender" type="radio" value="0" v-model="gender" required />
+						{{ $t('Female') }}
+					</label>
+				</div>
+			</div>
             <div class="col-md-12">
+				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
 			</div>
         </form>
@@ -60,6 +74,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+const nuxtApp = useNuxtApp()
 const { t } = useI18n()
 
 const	firstname = ref(''),
@@ -72,8 +87,10 @@ const	firstname = ref(''),
 		emailError = ref(false),
 		passwordError = ref(false),
 		repasswordError = ref(false),
+		gender = ref(''),
 		errors = ref([]),
-		submit = ref(false)
+		submit = ref(false),
+		info = ref('')
 
 const validate = () => {
 	errors.value = []
@@ -158,10 +175,12 @@ const submitForm = async () => {
 			firstname: firstname.value,
 			lastname: lastname.value,
 			email: email.value,
-			password: password.value
+			password: password.value,
+			gender: gender.value
 		})
 
-		info.value = t(response)
+		info.value = t(response.message)
+		
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -177,6 +196,15 @@ const submitForm = async () => {
 		background-color: transparent;
 		border-color: #555;
 		color: #fff;
+	}
+
+	.form-check-input {
+		margin-top: 5px;
+		margin-right: 10px;
+	}
+
+	.invalid-feedback, .info {
+		color: #f1e47e;
 	}
 }
 </style>
