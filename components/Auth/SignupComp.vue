@@ -78,6 +78,12 @@
 					</label>
 				</div>
 			</div>
+			<div class="col-md-12">
+				<label class="form-check-label term-privacy">
+					<input class="form-check-input" type="checkbox" required />
+					<a href="/TermsPrivacy">{{ $t('TermsPrivacy') }}</a>
+				</label>
+			</div>
             <div class="col-md-12">
 				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
@@ -225,6 +231,17 @@ const submitForm = async () => {
 	.bday {
 		border: solid 1px #555;
 		border-radius: 5px;
+	}
+
+	.term-privacy {
+		.form-check-input {
+			margin-top: 0;
+		}
+
+		a {
+			color: #ccc;
+			text-decoration: underline;
+		}
 	}
 
 	.invalid-feedback, .info {

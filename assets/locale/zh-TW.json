@@ -9,6 +9,7 @@
     "Email" : "電子郵件",
     "Female" : "女",
     "Firstname" : "名子",
+    "ForgotPassword" : "忘記密碼",
     "FullName" : "姓名",
     "Homonym" : "同字異義",
     "Homophones" : "同音異字",
@@ -32,6 +33,7 @@
     "Submit" : "提交" ,
     "SynonymsProbability" : "同義出現率",
     "Terms" : "服務條款",
+    "TermsPrivacy" : "服務條款, 隱私政策",
     "VarifyEmail" : "請驗證你的Email",
 
     "All" : "全部",

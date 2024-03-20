@@ -9,6 +9,7 @@
     "Email" : "Email",
     "Female" : "Female",
     "Firstname" : "First Name",
+    "ForgotPassword" : "Forgot Password",
     "FullName" : "Full Name",
     "Homonym" : "Homonym",
     "Homophones" : "同音異字",
@@ -31,7 +32,8 @@
     "ShowAnswer" : "Show Answer",
     "Submit" : "Submit",
     "SynonymsProbability" : "Synonyms Probability",
-    "Terms" : "Terms of Service",
+    "Terms" : "Terms",
+    "TermsPrivacy" : "Terms & Privacy",
     "VarifyEmail" : "Please verify your email",
 
     "All" : "All",

@@ -22,6 +22,9 @@
 				<div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
 			</div>
 			<div class="col-md-12">
+				<a class="forgot-password" href="ForgotPassword">{{ $t('ForgotPassword') }}</a>
+			</div>
+			<div class="col-md-12">
 				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
 			</div>
@@ -102,6 +105,10 @@ const submitForm = async () => {
 		background-color: transparent;
 		border-color: #555;
 		color: #fff;
+	}
+
+	.forgot-password {
+		color: #ccc;
 	}
 
 	.invalid-feedback, .info {
