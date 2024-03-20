@@ -16,13 +16,19 @@ const page = ref(1)
 const c = useRouter().currentRoute.value.query.class
 
 onMounted( async () => {
+    //url
+    let quizsurl = '/database/Quizs.json?page=' + page.value
+    let wordsurl = '/database/Words.json?page=' + page.value
+    if ( c ) { wordsurl = wordsurl + '&class=' + c }
 
-    const url = '/database/Words.json'
-    if ( c ) { const url = '/database/Words.json?class=' + c }
+    //headers
+    let headers = { token: useCookie('token').value }
 
-    const d = await useNuxtApp().$api('GET', url, page, useCookie('token').value)
-    const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
+    //api
+    const d = await useNuxtApp().$api('GET', wordsurl, headers)
+    const q = await useNuxtApp().$api('GET', quizsurl, headers)
 
+    //response
     data.value = d.data
     quiz.value = q.data
 

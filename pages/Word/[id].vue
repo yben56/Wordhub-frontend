@@ -25,14 +25,24 @@ const data = ref([])
 const quiz = ref([])
 const homon = ref([])
 const homop = ref([])
-const page = ref(1)
 
 onMounted( async () => {
-    const d = await useNuxtApp().$api('GET', '/database/Word.json', false, useCookie('token').value)
-    const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
-    const n = await useNuxtApp().$api('GET', '/database/Homonyms.json', page, useCookie('token').value)
-    const p = await useNuxtApp().$api('GET', '/database/Homophones.json', page, useCookie('token').value)
+    //url
+    let wordurl = '/database/Word.json'
+    let quizsurl = '/database/Quizs.json'
+    let homonymsurl = '/database/Homonyms.json'
+    let homophonesurl = '/database/Homophones.json'
 
+    //headers
+    let headers = {  token: useCookie('token').value }
+
+    //api
+    const d = await useNuxtApp().$api('GET', wordurl, headers)
+    const q = await useNuxtApp().$api('GET', quizsurl, headers)
+    const n = await useNuxtApp().$api('GET', homonymsurl, headers)
+    const p = await useNuxtApp().$api('GET', homophonesurl, headers)
+
+    //response
     data.value.push(d.data)
     quiz.value = q.data
     homon.value = n.data

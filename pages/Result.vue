@@ -22,9 +22,18 @@ const quiz = ref([])
 const page = ref(1)
 
 onMounted( async () => {
-    const d = await useNuxtApp().$api('GET', '/database/Search.json', page, useCookie('token').value)
-    const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
+    //url
+    let searchurl = '/database/Search.json?page=' + page.value
+    let quizsurl = '/database/Quizs.json'
 
+    //headers
+    let headers = {  token: useCookie('token').value }
+
+    //api
+    const d = await useNuxtApp().$api('GET', searchurl, headers)
+    const q = await useNuxtApp().$api('GET', quizsurl, headers)
+
+    //response
     data.value = d.data
     quiz.value = q.data
 

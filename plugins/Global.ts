@@ -4,22 +4,17 @@ const prounce = (url) => {
   event.preventDefault()
 }
 
-const api = async (method, url, page = false, token = false) => {
+const api = async (method, url, headers, body = false) => {
   try {
-    const headers = {
-      ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
-      token: token
-    }
 
-    const body = {
-      page: page
-    }
-
-    const response  = await $fetch(url, {
+    const options = {
         method: method,
-        headers: headers,
-        //body: body
-    })
+        headers: headers
+    }
+
+    if ( method !== 'GET' ) { options.body = body }
+
+    const response  = await $fetch(url, options)
 
     return response
 

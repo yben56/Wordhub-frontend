@@ -63,12 +63,14 @@ const submitanswer = async (id) => {
         input.setAttribute('disabled', '')
     })
 
-    const token = useCookie('token').value
-    const body = '{token:' + token + '}'
+    //headers
+    let headers = { token: useCookie('token').value }
+
+    //body
+    let body = { correct: correct }
     
     //3. send to api
-    const a = await useNuxtApp().$api('GET', '/database/Answer.json', false, useCookie('token').value)
-    //console.log(a)
+    const a = await useNuxtApp().$api('GET', '/database/Answer.json', headers, body)
 }
 </script>
 
