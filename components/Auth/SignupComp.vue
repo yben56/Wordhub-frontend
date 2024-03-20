@@ -52,6 +52,20 @@
                 <div class="invalid-feedback" v-if="errors[4]">{{ errors[4].message }}</div>
             </div>
 			<div class="col-md-12">
+				<VueDatePicker
+					:enable-time-picker="false"
+					:max-date="new Date()"
+					:button="false"
+					:placeholder="$t('Bday')" 
+					class="bday mt-3"
+					dark
+					navigation="['month', 'year']"
+					required
+					v-model="bday" 
+					year-first	
+				/>
+			</div>
+			<div class="col-md-12">
 				<div class="form-check form-check-inline">
 					<label class="form-check-label">
 						<input class="form-check-input" name="gender" type="radio" value="1" v-model="gender" required />
@@ -73,6 +87,9 @@
 </template>
 
 <script setup>
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+
 import { useI18n } from 'vue-i18n'
 const nuxtApp = useNuxtApp()
 const { t } = useI18n()
@@ -87,6 +104,7 @@ const	firstname = ref(''),
 		emailError = ref(false),
 		passwordError = ref(false),
 		repasswordError = ref(false),
+		bday = ref(''),
 		gender = ref(''),
 		errors = ref([]),
 		submit = ref(false),
@@ -96,7 +114,7 @@ const validate = () => {
 	errors.value = []
 
 	//1. firstname validate
-	if ( firstname.value.length < 2 ) {
+	if ( firstname.value.length < 1 ) {
 		firstnameError.value = true
 		errors.value.push({
 			'message': t('ErrorInvalidatFirstname')
@@ -107,7 +125,7 @@ const validate = () => {
 	}
 
 	//2. lastname validate
-	if ( lastname.value.length < 2 ) {
+	if ( lastname.value.length < 1 ) {
 		lastnameError.value = true
 		errors.value.push({
 			'message': t('ErrorInvalidatLastname')
@@ -176,6 +194,7 @@ const submitForm = async () => {
 			lastname: lastname.value,
 			email: email.value,
 			password: password.value,
+			bday: bday.value,
 			gender: gender.value
 		})
 
@@ -201,6 +220,11 @@ const submitForm = async () => {
 	.form-check-input {
 		margin-top: 5px;
 		margin-right: 10px;
+	}
+
+	.bday {
+		border: solid 1px #555;
+		border-radius: 5px;
 	}
 
 	.invalid-feedback, .info {
