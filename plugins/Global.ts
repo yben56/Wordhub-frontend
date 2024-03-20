@@ -6,13 +6,18 @@ const prounce = (url) => {
 
 const api = async (method, url, page = false, token = false) => {
   try {
+    const headers = {
+      ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
+      token: token
+    }
+
     const body = {
-      token: token,
       page: page
     }
 
     const response  = await $fetch(url, {
         method: method,
+        headers: headers,
         //body: body
     })
 
