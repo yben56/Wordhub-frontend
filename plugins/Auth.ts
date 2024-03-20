@@ -3,23 +3,29 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Login = async (data) => {
         try {
-            //1. fetch api
-            const response  = await $fetch('/database/Login.json', {
-                method: 'GET',
-                //body: data
-            })
+            //1. url
+            let url = '/database/Login.json'
+
+            //2. headers
+            let headers = { ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']) }
+
+            //3. body
+            let body = data
+
+            //4. api
+            const response = await useNuxtApp().$api('GET', url, headers, body)
             
-            //2. check state
+            //5. check state
             if ( response.state !== 200 ) {
                 return response //'InvalidEmailOrPassword' assets/locale/[...].json
             }
 
-            //3. set cookie
+            //6. set cookie
             document.cookie = `token=${response.token}; path=/`
             document.cookie = `firstname=${response.firstname}; path=/`
             document.cookie = `profile_pic=${response.profile_pic}; path=/`
 
-            //4. page reload
+            //7. page reload
             window.location.reload()
         } catch (error) {
             console.log('Error:' + error)
@@ -28,24 +34,30 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Logout = async (data) => {
         try {
-            //1. fetch api
-            const response  = await $fetch('/database/Logout.json', {
-                method: 'GET',
-                //body: data
-            })
+            //1. url
+            let url = '/database/Logout.json'
+
+            //2. headers
+            let headers = {
+                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
+                token: useCookie('token').value
+            }
+
+            //3. api
+            const response = await useNuxtApp().$api('GET', url, headers)
             
-            //2. check state
+            //4. check state
             if ( response.state !== 200 ) {
                 console.log('InvalidLogout')
                 return
             }
 
-            //3. destroy cookie
+            //5. destroy cookie
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             document.cookie = "firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             document.cookie = "profile_pic=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
-            //4. to index
+            //6. to index
             window.location.href = '/'
         } catch (error) {
             console.log('Error:' + error)
@@ -54,18 +66,27 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Signup = async (data) => {
         try {
-            //1. fetch api
-            const response  = await $fetch('/database/Signup.json', {
-                method: 'GET',
-                //body: data
-            })
+            //1. url
+            let url = '/database/Signup.json'
+
+            //2. headers
+            let headers = {
+                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
+                token: useCookie('token').value
+            }
+
+            //3. body
+            let body = data
+
+            //4. api
+            const response = await useNuxtApp().$api('GET', url, headers, body)
             
-            //2. check state
+            //5. check state
             if ( response.state !== 200 ) {
                 return response //assets/locale/[...].json
             }
 
-            //3. varify email
+            //6. varify email
             window.location.href = '/VarifyEmail'
         } catch (error) {
             console.log('Error:' + error)
@@ -77,23 +98,31 @@ export default defineNuxtPlugin(nuxtApp => {
         //FOR TEST URL TYPE http://localhost:3000/VarifyEmail?token={any value}
 
         try {
-            //1. fetch api
-            const response  = await $fetch('/database/VerifyEmail.json', {
-                method: 'GET',
-                //body: data.token
-            })
-            
-            //2. check state
+            //1. url
+            let url = '/database/VerifyEmail.json'
+
+            //2. headers
+            let headers = {
+                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+            }
+
+            //3. body
+            let body = data
+
+            //4. api
+            const response = await useNuxtApp().$api('GET', url, headers, body)
+
+            //5. check state
             if ( response.state !== 200 ) {
                 return response //assets/locale/[...].json
             }
 
-            //3. set cookie
+            //6. set cookie
             document.cookie = `token=${response.token}; path=/`
             document.cookie = `firstname=${response.firstname}; path=/`
             document.cookie = `profile_pic=${response.profile_pic}; path=/`
 
-            //4. to index
+            //7. to index
             window.location.href = '/'
         } catch (error) {
             console.log('Error:' + error)
