@@ -4,10 +4,10 @@
             <div class="col-lg-4 offset-lg-4">
                 <div class="card mt-5">
                     <h5 class="card-title p-3">
-                        {{ $t('ForgotPassword') }}
+                        {{ $t('ResetPassword') }}
                     </h5>
                     <div class="card-body">
-                        <AuthForgotPasswordComp />
+                        <AuthResetPasswordComp />
                     </div>
                 </div>
             </div>

@@ -129,6 +129,64 @@ export default defineNuxtPlugin(nuxtApp => {
         }
     }
 
+    nuxtApp.ForgotPassword = async (data) => {
+        try {
+            //1. url
+            let url = '/database/ForgotPassword.json'
+
+            //2. headers
+            let headers = {
+                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+            }
+
+            //3. body
+            let body = data
+
+            //4. api
+            const response = await useNuxtApp().$api('GET', url, headers, body)
+            
+            //5. return
+            return response
+
+        } catch (error) {
+            console.log('Error:' + error)
+        }
+    }
+
+    nuxtApp.ResetPassword = async (method, data) => {
+        //http://localhost:3000/ResetPassword?token=123 use this url for development test
+        try {
+            //1. headers
+            let headers = {
+                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+            }
+
+            //2. body
+            let body = data
+
+            //3. method & api
+            if ( method == 'GET' ) {
+                //if no token
+                if ( !body.token ) { window.location.href = '/' }
+
+                //GET ONLY FOR CHECK TOKEN EXISIT
+                const url = '/database/ResetPassword.json?token=' + body.token
+                const response = await useNuxtApp().$api('GET', url , headers)
+
+                //6. to index
+                if ( response.state !== 200 ) { window.location.href = '/' }
+            } else {
+                //POST ONLY FOR UPDATE PASSWORD (CHANGE BELOW TO POST IN REAL API)
+                const url = '/database/ResetPassword.json'
+                const response = await useNuxtApp().$api('GET', url , headers, body)
+
+                return response
+            }
+        } catch (error) {
+            console.log('Error:' + error)
+        }
+    }
+
     return {
         provide: {
             token: token
