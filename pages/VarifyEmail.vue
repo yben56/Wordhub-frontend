@@ -21,7 +21,7 @@ if ( query.token ) {
 			token: query.token
 		})
 
-		info.value = t(response)
+		info.value = t(response.message)
 	} catch (error) {
 		console.log('Error: ' + error)
 	}

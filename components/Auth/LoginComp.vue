@@ -22,6 +22,7 @@
 				<div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
 			</div>
 			<div class="col-md-12">
+				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
 			</div>
         </form>
@@ -39,8 +40,8 @@ const	email = ref(''),
 		emailError = ref(false),
 		passwordError = ref(false),
 		errors = ref([]),
-		info = ref(''),
-		submit = ref(false)
+		submit = ref(false),
+		info = ref('')
 
 const validate = () => {
 	errors.value = []
@@ -85,7 +86,7 @@ const submitForm = async () => {
 			password: password.value
 		})
 
-		info.value = t(response)
+		info.value = t(response.message)
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -103,7 +104,7 @@ const submitForm = async () => {
 		color: #fff;
 	}
 
-	.invalid-feedback {
+	.invalid-feedback, .info {
 		color: #f1e47e;
 	}
 }

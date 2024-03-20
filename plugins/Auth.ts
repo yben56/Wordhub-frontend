@@ -11,7 +11,7 @@ export default defineNuxtPlugin(nuxtApp => {
             
             //2. check state
             if ( response.state !== 200 ) {
-                return 'InvalidEmailOrPassword' //assets/locale/[...].json
+                return response //'InvalidEmailOrPassword' assets/locale/[...].json
             }
 
             //3. set cookie
@@ -85,7 +85,7 @@ export default defineNuxtPlugin(nuxtApp => {
             
             //2. check state
             if ( response.state !== 200 ) {
-                return response.message //assets/locale/[...].json
+                return response //assets/locale/[...].json
             }
 
             //3. set cookie
