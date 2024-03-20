@@ -1,5 +1,5 @@
 <template>
-    <TypeComp />
+    <ClassComp />
     <div class="wrapper">
         <template v-for="index in page" :key="index">
             <WordsComp :data="data" :href="true"/>
@@ -13,9 +13,14 @@
 const data = ref([])
 const quiz = ref([])
 const page = ref(1)
+const c = useRouter().currentRoute.value.query.class
 
 onMounted( async () => {
-    const d = await useNuxtApp().$api('GET', '/database/Words.json', page, useCookie('token').value)
+
+    const url = '/database/Words.json'
+    if ( c ) { const url = '/database/Words.json?class=' + c }
+
+    const d = await useNuxtApp().$api('GET', url, page, useCookie('token').value)
     const q = await useNuxtApp().$api('GET', '/database/Quizs.json', page, useCookie('token').value)
 
     data.value = d.data

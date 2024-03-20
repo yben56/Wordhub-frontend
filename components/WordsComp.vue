@@ -17,7 +17,11 @@
                     <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
                 </p>
             </div>
-        </a>
+            <div class="card mt-3" v-if="data.sentences" v-for="(item, index) in data.sentences">
+                {{ item.from }}
+                {{ item.to }}
+            </div>
+        </a> 
     </div>
 </template>
 

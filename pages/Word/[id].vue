@@ -3,12 +3,6 @@
         <div class="row">
             <div class="col-md-9 wrapper">
                 <WordsComp :data="data"/>
-                <div v-for="(item, index) in sent">
-                    <div class="card">
-                        <div>{{ item.from }}</div>
-                        <div>{{ item.to }}</div>
-                    </div>
-                </div>
             </div>
             <div class="col-md-3 d-none d-sm-block">
                 <div class="wrapper">
@@ -28,7 +22,6 @@
 
 <script setup>
 const data = ref([])
-const sent = ref([])
 const quiz = ref([])
 const homon = ref([])
 const homop = ref([])
@@ -41,7 +34,6 @@ onMounted( async () => {
     const p = await useNuxtApp().$api('GET', '/database/Homophones.json', page, useCookie('token').value)
 
     data.value.push(d.data)
-    sent.value = d.data.sentences
     quiz.value = q.data
     homon.value = n.data
     homop.value = p.data

@@ -102,5 +102,9 @@ const submitForm = async () => {
 		border-color: #555;
 		color: #fff;
 	}
+
+	.invalid-feedback {
+		color: #f1e47e;
+	}
 }
 </style>
