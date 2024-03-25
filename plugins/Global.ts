@@ -5,22 +5,31 @@ const prounce = (url) => {
 }
 
 const api = async (method, url, headers, body = false) => {
-  try {
+  
+  //1. options
+  const options = {
+    method : method,
+    headers : headers
+  }
 
-    const options = {
-        method: method,
-        headers: headers
+  if ( method !== 'GET' ) { options.body = body }
+  
+  //2.
+  const response = await fetch(url, options)
+  .then( async (response) => {
+    const body = await response.json()
+
+    return {
+      status: response.status,
+      data: body.data
     }
+  }).catch((error) => {
+    console.log('Error: ' + error)
+  })
 
-    if ( method !== 'GET' ) { options.body = body }
+  if ( response.status !== 200 ) { return {} }
 
-    const response  = await $fetch(url, options)
-
-    return response
-
-  } catch (error) {
-      console.log('Error:' + error)
-  }  
+  return response
 }
 
 export default defineNuxtPlugin(nuxtApp => {
