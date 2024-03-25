@@ -23,8 +23,10 @@ const page = ref(1)
 
 onMounted( async () => {
     //url
-    let searchurl = '/database/Search.json?page=' + page.value
-    let quizsurl = '/database/Quizs.json'
+    const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
+
+    let searchurl = backend_base_url + 'database/Search.json?page=' + page.value
+    let quizsurl = backend_base_url + 'database/Quizs.json'
 
     //headers
     let headers = {  token: useCookie('token').value }

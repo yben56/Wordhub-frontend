@@ -16,9 +16,12 @@ const page = ref(1)
 const c = useRouter().currentRoute.value.query.class
 
 onMounted( async () => {
+    
     //url
-    let quizsurl = '/database/Quizs.json?page=' + page.value
-    let wordsurl = '/database/Words.json?page=' + page.value
+    const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
+    
+    let quizsurl = backend_base_url + 'database/Quizs.json?page=' + page.value
+    let wordsurl = backend_base_url + 'database/Words.json?page=' + page.value
     if ( c ) { wordsurl = wordsurl + '&class=' + c }
 
     //headers

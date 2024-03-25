@@ -28,10 +28,12 @@ const homop = ref([])
 
 onMounted( async () => {
     //url
-    let wordurl = '/database/Word.json'
-    let quizsurl = '/database/Quizs.json'
-    let homonymsurl = '/database/Homonyms.json'
-    let homophonesurl = '/database/Homophones.json'
+    const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
+
+    let wordurl = backend_base_url + 'database/Word.json'
+    let quizsurl = backend_base_url + 'database/Quizs.json'
+    let homonymsurl = backend_base_url + 'database/Homonyms.json'
+    let homophonesurl = backend_base_url + 'database/Homophones.json'
 
     //headers
     let headers = {  token: useCookie('token').value }
