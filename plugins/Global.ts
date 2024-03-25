@@ -21,7 +21,7 @@ const api = async (method, url, headers, body = false) => {
 
     return {
       status: response.status,
-      data: body.data
+      data: body
     }
   }).catch((error) => {
     console.log('Error: ' + error)

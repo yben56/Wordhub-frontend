@@ -25,7 +25,7 @@ onMounted( async () => {
     //url
     const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
 
-    let searchurl = backend_base_url + 'database/Search.json?page=' + page.value
+    let searchurl = backend_base_url + 'database/Search.json?per_page=20&page=' + page.value
     let quizsurl = backend_base_url + 'database/Quizs.json'
 
     //headers

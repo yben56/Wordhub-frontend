@@ -1,25 +1,28 @@
 <template>
     <div v-for="(data, index) in props.data">
-        <a :href="props.href ? '/Word/' + data.id : '#'">
+        <a :href="props.href ? '/Words/' + data.id : '#'">
             <div class="card mb-1">
-                <h1 class="from">{{ data.from }}<i @click="$prounce(data.from_prounce)" class="fa-solid fa-volume-high"></i></h1>
-                <b class="to">{{ data.to }}<i @click="$prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></b>
+                <h1 class="source">{{ data.source }}<i @click="$prounce(data.source_prounce)" class="fa-solid fa-volume-high"></i></h1>
+                <b class="target">{{ data.target }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></b>
                 <p class="info">
-                    <i :class="[ data.class ]" class="fa-solid fa-square"></i>
-                    <span>{{ data.class }}</span>
+                    <i :class="[ data.word_class ]" class="fa-solid fa-square"></i>
+                    <span>{{ data.word_class }}</span>
                     <br />
                     <i class="fa-solid fa-square synonyms"></i>
                     <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
                     <br />
                     <i class="fa-solid fa-square accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="$token">{{ data.accuracy }}</span>
+                    <span v-if="$token">
+                        {{ data.accuracy }}/{{ data.tested }}
+                        {{ Math.round((data.accuracy / data.tested) * 100) }}%
+                    </span>
                     <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
                 </p>
             </div>
             <div class="card mt-3" v-if="data.sentences" v-for="(item, index) in data.sentences">
-                {{ item.from }}
-                {{ item.to }}
+                {{ item.source }}
+                {{ item.target }}
             </div>
         </a> 
     </div>
@@ -36,7 +39,7 @@ const props = defineProps(['data', 'href'])
     padding: 10px 15px;
     border: solid 1px #3535;
 
-    .from {
+    .source {
         font-family: "Barlow Condensed", sans-serif;
         font-weight: 200;
         font-style: normal;
@@ -44,7 +47,7 @@ const props = defineProps(['data', 'href'])
         margin-bottom:  0;
     }
 
-    .to {
+    .target {
         margin-bottom: 112px;
         color: #aaa;
     }

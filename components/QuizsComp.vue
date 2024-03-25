@@ -1,7 +1,7 @@
 <template>
     <div v-for="(data, index) in props.data">
         <div class="card">
-            <h1 class="from">{{ data.from }}<i @click="$prounce(data.to_prounce)" class="fa-solid fa-volume-high"></i></h1>
+            <h1 class="source">{{ data.source }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></h1>
             
             <form class="answer" :id="data.id">
                 <div class="question">
@@ -81,7 +81,7 @@ const submitanswer = async (id) => {
     padding: 10px 15px;
     border: solid 1px #3535;
 
-    .from {
+    .source {
         font-family: "Barlow Condensed", sans-serif;
         font-weight: 200;
         font-style: normal;

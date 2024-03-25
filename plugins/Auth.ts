@@ -16,14 +16,14 @@ export default defineNuxtPlugin(nuxtApp => {
             const response = await useNuxtApp().$api('GET', url, headers, body)
             
             //5. check state
-            if ( response.state !== 200 ) {
+            if ( response.data.state !== 200 ) {
                 return response //'InvalidEmailOrPassword' assets/locale/[...].json
             }
 
             //6. set cookie
-            document.cookie = `token=${response.token}; path=/`
-            document.cookie = `firstname=${response.firstname}; path=/`
-            document.cookie = `profile_pic=${response.profile_pic}; path=/`
+            document.cookie = `token=${response.data.token}; path=/`
+            document.cookie = `firstname=${response.data.firstname}; path=/`
+            document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
 
             //7. page reload
             window.location.reload()
@@ -47,7 +47,7 @@ export default defineNuxtPlugin(nuxtApp => {
             const response = await useNuxtApp().$api('GET', url, headers)
             
             //4. check state
-            if ( response.state !== 200 ) {
+            if ( response.data.state !== 200 ) {
                 console.log('InvalidLogout')
                 return
             }
@@ -82,7 +82,7 @@ export default defineNuxtPlugin(nuxtApp => {
             const response = await useNuxtApp().$api('GET', url, headers, body)
             
             //5. check state
-            if ( response.state !== 200 ) {
+            if ( response.data.state !== 200 ) {
                 return response //assets/locale/[...].json
             }
 
@@ -113,14 +113,14 @@ export default defineNuxtPlugin(nuxtApp => {
             const response = await useNuxtApp().$api('GET', url, headers, body)
 
             //5. check state
-            if ( response.state !== 200 ) {
+            if ( response.data.state !== 200 ) {
                 return response //assets/locale/[...].json
             }
 
             //6. set cookie
-            document.cookie = `token=${response.token}; path=/`
-            document.cookie = `firstname=${response.firstname}; path=/`
-            document.cookie = `profile_pic=${response.profile_pic}; path=/`
+            document.cookie = `token=${response.data.token}; path=/`
+            document.cookie = `firstname=${response.data.firstname}; path=/`
+            document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
 
             //7. to index
             window.location.href = '/'
@@ -146,7 +146,7 @@ export default defineNuxtPlugin(nuxtApp => {
             const response = await useNuxtApp().$api('GET', url, headers, body)
             
             //5. return
-            return response
+            return response.data
 
         } catch (error) {
             console.log('Error:' + error)
@@ -174,13 +174,13 @@ export default defineNuxtPlugin(nuxtApp => {
                 const response = await useNuxtApp().$api('GET', url , headers)
 
                 //6. to index
-                if ( response.state !== 200 ) { window.location.href = '/' }
+                if ( response.data.state !== 200 ) { window.location.href = '/' }
             } else {
                 //POST ONLY FOR UPDATE PASSWORD (CHANGE BELOW TO POST IN REAL API)
                 const url = '/database/ResetPassword.json'
                 const response = await useNuxtApp().$api('GET', url , headers, body)
 
-                return response
+                return response.data
             }
         } catch (error) {
             console.log('Error:' + error)

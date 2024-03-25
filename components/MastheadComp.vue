@@ -6,12 +6,12 @@
                     <td :class="{ 'd-none': !search, 'd-sm-block': search }"><a href="/"><img class="logo" src="/images/logo.png" /></a></td>
                     <td>
                         <div class="searchbar">
-                            <form action="/result" :class="{ 'd-none': search, 'd-sm-block': search }">
+                            <form action="/search" :class="{ 'd-none': search, 'd-sm-block': search }">
                                 <div class="input-group input-group-sm">
                                     <button @click="ToggleSearch" class="btn d-inline-block d-sm-none" type="button">
                                         <i class="fa-solid fa-arrow-left"></i>
                                     </button>
-                                    <input class="form-control" name="search" :placeholder="$t('Search')" type="text" :value="$route.query.search" />
+                                    <input class="form-control" name="q" :placeholder="$t('Search')" type="text" :value="$route.query.q" />
                                     <button class="btn btn-outline-secondary" type="submit">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
