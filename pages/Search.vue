@@ -25,19 +25,18 @@ onMounted( async () => {
     //url
     const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
 
-    let searchurl = backend_base_url + 'database/Search.json?per_page=20&page=' + page.value
-    let quizsurl = backend_base_url + 'database/Quizs.json'
+    let searchurl = backend_base_url + '/api/search?per_page=20&page=' + page.value
+    let quizsurl = backend_base_url + '/api/quizs'
 
     //headers
-    let headers = {  token: useCookie('token').value }
+    let headers = { 'Content-Type': 'application/json' }
 
     //api
-    const d = await useNuxtApp().$api('GET', searchurl, headers)
-    const q = await useNuxtApp().$api('GET', quizsurl, headers)
+    let d = await useNuxtApp().$api('GET', searchurl, headers)
+    data.value = await d.json()
 
-    //response
-    data.value = d.data
-    quiz.value = q.data
+    let q = await useNuxtApp().$api('GET', quizsurl, headers)
+    quiz.value = await q.json()
 
     //scroll bottom load data
     const observer = new IntersectionObserver((enteries) => {

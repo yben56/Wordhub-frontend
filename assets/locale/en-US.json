@@ -4,18 +4,20 @@
     "zh-TW" : "中文 (台灣)",
 
     "Accuracy" : "Answer Accuracy",
-    "Bday" : "Birthday",
+    "Birthdayday" : "Birthday",
     "Congratulations" : "Congratulations!",
     "Email" : "Email",
+    "EmailConfirmation" : "Please confirm your email",
+    "EmailConfirmationSuccess" : "Email confirmation successful. Please log in again",
     "Female" : "Female",
-    "Firstname" : "First Name",
+    "First_name" : "First Name",
     "ForgotPassword" : "Forgot Password",
     "FullName" : "Full Name",
     "Homonym" : "Homonym",
     "Homophones" : "Homophones",
     "Index" : "Home",
     "InvalidEmailOrPassword" : "Invalid Email Or Password",
-    "Lastname" : "Last Name",
+    "Last_name" : "Last Name",
     "Login" : "Login",
     "LoginActive" : "Login Active",
     "Logout" : "Logout",
@@ -37,7 +39,7 @@
     "SynonymsProbability" : "Synonyms Probability",
     "Terms" : "Terms",
     "TermsPrivacy" : "Terms & Privacy",
-    "VarifyEmail" : "Please verify your email",
+    "Unauthenticated" : "Unauthenticated",
 
     "All" : "All",
     "Noun" : "Noun",
@@ -59,5 +61,8 @@
     "ErrorInvalidatFirstname" : "Minimum 2 characters",
     "ErrorInvalidatLastname" : "Minimum 2 characters",
     "ErrorInvalidatPassword" : "Minimum 8 characters, at least 1 letter and 1 number.",
-    "ErrorInvalidatPasswordsMatch" : "Password do not match"
+    "ErrorInvalidatPasswordsMatch" : "Password do not match",
+
+    "Invalid Email or Password" : "Invalid Email or Password",
+    "This email address is already in use" : "This email address is already in use"
 }

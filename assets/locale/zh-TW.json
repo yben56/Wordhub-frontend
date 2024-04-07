@@ -4,18 +4,20 @@
     "zh-TW" : "中文 (台灣)",
 
     "Accuracy" : "回答正確率",
-    "Bday" : "生日",
+    "Birthday" : "生日",
     "Congratulations" : "恭喜!",
     "Email" : "電子郵件",
+    "EmailConfirmation" : "請驗證你的Email",
+    "EmailConfirmationSuccess" : "Email確認成功 請重新登入",
     "Female" : "女",
-    "Firstname" : "名子",
+    "First_name" : "名子",
     "ForgotPassword" : "忘記密碼",
     "FullName" : "姓名",
     "Homonym" : "同字異義",
     "Homophones" : "同音異字",
     "Index" : "首頁",
     "InvalidEmailOrPassword" : "錯誤的Email或密碼",
-    "Lastname" : "姓氏",
+    "Last_name" : "姓氏",
     "Login" : "登入",
     "LoginActive" : "登入啟用",
     "Logout" : "登出",
@@ -37,7 +39,7 @@
     "SynonymsProbability" : "同義出現率",
     "Terms" : "服務條款",
     "TermsPrivacy" : "服務條款, 隱私政策",
-    "VarifyEmail" : "請驗證你的Email",
+    "Unauthenticated" : "Unauthenticated",
 
     "All" : "全部",
     "Noun" : "名詞",
@@ -59,5 +61,8 @@
     "ErrorInvalidatFirstname" : "至少2個字符",
     "ErrorInvalidatLastname" : "至少2個字符",
     "ErrorInvalidatPassword" : "密碼至少8個字符，至少一個字母和一個數字",
-    "ErrorInvalidatPasswordsMatch" : "重新輸入密碼不一樣"
+    "ErrorInvalidatPasswordsMatch" : "重新輸入密碼不一樣",
+
+    "Invalid Email or Password" : "錯誤的Email或密碼",
+    "This email address is already in use" : "此email已經註冊過"
 }

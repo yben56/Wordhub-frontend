@@ -2,21 +2,21 @@
     <div class="signup">   
         <form @submit.prevent="validate" class="row g-3">
             <div class="col-md-6">
-                <label class="form-label">{{ $t('Firstname') }}</label>
+                <label class="form-label">{{ $t('First_name') }}</label>
                 <input 
 					type="text" 
-					:class="['form-control', 'form-control-sm', { 'is-invalid': firstnameError, 'is-valid': !firstnameError && submit }]"
-					v-model="firstname" 
+					:class="['form-control', 'form-control-sm', { 'is-invalid': first_nameError, 'is-valid': !first_nameError && submit }]"
+					v-model="first_name" 
 					required
 				>
                 <div class="invalid-feedback" v-if="errors[0]">{{ errors[0].message }}</div>
             </div>
             <div class="col-md-6">
-                <label class="form-label">{{ $t('Lastname') }}</label>
+                <label class="form-label">{{ $t('Last_name') }}</label>
                 <input 
 					type="text" 
-					:class="['form-control', 'form-control-sm', { 'is-invalid': lastnameError, 'is-valid': !lastnameError && submit }]"
-					v-model="lastname"
+					:class="['form-control', 'form-control-sm', { 'is-invalid': last_nameError, 'is-valid': !last_nameError && submit }]"
+					v-model="last_name"
 					required
 				>
                 <div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
@@ -56,13 +56,14 @@
 					:enable-time-picker="false"
 					:max-date="new Date()"
 					:button="false"
-					:placeholder="$t('Bday')" 
-					class="bday mt-3"
+					:placeholder="$t('Birthday')" 
+					class="birthday mt-3"
 					dark
-					navigation="['month', 'year']"
+					format="yyyy-MM-dd"
+					navigation="['year', 'month']"
 					required
-					v-model="bday" 
-					year-first	
+					v-model="birthday" 
+					year-first
 				/>
 			</div>
 			<div class="col-md-12">
@@ -100,17 +101,17 @@ import { useI18n } from 'vue-i18n'
 const nuxtApp = useNuxtApp()
 const { t } = useI18n()
 
-const	firstname = ref(''),
-		lastname = ref(''),
+const	first_name = ref(''),
+		last_name = ref(''),
 		email = ref(''),
 		password = ref(''),
 		repassword = ref(''),
-		firstnameError = ref(''),
-		lastnameError = ref(''),
+		first_nameError = ref(''),
+		last_nameError = ref(''),
 		emailError = ref(false),
 		passwordError = ref(false),
 		repasswordError = ref(false),
-		bday = ref(''),
+		birthday = ref(''),
 		gender = ref(''),
 		errors = ref([]),
 		submit = ref(false),
@@ -119,25 +120,25 @@ const	firstname = ref(''),
 const validate = () => {
 	errors.value = []
 
-	//1. firstname validate
-	if ( firstname.value.length < 1 ) {
-		firstnameError.value = true
+	//1. first_name validate
+	if ( first_name.value.length < 1 ) {
+		first_nameError.value = true
 		errors.value.push({
-			'message': t('ErrorInvalidatFirstname')
+			'message': t('ErrorInvalidatfirst_name')
 		})
 	} else {
-		firstnameError.value = false
+		first_nameError.value = false
 		errors.value.push({'message': ''})
 	}
 
-	//2. lastname validate
-	if ( lastname.value.length < 1 ) {
-		lastnameError.value = true
+	//2. last_name validate
+	if ( last_name.value.length < 1 ) {
+		last_nameError.value = true
 		errors.value.push({
-			'message': t('ErrorInvalidatLastname')
+			'message': t('ErrorInvalidatlast_name')
 		})
 	} else {
-		lastnameError.value = false
+		last_nameError.value = false
 		errors.value.push({'message': ''})
 	}
 
@@ -188,23 +189,25 @@ const validate = () => {
 	submit.value = true 
 
 	//7. Only trigger when validation success
-	if ( !firstnameError.value && !lastnameError.value && !emailError.value && !passwordError.value && !repasswordError.value ) {
+	if ( !first_nameError.value && !last_nameError.value && !emailError.value && !passwordError.value && !repasswordError.value ) {
 		submitForm()
 	}
 }
 
 const submitForm = async () => {
+	info.value = ''
+
 	try {
 		const response = await nuxtApp.Signup({
-			firstname: firstname.value,
-			lastname: lastname.value,
+			first_name: first_name.value,
+			last_name: last_name.value,
 			email: email.value,
 			password: password.value,
-			bday: bday.value,
+			birthday: birthday.value.toISOString().split('T')[0],
 			gender: gender.value
 		})
 
-		info.value = t(response.message)
+		info.value = t(response)
 		
 	} catch (error) {
 		console.log('Error: ' + error)
@@ -228,7 +231,7 @@ const submitForm = async () => {
 		margin-right: 10px;
 	}
 
-	.bday {
+	.birthday {
 		border: solid 1px #555;
 		border-radius: 5px;
 	}

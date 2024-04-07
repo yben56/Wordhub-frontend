@@ -16,10 +16,10 @@
 
 <script setup>
 const nuxtApp = useNuxtApp()
-const token = useCookie('token').value
+const jwt = useCookie('jwt').value
 
 const Logout = () => {
-	nuxtApp.Logout(token)
+	nuxtApp.Logout(jwt)
 }
 </script>
 

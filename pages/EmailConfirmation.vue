@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <div class="col-sm-6 offset-sm-3">
-            <div id="varifyemail" class="alert alert-warning text-center" role="alert">
+            <div id="email_confirmation" class="alert alert-warning text-center" role="alert">
                 <b v-if="info">{{ info }}</b>
-                <b v-else>{{ $t('VarifyEmail') }}</b>
+                <b v-else>{{ $t('EmailConfirmation') }}</b>
             </div>
         </div>
     </div>
@@ -13,15 +13,13 @@
 const nuxtApp = useNuxtApp()
 const query = useRoute().query
 const { t } = useI18n()
-const info = false
+const info = ref('')
 
 if ( query.token ) {
     try {
-		const response = await nuxtApp.VarifyEmail({
-			token: query.token
-		})
+		const response = await nuxtApp.EmailConfirmation(query.token)
 
-		info.value = t(response.message)
+        info.value = t(response)
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -29,7 +27,7 @@ if ( query.token ) {
 </script>
 
 <style scoped>
-#varifyemail {
+#email_confirmation {
     margin: 250px 0;
 }
 </style>

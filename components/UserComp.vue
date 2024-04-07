@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!token">
+    <div v-if="!jwt">
         <!--Login-->
         <ModalComp template="LoginComp" :title="$t('Login')">
             <template v-slot:body-content>
@@ -26,14 +26,14 @@
         </ModalComp>
     </div>
     <div v-else>
-        <a class="firstname">Benjamin</a>
+        <a class="firstname">{{ first_name }}</a>
         <MenuComp />
     </div>
 </template>
 
 <script setup>
-const token = useCookie('token').value
-const firstname = useCookie('firstname').value
+const jwt = useCookie('jwt').value
+const first_name = useCookie('first_name').value
 </script>
 
 <style scoped lang="scss">

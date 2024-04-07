@@ -12,24 +12,14 @@ const api = async (method, url, headers, body = false) => {
     headers : headers
   }
 
-  if ( method !== 'GET' ) { options.body = body }
+  if ( method !== 'GET' ) { options.body = JSON.stringify(body) }
   
   //2.
-  const response = await fetch(url, options)
-  .then( async (response) => {
-    const body = await response.json()
-
-    return {
-      status: response.status,
-      data: body
-    }
-  }).catch((error) => {
-    console.log('Error: ' + error)
-  })
-
-  if ( response.status !== 200 ) { return {} }
-
-  return response
+  try {
+    return await fetch(url, options)
+  } catch(error) {
+    console.error('error: ' + error)
+  }
 }
 
 export default defineNuxtPlugin(nuxtApp => {

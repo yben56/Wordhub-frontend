@@ -83,13 +83,15 @@ const validate = () => {
 }
 
 const submitForm = async () => {
+	info.value = ''
+
 	try {
 		const response = await nuxtApp.Login({
 			email: email.value,
 			password: password.value
 		})
 
-		info.value = t(response.message)
+		info.value = t(response)
 	} catch (error) {
 		console.log('Error: ' + error)
 	}

@@ -29,9 +29,9 @@ export default defineNuxtConfig({
     { src: '@/plugins/Global.ts'}
   ],
   runtimeConfig: {
+    API_SECRET: '',
     public: {
       BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL,
- 
     },
   },
 })

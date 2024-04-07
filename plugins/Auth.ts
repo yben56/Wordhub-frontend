@@ -4,29 +4,34 @@ export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.Login = async (data) => {
         try {
             //1. url
-            let url = '/database/Login.json'
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login'
 
             //2. headers
-            let headers = { ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']) }
+            let headers = {
+                'Content-Type': 'application/json'
+            }
 
             //3. body
             let body = data
 
             //4. api
-            const response = await useNuxtApp().$api('GET', url, headers, body)
-            
+            let api = await useNuxtApp().$api('POST', url, headers, body)
+            let status = await api.status
+            let response = await api.json()
+
             //5. check state
-            if ( response.data.state !== 200 ) {
-                return response //'InvalidEmailOrPassword' assets/locale/[...].json
+            if ( status !== 200 ) {
+                return response.error //'InvalidEmailOrPassword' assets/locale/[...].json
             }
 
             //6. set cookie
-            document.cookie = `token=${response.data.token}; path=/`
-            document.cookie = `firstname=${response.data.firstname}; path=/`
-            document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
+            document.cookie = `jwt=${response.jwt}; path=/`
+            document.cookie = `first_name=${response.first_name}; path=/`
+            //document.cookie = `profile_pic=${response.profile_pic}; path=/`
 
             //7. page reload
             window.location.reload()
+            
         } catch (error) {
             console.log('Error:' + error)
         }
@@ -35,27 +40,28 @@ export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.Logout = async (data) => {
         try {
             //1. url
-            let url = '/database/Logout.json'
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/logout'
 
             //2. headers
             let headers = {
-                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
-                token: useCookie('token').value
+                'Content-Type': 'application/json'
             }
 
             //3. api
-            const response = await useNuxtApp().$api('GET', url, headers)
-            
+            let api = await useNuxtApp().$api('DELETE', url, headers)
+            let status = await api.status
+            let response = await api
+
             //4. check state
-            if ( response.data.state !== 200 ) {
+            if ( status !== 200 ) {
                 console.log('InvalidLogout')
                 return
             }
 
             //5. destroy cookie
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-            document.cookie = "firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-            document.cookie = "profile_pic=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            document.cookie = "first_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            //document.cookie = "profile_pic=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
             //6. to index
             window.location.href = '/'
@@ -67,63 +73,55 @@ export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.Signup = async (data) => {
         try {
             //1. url
-            let url = '/database/Signup.json'
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup'
 
             //2. headers
             let headers = {
-                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent']),
-                token: useCookie('token').value
+                'Content-Type': 'application/json'
             }
 
             //3. body
             let body = data
 
             //4. api
-            const response = await useNuxtApp().$api('GET', url, headers, body)
-            
+            let api = await useNuxtApp().$api('POST', url, headers, body)
+            let status = await api.status
+            let response = await api.json()
+
             //5. check state
-            if ( response.data.state !== 200 ) {
-                return response //assets/locale/[...].json
+            if ( status !== 200 ) {
+                return response.error //assets/locale/[...].json
             }
 
-            //6. varify email
-            window.location.href = '/VarifyEmail'
+            //6. EmailConfirmation
+            window.location.href = '/EmailConfirmation'
         } catch (error) {
             console.log('Error:' + error)
         }
     }
 
-    nuxtApp.VarifyEmail = async (data) => {
-
-        //FOR TEST URL TYPE http://localhost:3000/VarifyEmail?token={any value}
-
+    nuxtApp.EmailConfirmation = async (data) => {
         try {
             //1. url
-            let url = '/database/VerifyEmail.json'
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation?token=' + data
 
             //2. headers
             let headers = {
-                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+                'Content-Type': 'application/json'
             }
-
-            //3. body
-            let body = data
 
             //4. api
-            const response = await useNuxtApp().$api('GET', url, headers, body)
-
+            let api = await useNuxtApp().$api('GET', url, headers)
+            let status = await api.status
+            let response = await api
+                        
             //5. check state
-            if ( response.data.state !== 200 ) {
-                return response //assets/locale/[...].json
+            if ( status !== 200 ) {
+                return response.error //assets/locale/[...].json
             }
-
-            //6. set cookie
-            document.cookie = `token=${response.data.token}; path=/`
-            document.cookie = `firstname=${response.data.firstname}; path=/`
-            document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
-
-            //7. to index
-            window.location.href = '/'
+            
+            //6. success
+            return 'EmailConfirmationSuccess'
         } catch (error) {
             console.log('Error:' + error)
         }

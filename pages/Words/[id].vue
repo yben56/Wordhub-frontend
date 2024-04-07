@@ -30,25 +30,26 @@ onMounted( async () => {
     //url
     const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
 
-    let wordurl = backend_base_url + 'database/Word.json'
-    let quizsurl = backend_base_url + 'database/Quizs.json'
-    let homonymsurl = backend_base_url + 'database/Homonyms.json'
-    let homophonesurl = backend_base_url + 'database/Homophones.json'
+    let wordurl = backend_base_url + '/api/word'
+    let quizsurl = backend_base_url + '/api/quizs'
+    let homonymsurl = backend_base_url + '/api/homonyms'
+    let homophonesurl = backend_base_url + '/api/homophones'
 
     //headers
-    let headers = {  token: useCookie('token').value }
+    let headers = { 'Content-Type': 'application/json' }
 
     //api
-    const d = await useNuxtApp().$api('GET', wordurl, headers)
-    const q = await useNuxtApp().$api('GET', quizsurl, headers)
-    const n = await useNuxtApp().$api('GET', homonymsurl, headers)
-    const p = await useNuxtApp().$api('GET', homophonesurl, headers)
+    let d = await useNuxtApp().$api('GET', wordurl, headers)
+    data.value.push(await d.json())
 
-    //response
-    data.value.push(d.data)
-    quiz.value = q.data
-    homon.value = n.data
-    homop.value = p.data
+    let q = await useNuxtApp().$api('GET', quizsurl, headers)
+    quiz.value = await q.json()
+
+    let n = await useNuxtApp().$api('GET', homonymsurl, headers)
+    homon.value = await n.json()
+
+    let p = await useNuxtApp().$api('GET', homophonesurl, headers)
+    homop.value = await p.json()
 })
 </script>
 
