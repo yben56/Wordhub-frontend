@@ -1,8 +1,8 @@
 {
     "id" : 1,
-    "source" : "plead",
+    "source" : "bow",
     "source_prounce" : "/sounds/ding.mp3",
-    "target" : "乞求",
+    "target" : "鞠躬/船頭",
     "target_prounce" : "/sounds/ding.mp3",
     "word_class" : "verb",
     "probability" : 6,
@@ -10,12 +10,20 @@
     "tested" : 5,
     "sentences": [
         {
-            "source" : "she pleaded to be forgiven",
-            "target" : "她乞求原諒"
+            "source" : "He bowed his head in shame",
+            "target" : "他慚愧地低下頭來"
         },
         {
-            "source" : "to plead with",
-            "target" : "懇求某人"
+            "source" : "She gave a respectful bow to the audience before beginning her speech",
+            "target" : "在開始演講之前，她向觀眾恭敬地鞠了一躬"
+        },
+        {
+            "source" : "In Japanese culture, it's customary to bow as a sign of respect when greeting someone",
+            "target" : "在日本文化中，問候某人時通常會鞠躬以示尊重"
+        },
+        {
+            "source" : "The actor took a deep bow after receiving a standing ovation for his performance",
+            "target" : "演員在他的表演獲得全場起立鼓掌後深深鞠了一躬"
         }
     ]
 }

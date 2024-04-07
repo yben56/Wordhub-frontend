@@ -1,24 +1,13 @@
 [
     {
         "id" : 1,
-        "source" : "son",
+        "source" : "Bough",
         "source_prounce" : "/sounds/ding.mp3",
-        "target" : "兒子",
+        "target" : "大樹枝",
         "target_prounce" : "/sounds/ding.mp3",
         "word_class" : "noun",
-        "probability" : 10,
+        "probability" : 2,
         "accuracy" : 2,
         "tested" : 3
-    },
-    {
-        "id" : 2,
-        "source" : "sun",
-        "source_prounce" : "/sounds/ding.mp3",
-        "target" : "太陽",
-        "target_prounce" : "/sounds/ding.mp3",
-        "word_class" : "noun",
-        "probability" : 10,
-        "accuracy" : 5,
-        "tested" : 6
     }
 ]

@@ -1,12 +1,34 @@
 [
     {
         "id" : 1,
-        "source" : "plead",
+        "source" : "bow",
         "source_prounce" : "/sounds/ding.mp3",
-        "target" : "辯護",
+        "target" : "船頭",
         "target_prounce" : "/sounds/ding.mp3",
-        "class" : "verb",
-        "probability" : 10,
+        "class" : "noun",
+        "probability" : 2,
+        "accuracy" : 2,
+        "tested" : 5
+    },
+    {
+        "id" : 2,
+        "source" : "bow",
+        "source_prounce" : "/sounds/ding.mp3",
+        "target" : "弓",
+        "target_prounce" : "/sounds/ding.mp3",
+        "class" : "noun",
+        "probability" : 6,
+        "accuracy" : 2,
+        "tested" : 5
+    },
+    {
+        "id" : 3,
+        "source" : "bow",
+        "source_prounce" : "/sounds/ding.mp3",
+        "target" : "蝴蝶結",
+        "target_prounce" : "/sounds/ding.mp3",
+        "class" : "noun",
+        "probability" : 8,
         "accuracy" : 2,
         "tested" : 5
     }
