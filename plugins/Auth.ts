@@ -21,7 +21,12 @@ export default defineNuxtPlugin(nuxtApp => {
 
             //5. check state
             if ( status !== 200 ) {
-                return response.error //'InvalidEmailOrPassword' assets/locale/[...].json
+                if ( status == 403 ) {
+                    response.is_active = true
+                } else {
+                    response.is_active = false
+                }
+                return response
             }
 
             //6. set cookie
@@ -90,7 +95,12 @@ export default defineNuxtPlugin(nuxtApp => {
 
             //5. check state
             if ( status !== 200 ) {
-                return response.error //assets/locale/[...].json
+                if ( status == 403 ) {
+                    response.is_active = true
+                } else {
+                    response.is_active = false
+                }
+                return response
             }
 
             //6. EmailConfirmation
@@ -122,6 +132,36 @@ export default defineNuxtPlugin(nuxtApp => {
             
             //6. success
             return 'EmailConfirmationSuccess'
+        } catch (error) {
+            console.log('Error:' + error)
+        }
+    }
+
+    nuxtApp.ResendEmailConfirmation = async (data) => {
+        try {
+            //1. url
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation'
+
+            //2. headers
+            let headers = {
+                'Content-Type': 'application/json'
+            }
+
+            //3. body
+            let body = data
+
+            //4. api
+            let api = await useNuxtApp().$api('POST', url, headers, body)
+            let status = await api.status
+            let response = await api
+                        
+            //5. check state
+            if ( status !== 200 ) {
+                return response.error
+            }
+            
+            //6. success
+            return 'EmailConfirmationSend'
         } catch (error) {
             console.log('Error:' + error)
         }

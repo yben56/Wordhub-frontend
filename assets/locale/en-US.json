@@ -8,6 +8,7 @@
     "Congratulations" : "Congratulations!",
     "Email" : "Email",
     "EmailConfirmation" : "Please confirm your email",
+    "EmailConfirmationSend" : "Email Confirmation has send",
     "EmailConfirmationSuccess" : "Email confirmation successful. Please log in again",
     "Female" : "Female",
     "First_name" : "First Name",
@@ -32,6 +33,7 @@
     "ResetPassword" : "Reset Password",
     "ResetPasswordLink" : "We have sent you a reset password link to your email. Please check your email inbox, including the spam or junk folder, to ensure you receive it.",
     "ResetPasswordSuccess" : "You have successfully update your password, Please relogin.",
+    "Resend" : "Resend",
     "Search": "Search",
     "Signup" : "Sign Up",
     "ShowAnswer" : "Show Answer",
@@ -63,6 +65,7 @@
     "ErrorInvalidatPassword" : "Minimum 8 characters, at least 1 letter and 1 number.",
     "ErrorInvalidatPasswordsMatch" : "Password do not match",
 
+    "This email address has been registered but has not been confirmed yet. Please reconfirm your email" : "This email address has been registered but has not been confirmed yet. Please reconfirm your email",
     "Invalid Email or Password" : "Invalid Email or Password",
     "This email address is already in use" : "This email address is already in use"
 }

@@ -86,7 +86,9 @@
 				</label>
 			</div>
             <div class="col-md-12">
+				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
 				<span class="info">{{ info }}</span>
+				<span class="resend" v-if="resend" @click="ResendEmailConfirmation()"> - {{ t('Resend') }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
 			</div>
         </form>
@@ -115,7 +117,9 @@ const	first_name = ref(''),
 		gender = ref(''),
 		errors = ref([]),
 		submit = ref(false),
-		info = ref('')
+		spin = ref(false),
+		info = ref(''),
+		resend = ref(false)
 
 const validate = () => {
 	errors.value = []
@@ -195,6 +199,7 @@ const validate = () => {
 }
 
 const submitForm = async () => {
+	spin.value = true
 	info.value = ''
 
 	try {
@@ -207,8 +212,29 @@ const submitForm = async () => {
 			gender: gender.value
 		})
 
-		info.value = t(response)
+		if ( response.is_active ) { resend.value = true } else { resend.value = false }
+
+		spin.value = false
+		info.value = t(response.error)
 		
+	} catch (error) {
+		console.log('Error: ' + error)
+	}
+}
+
+const ResendEmailConfirmation = async () => {
+	spin.value = true
+	info.value = ''
+	resend.value = false
+
+	try {
+		const response = await nuxtApp.ResendEmailConfirmation({
+			email: email.value
+		})
+
+		spin.value = false
+		info.value = t(response)
+
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -249,6 +275,10 @@ const submitForm = async () => {
 
 	.invalid-feedback, .info {
 		color: #f1e47e;
+	}
+
+	.resend {
+		cursor: pointer;
 	}
 }
 </style>
