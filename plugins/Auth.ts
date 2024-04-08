@@ -170,21 +170,26 @@ export default defineNuxtPlugin(nuxtApp => {
     nuxtApp.ForgotPassword = async (data) => {
         try {
             //1. url
-            let url = '/database/ForgotPassword.json'
+            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password'
 
             //2. headers
             let headers = {
-                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+                'Content-Type': 'application/json'
             }
 
             //3. body
             let body = data
 
             //4. api
-            const response = await useNuxtApp().$api('GET', url, headers, body)
+            let api = await useNuxtApp().$api('POST', url, headers, body)
+            let status = await api.status
             
-            //5. return
-            return response.data
+            if ( status !== 200 ) {
+                let response = await api.json()
+                return response.error
+            } 
+
+            return 'ResetPasswordLinkSend'
 
         } catch (error) {
             console.log('Error:' + error)
@@ -196,7 +201,7 @@ export default defineNuxtPlugin(nuxtApp => {
         try {
             //1. headers
             let headers = {
-                ip: useRequestHeaders(['x-forwarded-for', 'x-real-ip', 'user-agent'])
+                'Content-Type': 'application/json'
             }
 
             //2. body
@@ -211,14 +216,21 @@ export default defineNuxtPlugin(nuxtApp => {
                 const url = '/database/ResetPassword.json?token=' + body.token
                 const response = await useNuxtApp().$api('GET', url , headers)
 
-                //6. to index
                 if ( response.data.state !== 200 ) { window.location.href = '/' }
             } else {
-                //POST ONLY FOR UPDATE PASSWORD (CHANGE BELOW TO POST IN REAL API)
-                const url = '/database/ResetPassword.json'
-                const response = await useNuxtApp().$api('GET', url , headers, body)
+                //PUT ONLY FOR UPDATE PASSWORD
+                let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password'
+                  
+                let api = await useNuxtApp().$api('PUT', url, headers, body)
+                let status = await api.status
+                
+                //4. check state
+                if ( status !== 200 ) {
+                    let response = await api.json()
+                    return response.error
+                }
 
-                return response.data
+                return 'ResetPasswordSuccess'
             }
         } catch (error) {
             console.log('Error:' + error)

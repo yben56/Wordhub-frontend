@@ -1,7 +1,7 @@
 <template>
     <div class="reset-password">   
         <form @submit.prevent="validate" class="row g-3">
-            <div class="col-md-12" v-if="!resetPasswordSuccess">
+            <div class="col-md-12">
                 <label class="form-label">{{ $t('Password') }}</label>
                 <input
 					type="password"
@@ -11,7 +11,7 @@
 				>
                 <div class="invalid-feedback" v-if="errors[0]">{{ errors[0].message }}</div>
             </div>
-            <div class="col-md-12" v-if="!resetPasswordSuccess">
+            <div class="col-md-12">
                 <label class="form-label">{{ $t('RePassword') }}</label>
                 <input
 					type="password"
@@ -21,12 +21,10 @@
 				>
                 <div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
             </div>
-            <div class="col-md-12" v-if="!resetPasswordSuccess">
+            <div class="col-md-12">
+				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
 				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
-			</div>
-			<div class="col-md-12" v-if="resetPasswordSuccess">
-				<div class="alert alert-warning" role="alert">{{ resetPasswordSuccess }}</div>
 			</div>
         </form>
     </div>
@@ -43,10 +41,10 @@ const	password = ref(''),
 		repasswordError = ref(false),
 		errors = ref([]),
 		submit = ref(false),
+		spin = ref(false),
 		info = ref(''),
-		token = useRoute().query.token,
-		resetPasswordSuccess = ref('')
-
+		token = useRoute().query.token
+/*
 onMounted( async () => {
 	try {
 		const response = await nuxtApp.ResetPassword('GET', {
@@ -56,6 +54,7 @@ onMounted( async () => {
 		console.log('Error: ' + error)
 	}
 })
+*/
 
 const validate = () => {
 	errors.value = []
@@ -102,17 +101,17 @@ const validate = () => {
 }
 
 const submitForm = async () => {
+	spin.value = true
+	info.value = ''
+
 	try {
-		const response = await nuxtApp.ResetPassword('POST', {
+		const response = await nuxtApp.ResetPassword('PUT', {
 			token: token,
 			password: password.value,
 		})
 
-		if ( response.state == 200 ) {
-			resetPasswordSuccess.value = t('ResetPasswordSuccess')
-		} else {
-			info.value = t(response.message)
-		}
+		spin.value = false
+		info.value = t(response)
 		
 	} catch (error) {
 		console.log('Error: ' + error)

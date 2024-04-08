@@ -31,7 +31,7 @@
     "Quiz" : "Quiz",
     "RePassword" : "Re Password",
     "ResetPassword" : "Reset Password",
-    "ResetPasswordLink" : "We have sent you a reset password link to your email. Please check your email inbox, including the spam or junk folder, to ensure you receive it.",
+    "ResetPasswordLinkSend" : "We have sent you a reset password link to your email. Please check your email inbox, including the spam or junk folder, to ensure you receive it.",
     "ResetPasswordSuccess" : "You have successfully update your password, Please relogin.",
     "Resend" : "Resend",
     "Search": "Search",
@@ -67,5 +67,7 @@
 
     "This email address has been registered but has not been confirmed yet. Please reconfirm your email" : "This email address has been registered but has not been confirmed yet. Please reconfirm your email",
     "Invalid Email or Password" : "Invalid Email or Password",
-    "This email address is already in use" : "This email address is already in use"
+    "Invalid token" : "Invalid token",
+    "This email address is already in use" : "This email address is already in use",
+    "We could not find this account" : "We could not find this account"
 }

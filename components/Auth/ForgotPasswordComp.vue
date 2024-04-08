@@ -1,7 +1,7 @@
 <template>
     <div class="forgot-password">   
         <form @submit.prevent="validate" class="row g-3">
-			<div class="col-md-12" v-if="!resetPasswordLink">
+			<div class="col-md-12">
 				<label class="form-label">{{ $t('Email') }}</label>
 				<input 
 					type="text"
@@ -11,12 +11,10 @@
 				>
 				<div class="invalid-feedback" v-if="errors[0]">{{ errors[0].message }}</div>
 			</div>
-			<div class="col-md-12" v-if="!resetPasswordLink">
+			<div class="col-md-12">
+				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
 				<span class="info">{{ info }}</span>
 				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
-			</div>
-			<div class="col-md-12" v-if="resetPasswordLink">
-				<div class="alert alert-warning" role="alert">{{ resetPasswordLink }}</div>
 			</div>
         </form>
     </div>
@@ -32,8 +30,8 @@ const	email = ref(''),
 		emailError = ref(false),
 		errors = ref([]),
 		submit = ref(false),
-		info = ref(''),
-		resetPasswordLink = ref('')
+		spin = ref(false),
+		info = ref('')
 
 const validate = () => {
 	errors.value = []
@@ -59,16 +57,17 @@ const validate = () => {
 }
 
 const submitForm = async () => {
+	spin.value = true
+	info.value = ''
+
 	try {
 		const response = await nuxtApp.ForgotPassword({
 			email: email.value
 		})
 
-		if ( response.state == 200 ) {
-			resetPasswordLink.value = t('ResetPasswordLink')
-		} else {
-			info.value = t(response.message)
-		}
+		spin.value = false
+		info.value = t(response)
+		
 	} catch (error) {
 		console.log('Error: ' + error)
 	}

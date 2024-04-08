@@ -31,7 +31,7 @@
     "Quiz" : "小測試",
     "RePassword" : "重新輸入密碼",
     "ResetPassword" : "重置密碼",
-    "ResetPasswordLink" : "我們已經向您的電子郵件發送了重設密碼連結。 請檢查您的電子郵件收件箱，包括垃圾郵件資料夾，以確保您收到了它。",
+    "ResetPasswordLinkSend" : "我們已經向您的電子郵件發送了重設密碼連結。 請檢查您的電子郵件收件箱，包括垃圾郵件資料夾，以確保您收到了它。",
     "ResetPasswordSuccess" : "你已成功更新你的密碼, 請重新登入",
     "Resend" : "重新發送",
     "Search": "搜尋",
@@ -67,5 +67,7 @@
 
     "This email address has been registered but has not been confirmed yet. Please reconfirm your email" : "該Email地址已被註冊，但尚未確認。 請再次確認您的Email",
     "Invalid Email or Password" : "錯誤的Email或密碼",
-    "This email address is already in use" : "此email已經註冊過"
+    "Invalid token" : "錯誤驗證",
+    "This email address is already in use" : "此email已經註冊過",
+    "We could not find this account" : "查無此帳號"
 }
