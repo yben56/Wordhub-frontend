@@ -1,12 +1,57 @@
 <template>
-    <ClassComp />
-    <div class="wrapper">
-        <template v-for="index in page" :key="index">
-            <WordsComp :data="data" :href="true"/>
-            <QuizsComp :data="quiz" />
-        </template>
+    <CategoryComp />
+    <CarouselComp />
+    <div class="container">
+        <div class="row">
+            <h5><i class="fa-solid fa-person"></i>{{ $t('Individual') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(0, 3)" :href="true"/>
+                <QuizsComp :data="quiz.slice(0, 1)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-regular fa-face-smile"></i>{{ $t('Spirit') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(3, 6)" :href="true"/>
+                <QuizsComp :data="quiz.slice(1, 2)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-solid fa-house"></i>{{ $t('Household') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(6, 9)" :href="true"/>
+                <QuizsComp :data="quiz.slice(2, 3)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-solid fa-burger"></i>{{ $t('FoodAndDrink') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(9, 12)" :href="true"/>
+                <QuizsComp :data="quiz.slice(3, 4)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-solid fa-users"></i>{{ $t('Social') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(12, 15)" :href="true"/>
+                <QuizsComp :data="quiz.slice(4, 5)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-solid fa-kit-medical"></i>{{ $t('Medical') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(15, 18)" :href="true"/>
+                <QuizsComp :data="quiz.slice(5, 6)" />
+            </template>
+        </div>
+        <div class="row">
+            <h5><i class="fa-solid fa-car"></i>{{ $t('Traffic') }}</h5>
+            <template v-for="index in page" :key="index">
+                <WordsComp :data="data.slice(18, 21)" :href="true"/>
+                <QuizsComp :data="quiz.slice(6, 7)" />
+            </template>
+        </div>
     </div>
-    <div class="observer"></div>
 </template>
 
 <script setup>
@@ -34,32 +79,22 @@ onMounted( async () => {
     let q = await useNuxtApp().$api('GET', quizsurl, headers)
     quiz.value = await q.json()
 
-    //scroll bottom load data
-    const observer = new IntersectionObserver((enteries) => {
-        enteries.forEach((entry) => {
-            if ( entry.intersectionRatio > 0 ) {
-                page.value++
-            }
-        })
-    })
 
-    document.querySelectorAll('.observer').forEach((section) => {
-        observer.observe(section)
-    })
+   
 })
 </script>
 
 <style scoped lang="scss">
-.wrapper {
-    display: grid;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-}
+.container {
+    h5 {
+        font-weight: bold;
+        margin: 15px 10px;
 
-@media (min-width: 1400px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; } }
-@media (max-width: 1400px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
-@media (max-width: 1200px) { .wrapper { grid-template-columns: 1fr 1fr 1fr 1fr; } }
-@media (max-width: 992px) { .wrapper { grid-template-columns: 1fr 1fr 1fr; } }
-@media (max-width: 768px) { .wrapper { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 576px) { .wrapper { grid-template-columns: 1fr; } }
+        i {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #6610f2;
+        }
+    }
+}
 </style>

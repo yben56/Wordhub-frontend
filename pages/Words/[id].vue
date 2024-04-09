@@ -1,20 +1,12 @@
 <template>
-    <div id="container" class="container">
+    <div id="word" class="container">
         <div class="row">
-            <div class="col-md-9 wrapper">
+            <div class="col-md-9">
                 <WordsComp :data="data"/>
             </div>
-            <div class="col-md-3 d-none d-sm-block">
-                <div class="wrapper">
-                    <h4 class="title">{{ $t('Quiz') }}</h4>
-                    <QuizsComp :data="quiz" />
-
-                    <h4 class="title">{{ $t('Homonym') }}</h4>
-                    <WordsComp :data="homon" :href="true"/>
-
-                    <h4 class="title">{{ $t('Homophones') }}</h4>
-                    <WordsComp :data="homop" :href="true"/>
-                </div>
+            <div class="col-md-3">
+                <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
+                <QuizsComp :data="quiz" />
             </div>
         </div>
     </div>
@@ -53,23 +45,22 @@ onMounted( async () => {
 })
 </script>
 
-<style scoped lang="scss">
-.wrapper {
-    margin-top: 15px;
-    display: grid;
-    grid-row-gap: 10px;
+<style lang="scss">
+#word { 
+    margin-top: 30px;
 
-    h4 {
-        color: #fff;
-        padding: 10px 0;
-        border-bottom: solid 1px #555;
+    .col-lg-3 {
+        width: 100%;
     }
 
-    .card {
-        background-color: #2d3134;
-        color: #fff;
-        padding: 10px 15px;
-        border: solid 1px #3535;
+    h5 {
+        font-weight: bold;
+        margin-left: 10px;
+
+        i {
+            margin: 10px;
+            color: #6610f2;
+        }
     }
 }
 </style>

@@ -58,7 +58,6 @@
 					:button="false"
 					:placeholder="$t('Birthday')" 
 					class="birthday mt-3"
-					dark
 					format="yyyy-MM-dd"
 					navigation="['year', 'month']"
 					required
@@ -248,8 +247,6 @@ const ResendEmailConfirmation = async () => {
 
 	.form-control {
 		background-color: transparent;
-		border-color: #555;
-		color: #fff;
 	}
 
 	.form-check-input {
@@ -258,7 +255,6 @@ const ResendEmailConfirmation = async () => {
 	}
 
 	.birthday {
-		border: solid 1px #555;
 		border-radius: 5px;
 	}
 
@@ -268,13 +264,9 @@ const ResendEmailConfirmation = async () => {
 		}
 
 		a {
-			color: #ccc;
+			color: #6610f2;
 			text-decoration: underline;
 		}
-	}
-
-	.invalid-feedback, .info {
-		color: #f1e47e;
 	}
 
 	.resend {

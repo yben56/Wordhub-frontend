@@ -132,16 +132,10 @@ const ResendEmailConfirmation = async () => {
 
 	.form-control {
 		background-color: transparent;
-		border-color: #555;
-		color: #fff;
 	}
 
 	.forgot-password {
-		color: #ccc;
-	}
-
-	.invalid-feedback, .info {
-		color: #f1e47e;
+		color: #777;
 	}
 
 	.resend {

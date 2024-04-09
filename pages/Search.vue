@@ -1,18 +1,18 @@
 <template>
-    <div id="container" class="container">
+    <div id="search" class="container">
         <div class="row">
-            <div class="col-md-9 wrapper">
+            <div class="col-md-9">
                 <template v-for="index in page" :key="index">
                     <WordsComp :data="data" :href="true"/>
                 </template>
                 <div class="observer"></div>
             </div>
-            <div class="col-md-3 d-none d-sm-block">
-                <div class="wrapper">
-                    <QuizsComp :data="quiz" />
-                </div>
+            <div class="col-md-3">
+                <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
+                <QuizsComp :data="quiz" />
             </div>
         </div>
+
     </div>
 </template>
 
@@ -53,10 +53,22 @@ onMounted( async () => {
 })
 </script>
 
-<style scoped lang="scss">
-.wrapper {
-    margin-top: 15px;
-    display: grid;
-    grid-row-gap: 10px;
-}
+<style scope lang="scss">
+    #search { 
+        margin-top: 30px;
+
+        .col-lg-3 {
+            width: 100%;
+        }
+
+        h5 {
+            font-weight: bold;
+            margin-left: 10px;
+
+            i {
+                margin: 10px;
+                color: #6610f2;
+            }
+        }
+    }
 </style>

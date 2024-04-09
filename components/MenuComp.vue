@@ -27,13 +27,9 @@ const Logout = () => {
 .menucomp {
 	float: right;
 
-	.dropdown-menu {
-		background-color: #262626;
-		border:  solid 1px #555;
-
-		.dropdown-divider { color: #ccc; }
-		a { color: #fff; }
-		a:hover { background-color: #212121; }
+	a:hover {
+		background-color: transparent;
 	}
+
 }
 </style>

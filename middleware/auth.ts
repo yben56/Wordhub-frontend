@@ -1,11 +1,11 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 
-    const token = useCookie('token').value
+    const jwt = useCookie('jwt').value
 
-    //1. check cookie token exist
-    if ( token ) {
+    //1. check cookie jwt exist
+    if ( jwt ) {
         try {
-            const body = '{token:' + token + '}'
+            const body = '{jwt:' + jwt + '}'
 
             //1. fetch api
             const response  = await $fetch('/database/Auth.json', {

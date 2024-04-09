@@ -1,7 +1,7 @@
 [
     {
         "id" : 1,
-        "source" : "proactive",
+        "source" : "Proactive",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "主動",
         "target_prounce" : "/sounds/ding.mp3",
@@ -13,7 +13,7 @@
     },
     {
         "id" : 2,
-        "source" : "express",
+        "source" : "Express",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "表達",
         "target_prounce" : "/sounds/ding.mp3",
@@ -25,7 +25,7 @@
     },
     {
         "id" : 3,
-        "source" : "announce",
+        "source" : "Announce",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "宣布",
         "target_prounce" : "/sounds/ding.mp3",
@@ -37,7 +37,7 @@
     },
     {
         "id" : 4,
-        "source" : "humor",
+        "source" : "Humor",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "幽默",
         "target_prounce" : "/sounds/ding.mp3",
@@ -49,7 +49,7 @@
     },
     {
         "id" : 5,
-        "source" : "brutal",
+        "source" : "Brutal",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "殘暴",
         "target_prounce" : "/sounds/ding.mp3",
@@ -61,7 +61,7 @@
     },
     {
         "id" : 6,
-        "source" : "decent",
+        "source" : "Decent",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "正派",
         "target_prounce" : "/sounds/ding.mp3",
@@ -73,7 +73,7 @@
     },
     {
         "id" : 7,
-        "source" : "rent",
+        "source" : "Rent",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "房租",
         "target_prounce" : "/sounds/ding.mp3",
@@ -85,7 +85,7 @@
     },
     {
         "id" : 8,
-        "source" : "ladder",
+        "source" : "Ladder",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "梯子",
         "target_prounce" : "/sounds/ding.mp3",
@@ -97,7 +97,7 @@
     },
     {
         "id" : 9,
-        "source" : "stair",
+        "source" : "Stair",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "樓層",
         "target_prounce" : "/sounds/ding.mp3",
@@ -109,11 +109,11 @@
     },
     {
         "id" : 10,
-        "source" : "biscuit",
+        "source" : "Biscuit",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "餅乾",
         "target_prounce" : "/sounds/ding.mp3",
-        "category" : "Food&Drink",
+        "category" : "FoodAndDrink",
         "word_class" : "noun",
         "probability" : 8,
         "accuracy" : 1,
@@ -121,11 +121,11 @@
     },
     {
         "id" : 11,
-        "source" : "starving",
+        "source" : "Starving",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "飢餓",
         "target_prounce" : "/sounds/ding.mp3",
-        "category" : "Food&Drink",
+        "category" : "FoodAndDrink",
         "word_class" : "adj",
         "probability" : 8,
         "accuracy" : 6,
@@ -133,11 +133,11 @@
     },
     {
         "id" : 12,
-        "source" : "coffee",
+        "source" : "Coffee",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "咖啡",
         "target_prounce" : "/sounds/ding.mp3",
-        "category" : "Food&Drink",
+        "category" : "FoodAndDrink",
         "word_class" : "noun",
         "probability" : 8,
         "accuracy" : 3,
@@ -157,7 +157,7 @@
     },
     {
         "id" : 14,
-        "source" : "host",
+        "source" : "Host",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "主持人",
         "target_prounce" : "/sounds/ding.mp3",
@@ -169,7 +169,7 @@
     },
     {
         "id" : 15,
-        "source" : "flirtation",
+        "source" : "Flirtation",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "調情",
         "target_prounce" : "/sounds/ding.mp3",
@@ -181,7 +181,7 @@
     },
     {
         "id" : 16,
-        "source" : "patient",
+        "source" : "Patient",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "病人",
         "target_prounce" : "/sounds/ding.mp3",
@@ -193,7 +193,7 @@
     },
     {
         "id" : 17,
-        "source" : "sterilize",
+        "source" : "Sterilize",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "消毒",
         "target_prounce" : "/sounds/ding.mp3",
@@ -205,7 +205,7 @@
     },
     {
         "id" : 18,
-        "source" : "amputate",
+        "source" : "Amputate",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "截肢",
         "target_prounce" : "/sounds/ding.mp3",
@@ -217,7 +217,7 @@
     },
     {
         "id" : 19,
-        "source" : "traffic light",
+        "source" : "Traffic light",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "紅綠燈",
         "target_prounce" : "/sounds/ding.mp3",
@@ -229,7 +229,7 @@
     },
     {
         "id" : 20,
-        "source" : "accelerator",
+        "source" : "Accelerator",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "油門",
         "target_prounce" : "/sounds/ding.mp3",
@@ -241,7 +241,7 @@
     },
     {
         "id" : 21,
-        "source" : "rail",
+        "source" : "Rail",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "鐵軌",
         "target_prounce" : "/sounds/ding.mp3",

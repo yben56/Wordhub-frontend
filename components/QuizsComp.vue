@@ -1,7 +1,7 @@
 <template>
-    <div v-for="(data, index) in props.data">
+    <div class="col-lg-3" v-for="(data, index) in props.data">
         <div class="card">
-            <h1 class="source">{{ data.source }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></h1>
+            <p class="source">{{ data.source }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></p>
             
             <form class="answer" :id="data.id">
                 <div class="question">
@@ -28,7 +28,7 @@
                 <br />
                 <i class="fa-solid fa-square accuracy"></i>
                 <span>{{ $t('Accuracy') }}: </span>
-                <span v-if="$token">{{ data.accuracy }}</span>
+                <span v-if="$jwt">{{ data.accuracy }}</span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
             </p>
         </div>
@@ -76,16 +76,16 @@ const submitanswer = async (id) => {
 
 <style scoped lang="scss">
 .card {
-    background-color: #434344;
-    color: #fff;
-    padding: 10px 15px;
-    border: solid 1px #3535;
+    padding: 25px;
+    margin-bottom: 25px !important;
+    border: solid 1px rgba(104, 18, 243, 0.2);
+    box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
     .source {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 200;
-        font-style: normal;
-        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
         margin-bottom:  20px;
     }
     
@@ -94,6 +94,7 @@ const submitanswer = async (id) => {
         font-size: 13px;
         vertical-align: middle;
         cursor: pointer;
+        color: #6610f2;
     }
 
     .fa-volume-high:hover {
@@ -107,7 +108,7 @@ const submitanswer = async (id) => {
         }
 
         a {
-            color: #fff;
+            color: #6610f2;
         }
     }
 
@@ -144,7 +145,7 @@ const submitanswer = async (id) => {
         }
 
         .text-decoration-line-through {
-            color: #555;
+            color: #ccc;
         }
     }
 }

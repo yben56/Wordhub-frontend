@@ -1,9 +1,9 @@
 <template>
-    <div v-for="(data, index) in props.data">
+    <div class="col-lg-3" v-for="(data, index) in props.data">
         <a :href="props.href ? '/Words/' + data.id : '#'">
             <div class="card mb-1">
-                <h1 class="source">{{ data.source }}<i @click="$prounce(data.source_prounce)" class="fa-solid fa-volume-high"></i></h1>
-                <b class="target">{{ data.target }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></b>
+                <p class="source">{{ data.source }}<i @click="$prounce(data.source_prounce)" class="fa-solid fa-volume-high"></i></p>
+                <p class="target">{{ data.target }}</p>
                 <p class="info">
                     <i :class="[ data.word_class ]" class="fa-solid fa-square"></i>
                     <span>{{ data.word_class }}</span>
@@ -13,16 +13,18 @@
                     <br />
                     <i class="fa-solid fa-square accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="$token">
+                    <span v-if="$jwt">
                         {{ data.accuracy }}/{{ data.tested }}
                         {{ Math.round((data.accuracy / data.tested) * 100) }}%
                     </span>
                     <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
                 </p>
             </div>
-            <div class="card mt-3" v-if="data.sentences" v-for="(item, index) in data.sentences">
-                {{ item.source }}
-                {{ item.target }}
+            <div class="card mt-3" v-if="data.sentences">
+                <p v-for="(item, index) in data.sentences">
+                    <span>{{ item.source }}</span><br />
+                    <span class="target">{{ item.target }}</span>
+                </p>
             </div>
         </a> 
     </div>
@@ -34,28 +36,29 @@ const props = defineProps(['data', 'href'])
 
 <style scoped lang="scss">
 .card {
-    background-color: #2d3134;
-    color: #fff;
-    padding: 10px 15px;
-    border: solid 1px #3535;
+    padding: 25px;
+    margin-bottom: 25px !important;
+    border: solid 1px #eee;
+    box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
     .source {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 200;
-        font-style: normal;
-        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
         margin-bottom:  0;
     }
 
     .target {
         margin-bottom: 112px;
-        color: #aaa;
+        color: #777;
     }
  
     .fa-volume-high {
         margin-left: 5px;
         font-size: 13px;
         vertical-align: middle;
+        color: #6610f2;
     }
 
     .fa-volume-high:hover {
@@ -69,7 +72,7 @@ const props = defineProps(['data', 'href'])
         }
 
         a {
-            color: #fff;
+            color: #6610f2;
         }
     }
 

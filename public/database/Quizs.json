@@ -62,7 +62,7 @@
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "飲料",
         "target_prounce" : "/sounds/ding.mp3",
-        "category" : "Food&Drink",
+        "category" : "FoodAndDrink",
         "word_class" : "noun",
         "probability" : 3,
         "accuracy" : "4",

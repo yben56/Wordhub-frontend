@@ -44,6 +44,15 @@
     "Unauthenticated" : "Unauthenticated",
 
     "All" : "全部",
+
+    "Individual": "個人",
+    "Spirit": "精神",
+    "Household": "居家",
+    "FoodAndDrink": "飲食",
+    "Social": "社交",
+    "Medical": "醫療",
+    "Traffic": "交通",
+
     "Noun" : "名詞",
     "Verb" : "動詞",
     "Adj" : "形容詞",

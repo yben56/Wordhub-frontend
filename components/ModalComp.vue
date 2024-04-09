@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <span class="modal-title" id="exampleModalLabel">{{ title }}</span>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <slot name="body-content"></slot>
@@ -26,10 +26,6 @@ export default {
 
 <style scoped lang="scss">
 .modal {
-  .modal-header {
-    border-bottom-color: #555;
-  }
-
   .modal-header span {
     font-size: 14px;
   }
@@ -41,6 +37,7 @@ export default {
     padding: 2px;
     border: none;
     box-shadow: none;
+    color: #999;
   }
 
   .modal-dialog {
@@ -50,11 +47,6 @@ export default {
     width: 0;
   }
   
-  .modal-content {
-    color: #ccc;
-    background-color: #262626;
-  }
-
   body.modal-open {
     overflow: hidden;
     position:fixed;

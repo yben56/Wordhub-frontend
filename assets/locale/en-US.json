@@ -42,8 +42,17 @@
     "Terms" : "Terms",
     "TermsPrivacy" : "Terms & Privacy",
     "Unauthenticated" : "Unauthenticated",
-
+    
     "All" : "All",
+
+    "Individual": "Individual",
+    "Spirit": "Spirit",
+    "Household": "Household",
+    "FoodAndDrink": "Food & Drink",
+    "Social": "Social",
+    "Medical": "Medical",
+    "Traffic": "Traffic",
+
     "Noun" : "Noun",
     "Verb" : "Verb",
     "Adj" : "Adj",
