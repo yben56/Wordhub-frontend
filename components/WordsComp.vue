@@ -52,7 +52,7 @@ const props = defineProps(['data', 'href'])
     -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
     .source {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: bold;
         margin-bottom:  0;
     }
