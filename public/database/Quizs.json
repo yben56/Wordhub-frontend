@@ -1,7 +1,7 @@
 [
     {
         "id" : 1,
-        "source" : "charmmy",
+        "source" : "Charmmy",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "迷人的",
         "target_prounce" : "/sounds/ding.mp3",
@@ -20,7 +20,7 @@
     },
     {
         "id" : 2,
-        "source" : "atmosphere",
+        "source" : "Atmosphere",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "氣氛",
         "target_prounce" : "/sounds/ding.mp3",
@@ -39,7 +39,7 @@
     },
     {
         "id" : 3,
-        "source" : "oven",
+        "source" : "Oven",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "烤箱",
         "target_prounce" : "/sounds/ding.mp3",
@@ -58,7 +58,7 @@
     },
     {
         "id" : 4,
-        "source" : "beverage",
+        "source" : "Beverage",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "飲料",
         "target_prounce" : "/sounds/ding.mp3",
@@ -77,7 +77,7 @@
     },
     {
         "id" : 5,
-        "source" : "toast",
+        "source" : "Toast",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "敬酒",
         "target_prounce" : "/sounds/ding.mp3",
@@ -96,7 +96,7 @@
     },
     {
         "id" : 6,
-        "source" : "contagious",
+        "source" : "Contagious",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "傳染的",
         "target_prounce" : "/sounds/ding.mp3",
@@ -115,7 +115,7 @@
     },
     {
         "id" : 7,
-        "source" : "intersection",
+        "source" : "Intersection",
         "source_prounce" : "/sounds/ding.mp3",
         "target" : "十字路口",
         "target_prounce" : "/sounds/ding.mp3",

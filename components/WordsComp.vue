@@ -5,17 +5,25 @@
                 <p class="source">{{ data.source }}<i @click="$prounce(data.source_prounce)" class="fa-solid fa-volume-high"></i></p>
                 <p class="target">{{ data.target }}</p>
                 <p class="info">
-                    <i :class="[ data.word_class ]" class="fa-solid fa-square"></i>
+                    <i :class="[ data.word_class ]" class="fa-solid fa-book"></i>
                     <span>{{ data.word_class }}</span>
                     <br />
-                    <i class="fa-solid fa-square synonyms"></i>
-                    <span>{{ $t('SynonymsProbability')}}: {{ $t(data.probability)}}</span>
+                    <i class="fa-solid fa-chart-simple synonyms"></i>
+                    <span>
+                        {{ $t('SynonymsProbability')}}: 
+                        <span class="probability">{{ $t(data.probability)}}</span>
+                    </span>
                     <br />
-                    <i class="fa-solid fa-square accuracy"></i>
+                    <i class="fa-solid fa-pen accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="$jwt">
-                        {{ data.accuracy }}/{{ data.tested }}
-                        {{ Math.round((data.accuracy / data.tested) * 100) }}%
+                    <span v-if="!$jwt">
+                        <span class="probability">
+                            {{ data.accuracy }}/{{ data.tested }}
+                            ({{ Math.round((data.accuracy / data.tested) * 100) }}%)
+                        </span>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" :style="{width: Math.round((data.accuracy / data.tested) * 100) + '%'}"></div>
+                        </div>
                     </span>
                     <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
                 </p>
@@ -74,14 +82,20 @@ const props = defineProps(['data', 'href'])
         a {
             color: #6610f2;
         }
+
+        .probability {
+            color: #777;
+        }
+
+        .progress {
+            height: 3px;
+            margin-top: 10px;
+        }
     }
 
-    .fa-square {
-        margin-right: 5px;
-        font-size: 12px;
-    }
-    
-    .synonyms { color: #f1e47e; }
-    .accuracy { color: red; }
+    .fa-book {  margin-right: 5px; font-size: 12px; }
+    .synonyms { color: #f1e47e; margin-right: 5px; }
+    .accuracy { color: red; margin-right: 5px; }
+    .progress { border-radius: 0; }
 }
 </style>

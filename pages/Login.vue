@@ -24,12 +24,8 @@ if ( token ) { router.replace('/') }
 
 <style scoped lang="scss">
 .card {
-    border: solid 1px #555;
-    background-color: transparent;
-    color: #fff;
-
-    .card-title {
-        border-bottom: solid 1px #555;
-    }
+    box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 }
 </style>
