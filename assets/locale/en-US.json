@@ -72,11 +72,5 @@
     "ErrorInvalidatFirstname" : "Minimum 2 characters",
     "ErrorInvalidatLastname" : "Minimum 2 characters",
     "ErrorInvalidatPassword" : "Minimum 8 characters, at least 1 letter and 1 number.",
-    "ErrorInvalidatPasswordsMatch" : "Password do not match",
-
-    "This email address has been registered but has not been confirmed yet. Please reconfirm your email" : "This email address has been registered but has not been confirmed yet. Please reconfirm your email",
-    "Invalid Email or Password" : "Invalid Email or Password",
-    "Invalid token" : "Invalid token",
-    "This email address is already in use" : "This email address is already in use",
-    "We could not find this account" : "We could not find this account"
+    "ErrorInvalidatPasswordsMatch" : "Password do not match"
 }

@@ -7,7 +7,7 @@
                 </template>
                 <div class="observer"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 d-sm-none d-md-block">
                 <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
                 <QuizsComp :data="quiz" />
             </div>
