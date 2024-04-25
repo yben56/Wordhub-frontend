@@ -1,17 +1,19 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 offset-lg-4">
-                <div class="card mt-5">
-                    <div class="card-header">{{ $t('ResetPassword') }}:</div>
-                    <div class="card-body">
-                        <AuthResetPasswordComp />
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header">Message:</div>
+        <div class="card-body">
+            <p class="card-text">{{ message }}_</p>
         </div>
     </div>
 </template>
+
+<script setup>
+const message = ref('')
+
+onMounted( async () => {
+    message.value = window.localStorage.getItem('message')
+})
+</script>
 
 <style scoped lang="scss">
 .card {

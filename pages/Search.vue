@@ -29,14 +29,19 @@ onMounted( async () => {
     let quizsurl = backend_base_url + '/api/quizs'
 
     //headers
-    let headers = { 'Content-Type': 'application/json' }
+    let headers = {
+        'Content-Type': 'application/json',
+        'Accept-Language' : 'zh-tw'
+    }
 
     //api
     let d = await useNuxtApp().$api('GET', searchurl, headers)
-    data.value = await d.json()
+    d = await d.json()
+    data.value = d.data
 
     let q = await useNuxtApp().$api('GET', quizsurl, headers)
-    quiz.value = await q.json()
+    q = await q.json()
+    quiz.value = q.data
 
     //scroll bottom load data
     const observer = new IntersectionObserver((enteries) => {

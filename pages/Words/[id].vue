@@ -15,8 +15,6 @@
 <script setup>
 const data = ref([])
 const quiz = ref([])
-const homon = ref([])
-const homop = ref([])
 
 onMounted( async () => {
     //url
@@ -24,24 +22,21 @@ onMounted( async () => {
 
     let wordurl = backend_base_url + '/api/word'
     let quizsurl = backend_base_url + '/api/quizs'
-    let homonymsurl = backend_base_url + '/api/homonyms'
-    let homophonesurl = backend_base_url + '/api/homophones'
 
     //headers
-    let headers = { 'Content-Type': 'application/json' }
+    let headers = {
+        'Content-Type': 'application/json',
+        'Accept-Language' : 'zh-tw'
+    }
 
     //api
     let d = await useNuxtApp().$api('GET', wordurl, headers)
-    data.value.push(await d.json())
+    d = await d.json()
+    data.value.push(d.data)
 
     let q = await useNuxtApp().$api('GET', quizsurl, headers)
-    quiz.value = await q.json()
-
-    let n = await useNuxtApp().$api('GET', homonymsurl, headers)
-    homon.value = await n.json()
-
-    let p = await useNuxtApp().$api('GET', homophonesurl, headers)
-    homop.value = await p.json()
+    q = await q.json()
+    quiz.value = q.data
 })
 </script>
 

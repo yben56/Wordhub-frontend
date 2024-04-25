@@ -86,9 +86,11 @@
 			</div>
             <div class="col-md-12">
 				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
-				<span class="info">{{ info }}</span>
+				<span class="info text-danger">{{ info }}</span>
 				<span class="resend" v-if="resend" @click="ResendEmailConfirmation()"> - {{ t('Resend') }}</span>
-				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
+			</div>
+			<div class="col-md-12">
+				<button type="submit" class="btn w-100 p-2 btn-danger submit">{{ $t('Submit') }}</button>
 			</div>
         </form>
     </div>
@@ -99,7 +101,6 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 import { useI18n } from 'vue-i18n'
-const nuxtApp = useNuxtApp()
 const { t } = useI18n()
 
 const	first_name = ref(''),
@@ -202,7 +203,11 @@ const submitForm = async () => {
 	info.value = ''
 
 	try {
-		const response = await nuxtApp.Signup({
+		 //1. api
+		 let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup', {
+			'Content-Type': 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, {
 			first_name: first_name.value,
 			last_name: last_name.value,
 			email: email.value,
@@ -210,12 +215,22 @@ const submitForm = async () => {
 			birthday: birthday.value.toISOString().split('T')[0],
 			gender: gender.value
 		})
+		let status = await api.status
+		let response = await api.json()
 
-		if ( response.is_active ) { resend.value = true } else { resend.value = false }
-
+		//2.
 		spin.value = false
-		info.value = t(response.error)
+
+		//3.
+		if ( status == 403 ) { resend.value = true } else { resend.value = false }
+
+		//4. check state
+		if ( status !== 200 ) { return info.value = response.message }
 		
+		//5.
+		window.localStorage.setItem('message', response.message)
+		window.location.href = '/Info'
+
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -227,12 +242,24 @@ const ResendEmailConfirmation = async () => {
 	resend.value = false
 
 	try {
-		const response = await nuxtApp.ResendEmailConfirmation({
-			email: email.value
-		})
-
+		//1.
+		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
+			'Content-Type': 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, { email: email.value })
+		let status = await api.status
+		let response = await api.json()
+		
+		//2.
 		spin.value = false
-		info.value = t(response)
+
+		//3.
+		if ( status != 200 ) {
+			info.value = response.message
+		} else {
+			window.localStorage.setItem('message', response.message)
+			window.location.href = '/Info'
+		}
 
 	} catch (error) {
 		console.log('Error: ' + error)
@@ -264,7 +291,8 @@ const ResendEmailConfirmation = async () => {
 		}
 
 		a {
-			color: #6610f2;
+			color: #777;
+			font-size: 12px;
 			text-decoration: underline;
 		}
 	}

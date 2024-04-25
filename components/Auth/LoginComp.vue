@@ -1,5 +1,21 @@
 <template>
-    <div class="login">   
+    <div class="login">  
+		<!--sidebase
+		<div class="row"> 
+			<div class="col-md-12">
+				<button v-if="loggedIn" @click="$event => signOut('github')">Logout</button>
+				<div class="provider" v-else>
+					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-github"></i></button>
+					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-facebook"></i></button>
+					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-google"></i></button>
+					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-line"></i></button>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="line"></div>
+			</div>
+		</div>
+		-->
         <form @submit.prevent="validate" class="row g-3">
 			<div class="col-md-12">
 				<label class="form-label">{{ $t('Email') }}</label>
@@ -22,13 +38,15 @@
 				<div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
 			</div>
 			<div class="col-md-12">
-				<a class="forgot-password" href="ForgotPassword">{{ $t('ForgotPassword') }}</a>
+				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
+				<span class="info text-danger">{{ info }}</span>
+				<span class="resend" v-if="resend" @click="ResendEmailConfirmation()"> - {{ t('Resend') }}</span>
 			</div>
 			<div class="col-md-12">
-				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
-				<span class="info">{{ info }}</span>
-				<span class="resend" v-if="resend" @click="ResendEmailConfirmation()"> - {{ t('Resend') }}</span>
-				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
+				<button type="submit" class="btn btn-primary w-100 p-2 submit">{{ $t('Submit')}}</button>
+			</div>
+			<div class="col-md-12 text-center">
+				<a class="forgot-password" href="ForgotPassword">{{ $t('ForgotPassword') }}</a>
 			</div>
         </form>
     </div>
@@ -37,8 +55,8 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-const nuxtApp = useNuxtApp()
 const { t } = useI18n()
+const router = useRouter()
 
 const	email = ref(''),
 		password = ref(''),
@@ -91,16 +109,34 @@ const submitForm = async () => {
 	info.value = ''
 
 	try {
-		const response = await nuxtApp.Login({
-			email: email.value,
-			password: password.value
-		})
+		//1. api
+		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login', {
+			'Content-Type' : 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, { email: email.value, password: password.value })
+		let status = await api.status
+		let response = await api.json()
 
-		if ( response.is_active ) { resend.value = true } else { resend.value = false }
-
+		//2.
 		spin.value = false
-		info.value = t(response.error)
 
+		//3. active
+		if ( status == 403 ) { response.is_active = true }
+		else { response.is_active = false }
+
+		//4.
+		if ( status !== 200 ) {
+			info.value = response.message
+			resend.value = response.is_active
+		} else {
+			//5. set cookie
+			document.cookie = `jwt=${response.data.jwt}; path=/`
+			document.cookie = `first_name=${response.data.first_name}; path=/`
+			//document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
+
+			//6. page reload
+			window.location.reload()
+		}
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
@@ -112,12 +148,24 @@ const ResendEmailConfirmation = async () => {
 	resend.value = false
 
 	try {
-		const response = await nuxtApp.ResendEmailConfirmation({
-			email: email.value
-		})
-
+		//1.
+		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
+			'Content-Type': 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, { email: email.value })
+		let status = await api.status
+		let response = await api.json()
+		
+		//2.
 		spin.value = false
-		info.value = t(response)
+
+		//3.
+		if ( status != 200 ) {
+			info.value = response.message
+		} else {
+			window.localStorage.setItem('message', response.message)
+			window.location.href = '/Info'
+		}
 
 	} catch (error) {
 		console.log('Error: ' + error)
@@ -136,10 +184,47 @@ const ResendEmailConfirmation = async () => {
 
 	.forgot-password {
 		color: #777;
+		font-size: 12px;
 	}
 
 	.resend {
 		cursor: pointer;
+	}
+
+	.provider {
+		text-align: center;
+		
+		i {
+			font-size: 24px;
+			margin: 10px;
+		}
+	}
+
+	.provider button:hover {
+		box-shadow: none;
+	}
+
+	.provider button:focus {
+		outline: none !important;
+	}
+
+	.line {
+		position: relative;
+		height: 1px;
+		width: 100%;
+		margin: 20px 0;
+		background-color: #d4d4d4;
+	}
+
+	.line::before {
+		content: 'Or';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #FFF;
+		color: #8b8b8b;
+		padding: 0 15px;
 	}
 }
 </style>

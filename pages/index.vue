@@ -61,7 +61,6 @@ const page = ref(1)
 const c = useRouter().currentRoute.value.query.class
 
 onMounted( async () => {
-    
     //url
     const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
     
@@ -74,13 +73,12 @@ onMounted( async () => {
 
     //api
     let d = await useNuxtApp().$api('GET', wordsurl, headers)
-    data.value = await d.json()
+    d = await d.json()
+    data.value = d.data
 
     let q = await useNuxtApp().$api('GET', quizsurl, headers)
-    quiz.value = await q.json()
-
-
-   
+    q = await q.json()
+    quiz.value = q.data
 })
 </script>
 

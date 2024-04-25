@@ -14,7 +14,7 @@
 			<div class="col-md-12">
 				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
 				<span class="info">{{ info }}</span>
-				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit')}}</button>
+				<button type="submit" class="btn btn-sm btn-danger submit">{{ $t('Submit') }}</button>
 			</div>
         </form>
     </div>
@@ -22,8 +22,6 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-
-const nuxtApp = useNuxtApp()
 const { t } = useI18n()
 
 const	email = ref(''),
@@ -61,36 +59,20 @@ const submitForm = async () => {
 	info.value = ''
 
 	try {
-		const response = await nuxtApp.ForgotPassword({
-			email: email.value
-		})
+		//1. api
+		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password', {
+			'Content-Type': 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, { email: email.value })
+		let status = await api.status
+		let response = await api.json()
 
+		//2.
 		spin.value = false
-		info.value = t(response)
+		info.value = response.message
 		
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
 }
 </script>
-
-<style scoped lang="scss">
-.forgot-password {
-	min-width: 300px;
-	text-align: left;
-
-	.form-control {
-		background-color: transparent;
-		border-color: #555;
-		color: #fff;
-	}
-
-	.forgot-password {
-		color: #ccc;
-	}
-
-	.invalid-feedback, .info {
-		color: #f1e47e;
-	}
-}
-</style>

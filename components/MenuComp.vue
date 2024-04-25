@@ -15,15 +15,30 @@
 </template>
 
 <script setup>
-const nuxtApp = useNuxtApp()
 const jwt = useCookie('jwt').value
 
-const Logout = () => {
-	nuxtApp.Logout(jwt)
+const Logout = async () => {
+	let api = await useNuxtApp().$api('DELETE', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/logout', {
+		'Content-Type': 'application/json',
+		'Accept-Language' : 'zh-tw'
+	})
+	let status = await api.status
+	let response = await api.json()
+
+	//2. check state
+	if ( status !== 200 ) { console.log(response) }
+
+	//3. destroy cookie
+	document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+	document.cookie = "first_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+	//document.cookie = "profile_pic=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+
+	//4. to index
+	window.location.href = '/'
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .menucomp {
 	float: right;
 

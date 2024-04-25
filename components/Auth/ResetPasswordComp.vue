@@ -32,7 +32,6 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-const nuxtApp = useNuxtApp()
 const { t } = useI18n()
 
 const	password = ref(''),
@@ -105,38 +104,29 @@ const submitForm = async () => {
 	info.value = ''
 
 	try {
-		const response = await nuxtApp.ResetPassword('PUT', {
+		//1.
+		let api = await useNuxtApp().$api('PUT', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password', {
+			'Content-Type': 'application/json',
+			'Accept-Language' : 'zh-tw'
+		}, {
 			token: token,
 			password: password.value,
 		})
-
+		let status = await api.status
+		let response = await api.json()
+		
+		//2.
 		spin.value = false
-		info.value = t(response)
+
+		if ( status != 200 ) {
+			info.value = response.message
+		} else {
+			window.localStorage.setItem('message', response.message)
+			window.location.href = '/Info'
+		}
 		
 	} catch (error) {
 		console.log('Error: ' + error)
 	}
 }
 </script>
-
-<style scoped lang="scss">
-.reset-password {
-	min-width: 300px;
-	text-align: left;
-
-	.form-control {
-		background-color: transparent;
-		border-color: #555;
-		color: #fff;
-	}
-
-	.form-check-input {
-		margin-top: 5px;
-		margin-right: 10px;
-	}
-
-	.invalid-feedback, .info {
-		color: #f1e47e;
-	}
-}
-</style>

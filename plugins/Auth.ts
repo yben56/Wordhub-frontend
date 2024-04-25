@@ -3,38 +3,27 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Login = async (data) => {
         try {
-            //1. url
-            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login'
-
-            //2. headers
-            let headers = {
-                'Content-Type': 'application/json'
-            }
-
-            //3. body
-            let body = data
-
-            //4. api
-            let api = await useNuxtApp().$api('POST', url, headers, body)
+            //1. api
+            let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login', {
+                'Content-Type' : 'application/json',
+                'Accept-Language' : 'zh-tw'
+            }, data)
             let status = await api.status
             let response = await api.json()
 
-            //5. check state
-            if ( status !== 200 ) {
-                if ( status == 403 ) {
-                    response.is_active = true
-                } else {
-                    response.is_active = false
-                }
-                return response
-            }
+            //2. active
+            if ( status == 403 ) { response.is_active = true }
+            else { response.is_active = false }
 
-            //6. set cookie
-            document.cookie = `jwt=${response.jwt}; path=/`
-            document.cookie = `first_name=${response.first_name}; path=/`
-            //document.cookie = `profile_pic=${response.profile_pic}; path=/`
+            //3. check state
+            if ( status !== 200 ) { return response }
 
-            //7. page reload
+            //4. set cookie
+            document.cookie = `jwt=${response.data.jwt}; path=/`
+            document.cookie = `first_name=${response.data.first_name}; path=/`
+            //document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
+
+            //5. page reload
             window.location.reload()
             
         } catch (error) {
@@ -44,31 +33,23 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Logout = async (data) => {
         try {
-            //1. url
-            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/logout'
-
-            //2. headers
-            let headers = {
-                'Content-Type': 'application/json'
-            }
-
-            //3. api
-            let api = await useNuxtApp().$api('DELETE', url, headers)
+            //1. api
+            let api = await useNuxtApp().$api('DELETE', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/logout', {
+                'Content-Type': 'application/json',
+                'Accept-Language' : 'zh-tw'
+            })
             let status = await api.status
-            let response = await api
+            let response = await api.json()
 
-            //4. check state
-            if ( status !== 200 ) {
-                console.log('InvalidLogout')
-                return
-            }
+            //2. check state
+            if ( status !== 200 ) { console.log(response) }
 
-            //5. destroy cookie
+            //3. destroy cookie
             document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             document.cookie = "first_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             //document.cookie = "profile_pic=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 
-            //6. to index
+            //4. to index
             window.location.href = '/'
         } catch (error) {
             console.log('Error:' + error)
@@ -77,34 +58,25 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.Signup = async (data) => {
         try {
-            //1. url
-            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup'
-
-            //2. headers
-            let headers = {
-                'Content-Type': 'application/json'
-            }
-
-            //3. body
-            let body = data
-
-            //4. api
-            let api = await useNuxtApp().$api('POST', url, headers, body)
+            //1. api
+            let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup', {
+                'Content-Type': 'application/json',
+                'Accept-Language' : 'zh-tw'
+            }, data)
             let status = await api.status
             let response = await api.json()
 
-            //5. check state
-            if ( status !== 200 ) {
-                if ( status == 403 ) {
-                    response.is_active = true
-                } else {
-                    response.is_active = false
-                }
-                return response
-            }
+            if ( status == 403 ) { response.is_active = true } else { response.is_active = false }
 
-            //6. EmailConfirmation
-            window.location.href = '/EmailConfirmation'
+            //2. check state
+            if ( status !== 200 ) { return response }
+
+            //3. EmailConfirmation
+            nuxtApp.router.push({
+                path: '/Info',
+                query: { message: response.message }
+            })
+            //window.location.href = '/EmailConfirmation'
         } catch (error) {
             console.log('Error:' + error)
         }
@@ -123,15 +95,16 @@ export default defineNuxtPlugin(nuxtApp => {
             //4. api
             let api = await useNuxtApp().$api('GET', url, headers)
             let status = await api.status
-            let response = await api
+            let response = await api.json()
                         
-            //5. check state
-            if ( status !== 200 ) {
-                return response.error //assets/locale/[...].json
-            }
-            
-            //6. success
-            return 'EmailConfirmationSuccess'
+            if ( status != 200 ) { return response }
+
+            //3. EmailConfirmation
+            nuxtApp.router.push({
+                path: '/Info',
+                query: { message: response.message }
+            })
+            //window.location.href = '/EmailConfirmation'
         } catch (error) {
             console.log('Error:' + error)
         }
@@ -139,29 +112,22 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.ResendEmailConfirmation = async (data) => {
         try {
-            //1. url
-            let url = useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation'
-
-            //2. headers
-            let headers = {
-                'Content-Type': 'application/json'
-            }
-
-            //3. body
-            let body = data
-
-            //4. api
-            let api = await useNuxtApp().$api('POST', url, headers, body)
+            //1. api
+            let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
+                'Content-Type': 'application/json',
+                'Accept-Language' : 'zh-tw'
+            }, data)
             let status = await api.status
-            let response = await api
-                        
-            //5. check state
-            if ( status !== 200 ) {
-                return response.error
-            }
-            
-            //6. success
-            return 'EmailConfirmationSend'
+            let response = await api.json()
+                       
+            //2.
+            if ( status != 200 ) { return response }
+
+            //3. EmailConfirmation
+            nuxtApp.router.push({
+                path: '/Info',
+                query: { message: response.message }
+            })
         } catch (error) {
             console.log('Error:' + error)
         }
