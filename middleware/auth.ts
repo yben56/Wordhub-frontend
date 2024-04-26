@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 
     const jwt = useCookie('jwt').value
-
+    /*
     //1. check cookie jwt exist
     if ( jwt ) {
         try {
@@ -26,4 +26,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     } else {
         return navigateTo('/')
     }
+    */
+
+
+    return
 })

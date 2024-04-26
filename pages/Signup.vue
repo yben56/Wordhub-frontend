@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-lg-4 offset-lg-4">
                 <div class="card mt-5">
-                    <h5 class="card-title p-3">
+                    <div class="card-header p-3">
                         {{ $t('Signup') }}
-                    </h5>
+                    </div>
                     <div class="card-body">
                         <AuthSignupComp />
                     </div>
@@ -17,12 +17,8 @@
 
 <style scoped lang="scss">
 .card {
-    border: solid 1px #555;
-    background-color: transparent;
-    color: #fff;
-
-    .card-title {
-        border-bottom: solid 1px #555;
-    }
+    box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 }
 </style>

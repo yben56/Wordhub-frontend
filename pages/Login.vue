@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-lg-4 offset-lg-4">
                 <div class="card mt-5">
-                    <h5 class="card-title p-3">
+                    <div class="card-title p-3 card-header">
                         {{ $t('Login') }}
-                    </h5>
+                    </div>
                     <div class="card-body">
                         <AuthLoginComp />
                     </div>

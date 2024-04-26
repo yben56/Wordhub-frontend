@@ -16,7 +16,7 @@
                     <br />
                     <i class="fa-solid fa-pen accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="!$jwt">
+                    <span v-if="$jwt">
                         <span class="probability">
                             {{ data.accuracy }}/{{ data.tested }}
                             ({{ Math.round((data.accuracy / data.tested) * 100) }}%)
