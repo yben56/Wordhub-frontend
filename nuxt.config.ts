@@ -34,4 +34,7 @@ export default defineNuxtConfig({
       BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL,
     },
   },
+  routeRules: {
+    '/EmailConfirmation': { ssr: false },
+  }
 })

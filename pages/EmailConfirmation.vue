@@ -3,7 +3,6 @@
         <div class="card-header">Message:</div>
         <div class="card-body">
             <p class="card-text" v-if="message">{{ message }}_</p>
-            <p class="card-text" v-else>{{ $t('EmailConfirmation') }}_</p>
         </div>
     </div>
 </template>
