@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="carousel-caption">
-                    <h1 class="display-4">Wordz</h1>
+                    <h1 class="display-4">Wordhub</h1>
                     <i>Scientific Learning</i>
                 </div>
             </div>
