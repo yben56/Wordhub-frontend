@@ -204,17 +204,22 @@ const submitForm = async () => {
 
 	try {
 		 //1. api
-		 let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup', {
-			'Content-Type': 'application/json',
-			'Accept-Language' : 'zh-tw'
-		}, {
-			first_name: first_name.value,
-			last_name: last_name.value,
-			email: email.value,
-			password: password.value,
-			birthday: birthday.value.toISOString().split('T')[0],
-			gender: gender.value
+		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/signup', {
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			},
+			body : JSON.stringify({
+				first_name: first_name.value,
+				last_name: last_name.value,
+				email: email.value,
+				password: password.value,
+				birthday: birthday.value.toISOString().split('T')[0],
+				gender: gender.value
+			})
 		})
+
 		let status = await api.status
 		let response = await api.json()
 
@@ -243,10 +248,17 @@ const ResendEmailConfirmation = async () => {
 
 	try {
 		//1.
-		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
-			'Content-Type': 'application/json',
-			'Accept-Language' : 'zh-tw'
-		}, { email: email.value })
+		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			},
+			body : JSON.stringify({
+				email: email.value
+			})
+		})
+
 		let status = await api.status
 		let response = await api.json()
 		

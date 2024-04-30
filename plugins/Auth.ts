@@ -1,9 +1,10 @@
 export default defineNuxtPlugin(nuxtApp => {
-    const jwt = useCookie('token').value
+    const token = useCookie('token').value
+    console.log(token)
 
     return {
         provide: {
-            jwt: jwt
+           jwt: token
         }
     }
 })

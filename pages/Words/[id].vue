@@ -17,24 +17,25 @@ const data = ref([])
 const quiz = ref([])
 
 onMounted( async () => {
-    //url
-    const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
-
-    let wordurl = backend_base_url + '/api/word'
-    let quizsurl = backend_base_url + '/api/quizs'
-
-    //headers
+     //headers
     let headers = {
         'Content-Type': 'application/json',
         'Accept-Language' : 'zh-tw'
     }
 
     //api
-    let d = await useNuxtApp().$api('GET', wordurl, headers)
+    let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/word', {
+        method : 'GET',
+        headers : headers
+    })
+
     d = await d.json()
     data.value.push(d.data)
 
-    let q = await useNuxtApp().$api('GET', quizsurl, headers)
+    let q = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/quizs', {
+        method : 'GET',
+        headers : headers
+    })
     q = await q.json()
     quiz.value = q.data
 })

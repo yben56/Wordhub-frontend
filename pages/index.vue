@@ -69,14 +69,24 @@ onMounted( async () => {
     if ( c ) { wordsurl = wordsurl + '&class=' + c }
 
     //headers
-    let headers = { 'Content-Type': 'application/json' }
+    let headers = {
+        'Content-Type': 'application/json',
+        'Accept-Language' : 'zh-tw'
+    }
 
     //api
-    let d = await useNuxtApp().$api('GET', wordsurl, headers)
+    let d = await fetch(wordsurl, {
+        method : 'GET',
+        headers : headers
+    })
+
     d = await d.json()
     data.value = d.data
 
-    let q = await useNuxtApp().$api('GET', quizsurl, headers)
+    let q = await fetch(quizsurl, {
+        method : 'GET',
+        headers : headers
+    })
     q = await q.json()
     quiz.value = q.data
 })

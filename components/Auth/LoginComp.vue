@@ -110,10 +110,19 @@ const submitForm = async () => {
 
 	try {
 		//1. api
-		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login', {
-			'Content-Type' : 'application/json',
-			'Accept-Language' : 'zh-tw'
-		}, { email: email.value, password: password.value })
+		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login', {
+			method : 'POST',
+			credentials: 'include',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			},
+			body : JSON.stringify({
+				email: email.value,
+				password: password.value
+			})
+		})
+
 		let status = await api.status
 		let response = await api.json()
 
@@ -130,9 +139,8 @@ const submitForm = async () => {
 			resend.value = response.is_active
 		} else {
 			//5. set cookie
-			document.cookie = `jwt=${response.data.jwt}; path=/`
 			document.cookie = `first_name=${response.data.first_name}; path=/`
-			//document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
+			document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
 
 			//6. page reload
 			window.location.reload()
@@ -149,10 +157,18 @@ const ResendEmailConfirmation = async () => {
 
 	try {
 		//1.
-		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
-			'Content-Type': 'application/json',
-			'Accept-Language' : 'zh-tw'
-		}, { email: email.value })
+		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation', {
+			method : 'POST',
+			credentials: 'include',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			},
+			body : JSON.stringify({
+				email: email.value
+			})
+		})
+
 		let status = await api.status
 		let response = await api.json()
 		

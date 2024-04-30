@@ -60,10 +60,17 @@ const submitForm = async () => {
 
 	try {
 		//1. api
-		let api = await useNuxtApp().$api('POST', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password', {
-			'Content-Type': 'application/json',
-			'Accept-Language' : 'zh-tw'
-		}, { email: email.value })
+		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/reset_password', {
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			},
+			body : JSON.stringify({
+				email: email.value
+			})
+		})
+
 		let status = await api.status
 		let response = await api.json()
 

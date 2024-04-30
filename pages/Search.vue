@@ -22,12 +22,6 @@ const quiz = ref([])
 const page = ref(1)
 
 onMounted( async () => {
-    //url
-    const backend_base_url = useRuntimeConfig().public.BACKEND_API_BASE_URL
-
-    let searchurl = backend_base_url + '/api/search?per_page=20&page=' + page.value
-    let quizsurl = backend_base_url + '/api/quizs'
-
     //headers
     let headers = {
         'Content-Type': 'application/json',
@@ -35,11 +29,17 @@ onMounted( async () => {
     }
 
     //api
-    let d = await useNuxtApp().$api('GET', searchurl, headers)
+    let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/search?per_page=20&page=' + page.value, {
+        method : 'GET',
+        headers : headers
+    })
     d = await d.json()
     data.value = d.data
 
-    let q = await useNuxtApp().$api('GET', quizsurl, headers)
+    let q = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/quizs', {
+        method : 'GET',
+        headers : headers
+    })
     q = await q.json()
     quiz.value = q.data
 

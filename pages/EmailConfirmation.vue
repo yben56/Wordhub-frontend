@@ -15,10 +15,14 @@ const message = ref('')
 if ( query.token ) {
     try {       
         //1. api
-        let api = await useNuxtApp().$api('GET', useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation?token=' + query.token, {
-            'Content-Type': 'application/json',
-            'Accept-Language' : 'zh-tw'
-        })
+        let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/email_confirmation?token=' + query.token, {
+			method : 'GET',
+			headers : {
+				'Content-Type' : 'application/json',
+				'Accept-Language' : 'zh-tw'
+			}
+		})
+
         let status = await api.status
         let response = await api.json()
         
