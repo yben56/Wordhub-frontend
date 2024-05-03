@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "@vuepic/vue-datepicker": "^8.3.1",
     "cookie-universal-nuxt": "^2.2.2",
     "nuxt": "^3.10.3",
@@ -19,6 +20,7 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "^8.1.1"
+    "@nuxtjs/i18n": "^8.1.1",
+    "@sidebase/nuxt-auth": "^0.7.2"
   }
 }

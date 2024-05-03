@@ -16,7 +16,7 @@
                     <br />
                     <i class="fa-solid fa-pen accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="$jwt">
+                    <span v-if="auth">
                         <span class="probability">
                             {{ data.accuracy }}/{{ data.tested }}
                             ({{ Math.round((data.accuracy / data.tested) * 100) }}%)
@@ -39,6 +39,9 @@
 </template>
 
 <script setup>
+const { status } = useAuth()
+const auth = computed(() => status.value === 'authenticated')
+
 const props = defineProps(['data', 'href'])
 </script>
 

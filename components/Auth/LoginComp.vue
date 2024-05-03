@@ -1,10 +1,8 @@
 <template>
     <div class="login">  
-		<!--sidebase
 		<div class="row"> 
 			<div class="col-md-12">
-				<button v-if="loggedIn" @click="$event => signOut('github')">Logout</button>
-				<div class="provider" v-else>
+				<div class="provider">
 					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-github"></i></button>
 					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-facebook"></i></button>
 					<button class="btn" @click="$event => signIn('github')"><i class="fa-brands fa-google"></i></button>
@@ -15,7 +13,6 @@
 				<div class="line"></div>
 			</div>
 		</div>
-		-->
         <form @submit.prevent="validate" class="row g-3">
 			<div class="col-md-12">
 				<label class="form-label">{{ $t('Email') }}</label>
@@ -57,6 +54,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
+const { signIn } = useAuth()
 
 const	email = ref(''),
 		password = ref(''),
@@ -108,46 +106,33 @@ const submitForm = async () => {
 	spin.value = true
 	info.value = ''
 
-	try {
-		//1. api
-		let api = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'users/login', {
-			method : 'POST',
-			credentials: 'include',
-			headers : {
-				'Content-Type' : 'application/json',
-				'Accept-Language' : 'zh-tw'
-			},
-			body : JSON.stringify({
-				email: email.value,
-				password: password.value
-			})
-		})
+	//1.
+	const api = await signIn('credentials', {
+		redirect: false,
+		email: email.value,
+		password: password.value
+	})
 
-		let status = await api.status
-		let response = await api.json()
+	spin.value = false
 
-		//2.
-		spin.value = false
-
+	//2. error
+	if ( api.error ) {
+		const error = JSON.parse(api.error)
+		
 		//3. active
-		if ( status == 403 ) { response.is_active = true }
-		else { response.is_active = false }
+		if ( error.status == 403 ) { resend.value = true }
+		else { resend.value = false }
 
 		//4.
-		if ( status !== 200 ) {
-			info.value = response.message
-			resend.value = response.is_active
-		} else {
-			//5. set cookie
-			document.cookie = `first_name=${response.data.first_name}; path=/`
-			document.cookie = `profile_pic=${response.data.profile_pic}; path=/`
-
-			//6. page reload
-			window.location.reload()
+		if ( error.status !== 200 ) {
+			info.value = error.message
 		}
-	} catch (error) {
-		console.log('Error: ' + error)
+
+		return
 	}
+
+	//5. success
+	window.location.reload()
 }
 
 const ResendEmailConfirmation = async () => {

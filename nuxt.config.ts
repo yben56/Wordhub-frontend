@@ -20,7 +20,8 @@ export default defineNuxtConfig({
     '@/assets/scss/fonts.scss'
   ],
   modules: [
-    '@nuxtjs/i18n',
+    '@sidebase/nuxt-auth',
+    '@nuxtjs/i18n', 
   ],
   i18n: {
     vueI18n: '@/i18n.config.ts'
@@ -35,6 +36,6 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/EmailConfirmation': { ssr: false },
+    '/EmailConfirmation': { ssr: false }
   }
 })

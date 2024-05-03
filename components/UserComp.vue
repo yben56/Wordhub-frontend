@@ -1,5 +1,9 @@
 <template>
-    <div v-if="!jwt">
+    <div v-if="auth">
+        <a class="firstname">{{ first_name }}</a>
+        <MenuComp />
+    </div>
+    <div v-else >
         <!--Login-->
         <ModalComp template="LoginComp" :title="$t('Login')">
             <template v-slot:body-content>
@@ -25,15 +29,13 @@
             </template>
         </ModalComp>
     </div>
-    <div v-else>
-        <a class="firstname">{{ first_name }}</a>
-        <MenuComp />
-    </div>
 </template>
 
-<script setup>
-const jwt = useCookie('jwt').value
-const first_name = useCookie('first_name').value
+<script setup lang="ts">
+const first_name = ref('')
+
+const { status } = useAuth()
+const auth = computed(() => status.value === 'authenticated')
 </script>
 
 <style scoped lang="scss">
