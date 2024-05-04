@@ -33,15 +33,26 @@ export default NuxtAuthHandler({
                 let response = await api.json()
                 
                 if ( status == 403 ) {
+                    //{error: '', status, ok} (i don't know how to change status, so i put inside of error message)
                     throw new Error(JSON.stringify({status: status, message: response.message}))
                 }
 
                 if ( status != 200 ) {
+                    //{error: '', status, ok} (i don't know how to change status, so i put inside of error message)
                     throw new Error(JSON.stringify({status: status, message: response.message}))
                 }
 
                 return response.data
             }
         })
-    ]
+    ],
+    callbacks: {
+        async jwt({ token, user }){
+            return { ...token, ...user }
+        },
+        async session({ session, token, user }) {
+            session.user = token
+            return session
+        }
+    }
 })

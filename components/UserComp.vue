@@ -1,6 +1,6 @@
 <template>
     <div v-if="auth">
-        <a class="firstname">{{ first_name }}</a>
+        <a class="firstname">{{ getSession?.user.first_name }}</a>
         <MenuComp />
     </div>
     <div v-else >
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 const first_name = ref('')
 
-const { status } = useAuth()
+const { status, data: getSession } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 </script>
 
