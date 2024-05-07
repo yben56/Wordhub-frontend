@@ -55,10 +55,12 @@
 </template>
 
 <script setup>
+const { $authorization } = useNuxtApp()
+const c = useRouter().currentRoute.value.query.class
+
 const data = ref([])
 const quiz = ref([])
 const page = ref(1)
-const c = useRouter().currentRoute.value.query.class
 
 onMounted( async () => {
     //url
@@ -71,18 +73,20 @@ onMounted( async () => {
     //headers
     let headers = {
         'Content-Type': 'application/json',
-        'Accept-Language' : 'zh-tw'
+        'Accept-Language' : 'zh-tw',
     }
+
+    if ( $authorization ) { headers['Authorization'] = $authorization }
 
     //api
     let d = await fetch(wordsurl, {
         method : 'GET',
         headers : headers
     })
-
+    
     d = await d.json()
     data.value = d.data
-
+  
     let q = await fetch(quizsurl, {
         method : 'GET',
         headers : headers
