@@ -47,11 +47,14 @@ export default NuxtAuthHandler({
         })
     ],
     callbacks: {
-        async jwt({ token, user }){
+        async jwt({ token, user, trigger, session }){
             return { ...token, ...user }
         },
         async session({ session, token, user }) {
+            //1. put api response into user
             session.user = token
+
+            //2.
             return session
         }
     }

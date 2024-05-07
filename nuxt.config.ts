@@ -20,8 +20,8 @@ export default defineNuxtConfig({
     '@/assets/scss/fonts.scss'
   ],
   modules: [
-    '@sidebase/nuxt-auth',
     '@nuxtjs/i18n', 
+    '@sidebase/nuxt-auth',
   ],
   i18n: {
     vueI18n: '@/i18n.config.ts'
