@@ -3,49 +3,49 @@
     <CarouselComp />
     <div class="container">
         <div class="row">
-            <h5><i class="fa-solid fa-person"></i>{{ $t('Individual') }}</h5>
+            <h5 id="Individual"><i class="fa-solid fa-person"></i>{{ $t('Individual') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(0, 3)" :href="true"/>
                 <QuizsComp :data="quiz.slice(0, 1)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-regular fa-face-smile"></i>{{ $t('Spirit') }}</h5>
+            <h5 id="Spirit"><i class="fa-regular fa-face-smile"></i>{{ $t('Spirit') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(3, 6)" :href="true"/>
                 <QuizsComp :data="quiz.slice(1, 2)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-solid fa-house"></i>{{ $t('Household') }}</h5>
+            <h5 id="Household"><i class="fa-solid fa-house"></i>{{ $t('Household') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(6, 9)" :href="true"/>
                 <QuizsComp :data="quiz.slice(2, 3)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-solid fa-burger"></i>{{ $t('FoodAndDrink') }}</h5>
+            <h5 id="FoodAndDrink"><i class="fa-solid fa-burger"></i>{{ $t('FoodAndDrink') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(9, 12)" :href="true"/>
                 <QuizsComp :data="quiz.slice(3, 4)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-solid fa-users"></i>{{ $t('Social') }}</h5>
+            <h5 id="Social"><i class="fa-solid fa-users"></i>{{ $t('Social') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(12, 15)" :href="true"/>
                 <QuizsComp :data="quiz.slice(4, 5)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-solid fa-kit-medical"></i>{{ $t('Medical') }}</h5>
+            <h5 id="Medical"><i class="fa-solid fa-kit-medical"></i>{{ $t('Medical') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(15, 18)" :href="true"/>
                 <QuizsComp :data="quiz.slice(5, 6)" />
             </template>
         </div>
         <div class="row">
-            <h5><i class="fa-solid fa-car"></i>{{ $t('Traffic') }}</h5>
+            <h5 id="Traffic"><i class="fa-solid fa-car"></i>{{ $t('Traffic') }}</h5>
             <template v-for="index in page" :key="index">
                 <WordsComp :data="word.slice(18, 21)" :href="true"/>
                 <QuizsComp :data="quiz.slice(6, 7)" />
