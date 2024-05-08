@@ -4,20 +4,38 @@ const prounce = (url) => {
   event.preventDefault()
 }
 
-const authorization = () => {
+const backendapi = async (method, url, body=null) => {
+
   const { data: getSession } = useAuth()
   
-  if ( getSession.value ) {
-      return 'Bearer ' + getSession.value.user.access_token
-  } else {
-      return false
+  //1. url
+  url = useRuntimeConfig().public.BACKEND_API_BASE_URL + url
+
+  //2. headers
+  let headers = {
+    'Content-Type': 'application/json',
+    'Accept-Language' : 'zh-tw',
   }
+
+  if ( getSession.value ) { headers['Authorization'] = 'Bearer ' + getSession.value.user.access_token }
+
+  //3. options
+  let options = {
+    method: method,
+    headers: headers
+  }
+
+  if ( method != 'GET' ) { options['body'] = body }
+
+  //4.
+  let data = await fetch(url, options)
+  return await data.json()
 }
 
 export default defineNuxtPlugin(nuxtApp => {
   return {
     provide: {
-      authorization: authorization(),
+      backendapi: backendapi,
       prounce: prounce,
     }
   }
