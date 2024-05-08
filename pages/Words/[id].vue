@@ -2,7 +2,7 @@
     <div id="word" class="container">
         <div class="row">
             <div class="col-md-9">
-                <WordsComp :data="data"/>
+                <WordsComp :data="word"/>
             </div>
             <div class="col-md-3">
                 <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
@@ -13,31 +13,17 @@
 </template>
 
 <script setup>
-const data = ref([])
+const { $authorization, $backendapi } = useNuxtApp()
+
+const word = ref([])
 const quiz = ref([])
 
 onMounted( async () => {
-     //headers
-    let headers = {
-        'Content-Type': 'application/json',
-        'Accept-Language' : 'zh-tw'
-    }
+    let words = await $backendapi('GET', '/api/word')
+    word.value.push(words.data)
 
-    //api
-    let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/word', {
-        method : 'GET',
-        headers : headers
-    })
-
-    d = await d.json()
-    data.value.push(d.data)
-
-    let q = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/quizs', {
-        method : 'GET',
-        headers : headers
-    })
-    q = await q.json()
-    quiz.value = q.data
+    let quizs = await $backendapi('GET', '/api/quizs')
+    quiz.value = quizs.data
 })
 </script>
 

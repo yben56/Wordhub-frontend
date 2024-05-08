@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <template v-for="index in page" :key="index">
-                    <WordsComp :data="data" :href="true"/>
+                    <WordsComp :data="search" :href="true"/>
                 </template>
                 <div class="observer"></div>
             </div>
@@ -17,31 +17,18 @@
 </template>
 
 <script setup>
-const data = ref([])
+const { $authorization, $backendapi } = useNuxtApp()
+
+const search = ref([])
 const quiz = ref([])
 const page = ref(1)
 
 onMounted( async () => {
-    //headers
-    let headers = {
-        'Content-Type': 'application/json',
-        'Accept-Language' : 'zh-tw'
-    }
+    let searchs = await $backendapi('GET', '/api/search?per_page=20&page=' + page.value)
+    search.value = searchs.data
 
-    //api
-    let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/search?per_page=20&page=' + page.value, {
-        method : 'GET',
-        headers : headers
-    })
-    d = await d.json()
-    data.value = d.data
-
-    let q = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + '/api/quizs', {
-        method : 'GET',
-        headers : headers
-    })
-    q = await q.json()
-    quiz.value = q.data
+    let quizs = await $backendapi('GET', '/api/quizs')
+    quiz.value = quizs.data
 
     //scroll bottom load data
     const observer = new IntersectionObserver((enteries) => {
