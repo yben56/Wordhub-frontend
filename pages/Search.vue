@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-md-9">
                 <template v-for="index in page" :key="index">
-                    <WordsComp :data="search" :href="true"/>
+                    <SearchComp :data="search" :href="true"/>
+                    <SearchComp :data="associate" :href="true"/>
                 </template>
                 <div class="observer"></div>
             </div>
@@ -20,14 +21,18 @@
 const { $authorization, $backendapi } = useNuxtApp()
 
 const search = ref([])
+const associate = ref([])
 const quiz = ref([])
 const page = ref(1)
 
 onMounted( async () => {
-    let searchs = await $backendapi('GET', '/api/search?per_page=20&page=' + page.value)
-    search.value = searchs.data
+    let api = await $backendapi('GET', '/api/search/' + useRoute().query.q)
+    search.value = api.data.search
+    associate.value = api.data.associate
 
-    let quizs = await $backendapi('GET', '/api/quizs')
+    console.log(search.value)
+
+    let quizs = await $backendapi('GET', '/api/quiz')
     quiz.value = quizs.data
 
     //scroll bottom load data

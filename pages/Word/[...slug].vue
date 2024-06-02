@@ -2,7 +2,7 @@
     <div id="word" class="container">
         <div class="row">
             <div class="col-md-9">
-                <WordsComp :data="word"/>
+                <WordComp :data="word"/>
             </div>
             <div class="col-md-3">
                 <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
@@ -19,10 +19,10 @@ const word = ref([])
 const quiz = ref([])
 
 onMounted( async () => {
-    let words = await $backendapi('GET', '/api/word')
-    word.value.push(words.data)
+    let api = await $backendapi('GET', '/api/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
+    word.value.push(api.data)
 
-    let quizs = await $backendapi('GET', '/api/quizs')
+    let quizs = await $backendapi('GET', '/api/quiz')
     quiz.value = quizs.data
 })
 </script>

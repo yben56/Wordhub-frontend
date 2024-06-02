@@ -65,7 +65,7 @@ onMounted( async () => {
     let words = await $backendapi('GET', '/api/words?per_page=20&page=' + page.value)
     word.value = words.data
   
-    let quizs = await $backendapi('GET', '/api/quizs')
+    let quizs = await $backendapi('GET', '/api/quiz')
     quiz.value = quizs.data
 })
 </script>
