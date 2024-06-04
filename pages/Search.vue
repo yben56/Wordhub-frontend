@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <div v-if="result">
-                    <h5><i class="fa-solid fa-file-word"></i>{{ $t('Search') }}</h5>
+                    <h5><i class="fa-solid fa-magnifying-glass"></i>{{ $t('Search') }}</h5>
                     <SearchComp :data="search"/>
                     <h5><i class="fa-solid fa-link"></i>{{ $t('Associate') }}</h5>
                     <SearchComp :data="associate"/>
@@ -39,7 +39,7 @@ onMounted( async () => {
         let api_associate = await $backendapi('GET', '/api/associate/' + useRoute().query.q)
         associate.value = api_associate.data
     }
-    
+
     let quizs = await $backendapi('GET', '/api/quiz')
         quiz.value = quizs.data
 

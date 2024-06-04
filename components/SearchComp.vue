@@ -41,11 +41,12 @@ const props = defineProps(['data'])
         color: #777;
         text-decoration: underline;
         text-underline-offset: 5px;
-        text-decoration-color: rgba($color: #777, $alpha: 0.5)
+        text-decoration-color: rgba($color: #6610f2, $alpha: 0.2);
+        color: #6610f2;
     }
 
     .translate a:hover {
-        color: #6610f2;
+        color: red;
     }
  
     .fa-volume-high {
