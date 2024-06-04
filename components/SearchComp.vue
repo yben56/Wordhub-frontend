@@ -1,45 +1,19 @@
 <template>
     <div class="col-lg-3" v-for="(data, index) in props.data">
-        <a :href="props.href ? '/Word/' + data.word + '/' + data.id : '#'">
-            <div class="card mb-1">
-                <p class="source">{{ data.word }}<i @click="$prounce(data.word_prounce)" class="fa-solid fa-volume-high"></i></p>
-                <p class="target">{{ data.translation }}</p>
-                <p class="info">
-                    <i class="fa-solid fa-chart-simple synonyms"></i>
-                    <span>
-                        {{ $t('SynonymsProbability')}}: 
-                        <span class="probability">{{ $t(data.probability)}}</span>
-                    </span>
-                    <br />
-                    <i class="fa-solid fa-pen accuracy"></i>
-                    <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="auth">
-                        <span class="probability">
-                            {{ data.evaluation.correctness }}/{{ data.evaluation.trials }}
-                            ({{ data.evaluation.accuracy }})
-                        </span>
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" :style="{width: data.evaluation.accuracy}"></div>
-                        </div>
-                    </span>
-                    <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
+        <div class="card mb-1">
+            <p class="word">{{ data.word }}<i @click="$prounce(data.word_prounce)" class="fa-solid fa-volume-high"></i></p>
+            <div v-for="(data, index) in data.result">
+                <p class="translate">
+                    <span class="pos text-danger">{{ $t(data.pos) }}: </span>
+                    <a :href="'/Word/' + data.word + '/' + data.id">{{ data.translation }}</a>
                 </p>
             </div>
-            <div class="card mt-3" v-if="data.sentences">
-                <p v-for="(item, index) in data.sentences">
-                    <span>{{ item.source }}</span><br />
-                    <span class="target">{{ item.target }}</span>
-                </p>
-            </div>
-        </a> 
+        </div>
     </div>
 </template>
 
 <script setup>
-const { status } = useAuth()
-const auth = computed(() => status.value === 'authenticated')
-
-const props = defineProps(['data', 'href'])
+const props = defineProps(['data'])
 </script>
 
 <style scoped lang="scss">
@@ -51,15 +25,27 @@ const props = defineProps(['data', 'href'])
     -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
     -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
-    .source {
+    .word {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom:  0;
+        margin-bottom:  10px;
     }
 
-    .target {
-        margin-bottom: 52px;
+    .translate {
         color: #777;
+        margin-top: 7px;
+        margin-bottom: 0;
+    }
+
+    .translate a {
+        color: #777;
+        text-decoration: underline;
+        text-underline-offset: 5px;
+        text-decoration-color: rgba($color: #777, $alpha: 0.5)
+    }
+
+    .translate a:hover {
+        color: #6610f2;
     }
  
     .fa-volume-high {
@@ -73,29 +59,8 @@ const props = defineProps(['data', 'href'])
         color: red;
     }
 
-    .info {
-        margin-bottom: 0;
-        span, a {
-            font-size: 12px;
-        }
-
-        a {
-            color: #6610f2;
-        }
-
-        .probability {
-            color: #777;
-        }
-
-        .progress {
-            height: 3px;
-            margin-top: 10px;
-        }
-    }
-
     .fa-book {  margin-right: 5px; font-size: 12px; }
-    .synonyms { color: #f1e47e; margin-right: 5px; }
-    .accuracy { color: red; margin-right: 5px; }
-    .progress { border-radius: 0; }
 }
+
+.highlight { border: solid 1px rgba(104, 18, 243, 0.2) !important; }
 </style>

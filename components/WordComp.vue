@@ -1,18 +1,18 @@
 <template>
     <div class="col-lg-3" v-for="(data, index) in props.data">
         <div class="card mb-1">
-            <p>
+            <div>
                 <span class="word">{{ data.word }}</span>
-                <span class="phonetic">{{ data.phonetic }}</span>
+                <span class="phonetic">/{{ data.phonetic }}/</span>
                 <i @click="$prounce(data.word_prounce)" class="fa-solid fa-volume-high"></i>
-            </p>
+            </div>
             <p class="translation">{{ data.translation }}</p>
             <p class="info">
                 <span class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
                 <br />
                 <i class="fa-solid fa-chart-simple synonyms"></i>
                 <span>
-                    {{ $t('SynonymsProbability')}}: 
+                    {{ $t('Probability')}}: 
                     <span class="probability">{{ $t(data.probability)}}</span>
                 </span>
                 <br />
@@ -32,7 +32,7 @@
         </div>
         <div class="card mt-3" v-if="data.sentences">
             <p v-for="(item, index) in data.sentences">
-                <span>{{ item.en }}</span><br />
+                <span v-html="replaceWord(item, data.word)"></span><br>
                 <span>{{ item.zh }}</span>
             </p>
         </div>
@@ -44,6 +44,10 @@ const { status } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
 const props = defineProps(['data', 'href'])
+
+const replaceWord = (item, word) => {
+    return item.en.replace(new RegExp(word, 'g'), '<b class="text-primary">' + word + '</b>');
+}
 </script>
 
 <style scoped lang="scss">
@@ -64,7 +68,7 @@ const props = defineProps(['data', 'href'])
     .phonetic {
         font-size: 14px;
         margin: 0 10px;
-        color: #6610f2;
+        color: #777;
     }
 
     .translation {
