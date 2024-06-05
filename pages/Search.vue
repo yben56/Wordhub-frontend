@@ -10,7 +10,7 @@
                     <div class="observer"></div>
                 </div>
                 <div v-else>
-                    <h4 class="text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
+                    <h4 class="nosearchresult text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
                 </div>
             </div>
             <div class="col-md-3 d-sm-none d-md-block">
@@ -75,6 +75,11 @@ onMounted( async () => {
                 margin: 10px;
                 color: #6610f2;
             }
+        }
+
+        .nosearchresult {
+            margin-left: 15px;
+            margin-bottom: 15px;
         }
     }
 </style>
