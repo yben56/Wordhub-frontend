@@ -4,7 +4,7 @@
             <div>
                 <span class="word">{{ data.word }}</span>
                 <span class="phonetic">/{{ data.phonetic }}/</span>
-                <i @click="$prounce(data.word_prounce)" class="fa-solid fa-volume-high"></i>
+                <i @click="$prounce($prounce(data.word, data.heteronyms))" class="fa-solid fa-volume-high"></i>
             </div>
             <p class="translation">{{ data.translation }}</p>
             <p class="info">

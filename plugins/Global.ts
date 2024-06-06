@@ -1,4 +1,9 @@
-const prounce = (url) => {
+const prounce = (word, heteronyms) => {
+
+  if ( heteronyms ) { heteronyms = 'heteronyms/' } else {  heteronyms = '' }
+
+  let url = '/pronounce/' + heteronyms + word + '.mp3'
+
   const audio = new Audio(url)
   audio.play()
   event.preventDefault()
