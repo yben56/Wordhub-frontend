@@ -19,7 +19,12 @@
                                 type="radio"
                                 required
                             >
-                            {{ item[1] }} <a class="show_options text-primary" :href="'/search?q=' + item[0]" target="blank">({{ item[0] }})</a>
+                            {{ item[1] }}
+                            <span class="show_options">:
+                                <a :href="'/search?q=' + item[0]" target="blank">
+                                    <span class="text-primary">{{ item[0] }}</span>
+                                </a>
+                            </span>
                         </label>
                     </div>
                     <div class="form-check text-muted">
