@@ -83,7 +83,7 @@ const submitanswer = async (id) => {
         }
 
         //show all english answer
-        label.querySelector('.show_options').remove('show_options')
+        label.querySelector('.show_options').classList.remove('show_options')
 
         //disable input radio
         input.setAttribute('disabled', '')
