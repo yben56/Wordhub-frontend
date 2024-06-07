@@ -1,24 +1,37 @@
 <template>
     <div class="col-lg-3" v-for="(data, index) in props.data">
         <div class="card">
-            <p class="source">{{ data.source }}<i @click="$prounce(data.target_prounce)" class="fa-solid fa-volume-high"></i></p>
+            <p class="source">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
             
             <form class="answer" :id="data.id">
                 <div class="question">
-                    <div class="form-check" v-for="(item, index) in data.options">
+                    <div class="form-check" v-for="(item, index) in data.quiz">
                         <label>
                             <input
                                 @click="submitanswer(data.id)" 
                                 :name="data.id" 
-                                :value="index"
-                                :data-answer="item.answer"
+                                :value="item[0]"
+                                :data-answer="item[2]"
                                 class="form-check-input"
                                 type="radio"
                                 required
                             >
-                            {{ item.question }}
+                            {{ item[1] }} <span>({{ item[0] }})</span>
                         </label>
-                    </div>                
+                    </div>
+                    <div class="form-check text-muted">
+                        <label>
+                        <input
+                            @click="submitanswer(data.id)"
+                            :name="data.id"
+                            :value="giveup"
+                            :data-answer="false"
+                            class="form-check-input"
+                            type="radio"
+                            required
+                        > {{ $t('GiveUp') }} <i class="fa-regular fa-flag"></i>
+                        </label>
+                    </div>
                 </div>
             </form>
 
