@@ -16,7 +16,7 @@
                                 type="radio"
                                 required
                             >
-                            {{ item[1] }} <span>({{ item[0] }})</span>
+                            {{ item[1] }} <span v-show="show_options">({{ item[0] }})</span>
                         </label>
                     </div>
                     <div class="form-check text-muted">
@@ -24,7 +24,7 @@
                         <input
                             @click="submitanswer(data.id)"
                             :name="data.id"
-                            :value="giveup"
+                            value="giveup"
                             :data-answer="false"
                             class="form-check-input"
                             type="radio"
@@ -58,10 +58,11 @@
 </template>
 
 <script setup>
-const { status } = useAuth()
+const { status, data: getSession } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
 const props = defineProps(['data'])
+let show_options = ref(false)
 
 const submitanswer = async (id) => {
     //1. select options
@@ -79,14 +80,19 @@ const submitanswer = async (id) => {
             label.classList.add('text-decoration-line-through')
         }
 
-        //'correct var' for api
-        if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
-            correct = true
-        }
+        //show all english answer
+        show_options.value = true
 
         //disable input radio
         input.setAttribute('disabled', '')
+
+        //'correct var' for api
+        if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
+            let correct = true
+        }
     })
+
+    console.log(getSession['user'])
 
 
     //3. send to api
@@ -95,9 +101,10 @@ const submitanswer = async (id) => {
         headers : {
             'Content-Type': 'application/json',
             'Accept-Language' : 'zh-tw',
-            'access_token' : useCookie('token').value
+            'Authorization' : 'Bearer ' + getSession.value.user.access_token
         },
         body : JSON.stringify({
+            wordid: id,
             correct: correct
         })
     })
