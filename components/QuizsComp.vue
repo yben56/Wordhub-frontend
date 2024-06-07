@@ -19,7 +19,7 @@
                                 type="radio"
                                 required
                             >
-                            {{ item[1] }} <span v-show="show_options">({{ item[0] }})</span>
+                            {{ item[1] }} <span class="show_options">({{ item[0] }})</span>
                         </label>
                     </div>
                     <div class="form-check text-muted">
@@ -65,7 +65,6 @@ const { status, data: getSession } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
 const props = defineProps(['data'])
-let show_options = ref(false)
 
 const submitanswer = async (id) => {
     //1. select options
@@ -84,7 +83,7 @@ const submitanswer = async (id) => {
         }
 
         //show all english answer
-        show_options.value = true
+        label.querySelector('.show_options').remove('show_options')
 
         //disable input radio
         input.setAttribute('disabled', '')
@@ -94,9 +93,6 @@ const submitanswer = async (id) => {
             let correct = true
         }
     })
-
-    console.log(getSession['user'])
-
 
     //3. send to api
     let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
@@ -140,6 +136,10 @@ const submitanswer = async (id) => {
 
     .fa-volume-high:hover {
         color: red;
+    }
+
+    .show_options {
+        display: none;
     }
 
     .info {
