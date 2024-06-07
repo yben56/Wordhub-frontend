@@ -46,7 +46,9 @@ const auth = computed(() => status.value === 'authenticated')
 const props = defineProps(['data', 'href'])
 
 const replaceWord = (item, word) => {
-    return item.en.replace(new RegExp(word, 'g'), '<b class="text-primary">' + word + '</b>');
+    return item.en.replace(new RegExp(word, 'gi'), function(matched) {
+        return '<b class="text-primary">' + matched + '</b>';
+    })
 }
 </script>
 
