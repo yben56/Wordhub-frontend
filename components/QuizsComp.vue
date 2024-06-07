@@ -1,7 +1,10 @@
 <template>
     <div class="col-lg-3" v-for="(data, index) in props.data">
         <div class="card">
-            <p class="source">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
+            <p class="word">
+                <a :href="'/search?q=' + data.word" target="blank">{{ data.word }}</a>
+                <i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i>
+            </p>
             
             <form class="answer" :id="data.id">
                 <div class="question">
@@ -121,7 +124,7 @@ const submitanswer = async (id) => {
     -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
     -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
-    .source {
+    .word a {
         font-size: 18px;
         font-weight: bold;
         margin-bottom:  20px;
