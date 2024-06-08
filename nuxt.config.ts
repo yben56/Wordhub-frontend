@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     API_SECRET: '',
     public: {
       BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL,
+      PRONOUNCE_BASE_URL: process.env.PRONOUNCE_BASE_URL,
     },
   },
   routeRules: {

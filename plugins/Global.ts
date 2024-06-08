@@ -2,7 +2,8 @@ const prounce = (word, heteronyms) => {
 
   if ( heteronyms ) { heteronyms = 'heteronyms/' } else {  heteronyms = '' }
 
-  let url = '/pronounce/' + heteronyms + word + '.mp3'
+  let url = useRuntimeConfig().public.PRONOUNCE_BASE_URL + heteronyms + word + '.mp3'
+  console.log(useRuntimeConfig().public.PRONOUNCE_BASE_URL)
 
   const audio = new Audio(url)
   audio.play()
