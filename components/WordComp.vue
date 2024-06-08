@@ -5,6 +5,7 @@
                 <span class="word">{{ data.word }}</span>
                 <span class="phonetic">/{{ data.phonetic }}/</span>
                 <i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i>
+                <div class="openedit float-end"><a href="#" :title="$t('OpenEdit')"><i class="fa-solid fa-pen-to-square text-secondary"></i></a></div>
             </div>
             <p class="translation">{{ data.translation }}</p>
             <p class="info">
