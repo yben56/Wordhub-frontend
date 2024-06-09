@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-3">
                 <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
-                <QuizsComp :data="quiz" />
+                <QuizComp :data="quiz" />
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@ onMounted( async () => {
     let api = await $backendapi('GET', '/api/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     word.value.push(api.data)
 
-    let quizs = await $backendapi('GET', '/api/quiz')
+    let quizs = await $backendapi('GET', '/api/quiz?pages=2')
     quiz.value = quizs.data
 })
 </script>

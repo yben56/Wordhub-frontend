@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-3 d-sm-none d-md-block">
                 <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
-                <QuizsComp :data="quiz" />
+                <QuizComp :data="quiz" />
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@ onMounted( async () => {
         associate.value = api_associate.data
     }
 
-    let quizs = await $backendapi('GET', '/api/quiz')
+    let quizs = await $backendapi('GET', '/api/quiz?pages=5')
         quiz.value = quizs.data
 
     //scroll bottom load data
