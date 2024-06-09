@@ -19,6 +19,7 @@
     "Index" : "Home",
     "InvalidEmailOrPassword" : "Invalid Email Or Password",
     "Last_name" : "Last Name",
+    "LearningStatistic" : "LearningStatistic",
     "Login" : "Login",
     "LoginActive" : "Login Active",
     "Logout" : "Logout",
@@ -38,12 +39,14 @@
     "ResetPasswordSuccess" : "You have successfully update your password, Please relogin.",
     "Resend" : "Resend",
     "Search": "Search",
+    "SearchHistory" : "History",
     "Signup" : "Sign Up",
     "ShowAnswer" : "Show Answer",
     "Submit" : "Submit",
     "Terms" : "Terms",
     "TermsPrivacy" : "Terms & Privacy",
     "Unauthenticated" : "Unauthenticated",
+    "UserStatistic" : "UserStatistic",
     
     "All" : "All",
 
