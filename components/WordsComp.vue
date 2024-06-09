@@ -1,12 +1,11 @@
 <template>
-    <div class="col-lg-3" v-for="(data, index) in props.data">
-        <a :href="props.href ? '/Words/' + data.id : '#'">
+    <div class="col-lg-3">
+        <a :href="'/Word/' + data.word + '/' + data.id">
             <div class="card mb-1">
-                <p class="source">{{ data.source }}<i @click="$prounce(data.source_prounce)" class="fa-solid fa-volume-high"></i></p>
-                <p class="target">{{ data.target }}</p>
+                <p class="word">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
+                <p class="translation">{{ data.translation }}</p>
                 <p class="info">
-                    <i :class="[ data.word_class ]" class="fa-solid fa-book"></i>
-                    <span>{{ data.word_class }}</span>
+                    <span class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
                     <br />
                     <i class="fa-solid fa-chart-simple synonyms"></i>
                     <span>
@@ -18,20 +17,14 @@
                     <span>{{ $t('Accuracy') }}: </span>
                     <span v-if="auth">
                         <span class="probability">
-                            {{ data.accuracy }}/{{ data.tested }}
-                            ({{ Math.round((data.accuracy / data.tested) * 100) }}%)
+                            {{ data.evaluation.correctness }}/{{ data.evaluation.trials }}
+                            ({{ data.evaluation.accuracy }})
                         </span>
                         <div class="progress">
-                            <div class="progress-bar bg-danger" :style="{width: Math.round((data.accuracy / data.tested) * 100) + '%'}"></div>
+                            <div class="progress-bar bg-danger" :style="{width: data.evaluation.accuracy}"></div>
                         </div>
                     </span>
                     <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
-                </p>
-            </div>
-            <div class="card mt-3" v-if="data.sentences">
-                <p v-for="(item, index) in data.sentences">
-                    <span>{{ item.source }}</span><br />
-                    <span class="target">{{ item.target }}</span>
                 </p>
             </div>
         </a> 
@@ -42,7 +35,8 @@
 const { status } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
-const props = defineProps(['data', 'href'])
+const props = defineProps(['data'])
+const data = props.data
 </script>
 
 <style scoped lang="scss">
@@ -54,14 +48,14 @@ const props = defineProps(['data', 'href'])
     -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
     -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.05);
 
-    .source {
+    .word {
         font-size: 18px;
         font-weight: bold;
         margin-bottom:  0;
     }
 
-    .target {
-        margin-bottom: 112px;
+    .translation {
+        height: 120px;
         color: #777;
     }
  
