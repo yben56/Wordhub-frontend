@@ -7,7 +7,7 @@
                     <SearchComp :data="search"/>
                     <h5><i class="fa-solid fa-link"></i>{{ $t('Associate') }}</h5>
                     <SearchComp :data="associate"/>
-                    <div class="observer"></div>
+                    <div id="observer"></div>
                 </div>
                 <div v-else>
                     <h4 class="nosearchresult text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
@@ -30,20 +30,23 @@ const quiz = ref([])
 const result = ref(true)
 
 onMounted( async () => {
+    //1. fetch api data
     let api_search = await $backendapi('GET', '/api/search/' + useRoute().query.q)
     if ( api_search.data.length == 0 ) {
         result.value = false
     } else {
+        //2. if word found, fetch associate
         search.value = api_search.data
 
         let api_associate = await $backendapi('GET', '/api/associate/' + useRoute().query.q)
         associate.value = api_associate.data
     }
 
+    //3. fetch quiz
     let quizs = await $backendapi('GET', '/api/quiz?pages=5')
-        quiz.value = quizs.data
+    quiz.value = quizs.data
 
-    //scroll bottom load data
+    //4. scroll to bottom and load data
     let page = 1
     const observer = new IntersectionObserver((enteries) => {
         enteries.forEach(async (entry) => {
@@ -53,9 +56,7 @@ onMounted( async () => {
         })
     })
 
-    document.querySelectorAll('.observer').forEach((section) => {
-        observer.observe(section)
-    })
+    observer.observe(document.getElementById('observer'))
 })
 </script>
 
