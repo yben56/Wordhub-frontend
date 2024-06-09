@@ -13,7 +13,7 @@
                     <h4 class="text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
                     <div class="alert alert-info">
                         <p><b>Wordhub</b> <span v-html="$t('NoSearchResultInfo')"></span></p><br>
-                        <a href="#" class="addword text-danger"><i class="fa-solid fa-square-plus"></i> {{ $t('AddWord') }}</a>
+                        <a href="#" class="addword text-danger"><i class="fa-solid fa-folder-plus"></i> {{ $t('AddWord') }}</a>
                     </div>
                 </div>
             </div>
