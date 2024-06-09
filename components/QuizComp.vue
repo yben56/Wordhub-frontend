@@ -143,8 +143,12 @@ const submitanswer = async (id) => {
         color: red;
     }
 
-    .show_options {
-        display: none;
+    .question {
+        height: 120px;
+
+        .show_options {
+            display: none;
+        }
     }
 
     .info {
