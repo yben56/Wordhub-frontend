@@ -4,6 +4,7 @@
     "zh-TW" : "中文 (台灣)",
 
     "Accuracy" : "回答正確率",
+    "AddWord" : "新增單字/片語",
     "Associate" : "相關",
     "Birthday" : "生日",
     "Congratulations" : "恭喜!",
@@ -27,6 +28,7 @@
     "Menu" : "選單",
     "Message" : "訊息",
     "NoSearchResult" : "沒有搜尋結果",
+    "NoSearchResultInfo" : "是個非營利開放式共同編輯學習字典<br><br>我們的資料有限且部分資料是由Ai生成, 找不到的單字或片語, 你可以為社群貢獻, 讓我們一起建立一份大家的學習字典!",
     "OpenEdit" : "共同編輯",
     "Password" : "密碼",
     "PhoneNumber" : "電話",

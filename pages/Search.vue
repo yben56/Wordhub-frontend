@@ -9,8 +9,12 @@
                     <SearchComp :data="associate"/>
                     <div id="observer"></div>
                 </div>
-                <div v-else>
-                    <h4 class="nosearchresult text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
+                <div class="p-3" v-else>
+                    <h4 class="text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
+                    <div class="alert alert-info">
+                        <p><b>Wordhub</b> <span v-html="$t('NoSearchResultInfo')"></span></p><br>
+                        <a href="#" class="addword text-danger"><i class="fa-solid fa-square-plus"></i> {{ $t('AddWord') }}</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 d-sm-none d-md-block">
@@ -78,9 +82,16 @@ onMounted( async () => {
             }
         }
 
-        .nosearchresult {
-            margin-left: 15px;
-            margin-bottom: 15px;
+        .alert-info {
+            margin-top: 15px;
+            max-width: 500px;
+        }
+
+        .addword {
+        
+            i {
+                font-size: 18px;
+            }
         }
     }
 </style>
