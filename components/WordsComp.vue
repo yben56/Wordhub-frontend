@@ -5,7 +5,7 @@
                 <p class="word">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
                 <p class="translation">{{ data.translation }}</p>
                 <p class="info">
-                    <span class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
+                    <span v-if="data.pos" class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
                     <br />
                     <i class="fa-solid fa-chart-simple synonyms"></i>
                     <span>
@@ -72,12 +72,17 @@ const data = props.data
 
     .info {
         margin-bottom: 0;
+
         span, a {
             font-size: 12px;
         }
 
         a {
             color: #6610f2;
+        }
+
+        .pos {
+            color: darkred;
         }
 
         .probability {

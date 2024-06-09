@@ -3,13 +3,13 @@
         <div class="card mb-1">
             <div>
                 <span class="word">{{ data.word }}</span>
-                <span class="phonetic">/{{ data.phonetic }}/</span>
+                <span v-if="data.phonetic" class="phonetic">/{{ data.phonetic }}/</span>
                 <i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i>
                 <div class="openedit float-end"><a href="#" :title="$t('OpenEdit')"><i class="fa-solid fa-pen-to-square text-secondary"></i></a></div>
             </div>
             <p class="translation">{{ data.translation }}</p>
             <p class="info">
-                <span class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
+                <span v-if="data.pos" class="pos"><i class="fa-solid fa-book"></i> {{ data.pos }}</span>
                 <br />
                 <i class="fa-solid fa-chart-simple synonyms"></i>
                 <span>
@@ -66,17 +66,18 @@ const replaceWord = (item, word) => {
         font-size: 18px;
         font-weight: bold;
         margin-bottom:  0;
+        margin-right: 10px;
     }
 
     .phonetic {
         font-size: 14px;
-        margin: 0 10px;
+        margin-right: 10px;
         color: #777;
     }
 
     .translation {
         color: #777;
-        margin-bottom: 112px;
+        height: 120px;
     }
 
     .pos {
