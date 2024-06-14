@@ -11,16 +11,17 @@
                     <div class="form-check" v-for="(item, index) in data.quiz">
                         <label>
                             <input
-                                @click="submitanswer(data.id)" 
+                                @click="submitanswer(data.id, data.word)" 
                                 :name="data.id" 
                                 :value="item[0]"
                                 :data-answer="item[2]"
                                 class="form-check-input"
                                 type="radio"
                                 required
+                                :disabled="data.answer"
                             >
                             {{ item[1] }}
-                            <span class="show_options">:
+                            <span v-if="data.answer">:
                                 <a :href="'/search?q=' + item[0]" target="blank">
                                     <span class="text-primary">{{ item[0] }}</span>
                                 </a>
@@ -30,13 +31,14 @@
                     <div class="form-check text-muted">
                         <label>
                         <input
-                            @click="submitanswer(data.id)"
+                            @click="submitanswer(data.id, data.word)"
                             :name="data.id"
                             value="giveup"
                             :data-answer="false"
                             class="form-check-input"
                             type="radio"
                             required
+                            :disabled="data.answer"
                         > {{ $t('GiveUp') }} <i class="fa-regular fa-flag"></i>
                         </label>
                     </div>
@@ -69,14 +71,18 @@
 const { status, data: getSession } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
-const props = defineProps(['data'])
+let props = defineProps(['data'])
+props.data.forEach(obj => { obj.answer = false }) //add answer false
 
-const submitanswer = async (id) => {
+const submitanswer = async (id, word) => {
     //1. select options
     let labels = document.getElementById(id).querySelectorAll('label')
-    let correct = false
+    let correct = 0
 
-    //2. options
+    //2. disable input & show all english answer
+    props.data.forEach(obj => { if  (obj.id === id ) { obj.answer = true } })
+
+    //3. options
     labels.forEach(label => {
         let input = label.querySelector('input')
 
@@ -87,23 +93,12 @@ const submitanswer = async (id) => {
             label.classList.add('text-decoration-line-through')
         }
 
-        //show all english answer
-        label.querySelector('.show_options').classList.remove('show_options')
-
-        //disable input radio
-        input.setAttribute('disabled', '')
-
         //'correct var' for api
         if ( input.checked && input.getAttribute('data-answer') == 'true' ) {
-            let correct = true
+            correct = 1
         }
     })
-
-    alert()
-    console.log(id)
-    console.log(props.data['word'])
-    console.log(correct)
-
+    
     //3. send to api
     let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
         method : 'POST',
@@ -114,11 +109,10 @@ const submitanswer = async (id) => {
         },
         body : JSON.stringify({
             wordid: id,
-            word: props.data['word'],
+            word: word,
             correct: correct
         })
     })
-
 }
 </script>
 
@@ -151,10 +145,6 @@ const submitanswer = async (id) => {
 
     .question {
         height: 120px;
-
-        .show_options {
-            display: none;
-        }
     }
 
     .info {
