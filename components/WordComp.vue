@@ -18,7 +18,7 @@
                 <i class="fa-solid fa-chart-simple synonyms"></i>
                 <span>
                     {{ $t('Probability')}}: 
-                    <span class="probability">{{ $t(data.probability)}}</span>
+                    <span class="probability">{{ $data.probability }}</span>
                 </span>
                 <br />
                 <i class="fa-solid fa-pen accuracy"></i>
