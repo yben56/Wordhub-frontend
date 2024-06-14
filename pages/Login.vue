@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
-const token = useCookie('token').value
 const router = useRouter()
+const { status } = useAuth()
 
-if ( token ) { router.replace('/') }
+if ( status.value === 'authenticated' ) {router.replace('/') }
 </script>
 
 <style scoped lang="scss">
