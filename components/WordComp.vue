@@ -25,7 +25,7 @@
                 <span>{{ $t('Accuracy') }}: </span>
                 <span v-if="auth">
                     <span class="probability">
-                        {{ data.evaluation.correctness }}/{{ data.evaluation.trials }}
+                        {{ data.evaluation.correct }}/{{ data.evaluation.trials }}
                         ({{ data.evaluation.accuracy }})
                     </span>
                     <div class="progress">

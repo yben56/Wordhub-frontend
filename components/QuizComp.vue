@@ -52,11 +52,11 @@
                 <span>{{ $t('Accuracy') }}: </span>
                 <span v-if="auth">
                     <span class="probability">
-                        {{ data.accuracy }}/{{ data.tested }}
-                        ({{ Math.round((data.accuracy / data.tested) * 100) }}%)
+                        {{ data.evaluation.correct }}/{{ data.evaluation.trials }}
+                        ({{ data.evaluation.accuracy }})
                     </span>
                     <div class="progress">
-                        <div class="progress-bar bg-danger" :style="{width: Math.round((data.accuracy / data.tested) * 100) + '%'}"></div>
+                        <div class="progress-bar bg-danger" :style="{width: data.evaluation.accuracy}"></div>
                     </div>
                 </span>
                 <a v-else class="text-decoration-underline" href="/Login">{{ $t('LoginActive') }}</a>
@@ -99,6 +99,11 @@ const submitanswer = async (id) => {
         }
     })
 
+    alert()
+    console.log(id)
+    console.log(props.data['word'])
+    console.log(correct)
+
     //3. send to api
     let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
         method : 'POST',
@@ -109,6 +114,7 @@ const submitanswer = async (id) => {
         },
         body : JSON.stringify({
             wordid: id,
+            word: props.data['word'],
             correct: correct
         })
     })
