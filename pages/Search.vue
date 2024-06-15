@@ -7,7 +7,6 @@
                     <SearchComp :data="search"/>
                     <h5><i class="fa-solid fa-link"></i>{{ $t('Associate') }}</h5>
                     <SearchComp :data="associate"/>
-                    <div id="observer"></div>
                 </div>
                 <div class="p-3" v-else>
                     <h4 class="text-primary"><h4 class="fa-solid fa-robot"></h4> {{ $t('NoSearchResult') }}...</h4>
@@ -23,6 +22,7 @@
             </div>
         </div>
     </div>
+    <div id="observer"></div>
 </template>
 
 <script setup>
@@ -42,30 +42,28 @@ onMounted( async () => {
         //2. if word found, fetch associate
         search.value = api_search.data
 
-        let api_associate = await $backendapi('GET', '/api/associate/' + useRoute().query.q)
-        associate.value = api_associate.data
+        //3. load data & scroll to bottom and load more
+        let page = 1
+        const observer = new IntersectionObserver((enteries) => {
+            enteries.forEach(async (entry) => {
+                let api_associate = await $backendapi('GET', '/api/associate/' + useRoute().query.q + '?page=' + page)
+                associate.value = associate.value.concat(api_associate.data)
+                page += 1
+            })
+        })
+
+        observer.observe(document.getElementById('observer'))
     }
 
-    //3. fetch quiz
+    //4. fetch quiz
     let quizs = await $backendapi('GET', '/api/quiz?pages=5')
-    quiz.value = quizs.data
-
-    //4. scroll to bottom and load data
-    let page = 1
-    const observer = new IntersectionObserver((enteries) => {
-        enteries.forEach(async (entry) => {
-            page += 1
-            let api_associate = await $backendapi('GET', '/api/associate/' + useRoute().query.q + '?page=' + page)
-            associate.value = associate.value.concat(api_associate.data)
-        })
-    })
-
-    observer.observe(document.getElementById('observer'))
+    quiz.value = quizs.data 
 })
 </script>
 
 <style scope lang="scss">
     #search { 
+        min-height: 1000px;
         margin-top: 30px;
 
         .col-lg-3 {

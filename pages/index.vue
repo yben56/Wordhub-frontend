@@ -9,8 +9,8 @@
                 <QuizComp v-if="item.type === 'quiz'" :data="[item]"/>
             </template>
         </div>
-        <div id="observer"></div>
     </div>
+    <div id="observer"></div>
 </template>
 
 <script setup>
@@ -20,10 +20,7 @@ const data = ref([])
 const classification = route.query.classification
 
 onMounted( async () => {
-    //1. fetch api data
-    data.value = await fetchData(classification)
-
-    //2. scroll to bottom and load data
+    //load data & scroll to bottom and load more
     const observer = new IntersectionObserver((enteries) => {
         enteries.forEach(async (entry) => {
             let newdata = await fetchData(classification)
@@ -65,6 +62,8 @@ function mergeArrays(arr1, arr2) {
 
 <style scoped lang="scss">
 .container {
+    min-height: 1000px;
+
     h5 {
         font-weight: bold;
         margin: 15px 10px;
