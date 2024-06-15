@@ -35,34 +35,36 @@ onMounted( async () => {
     let word = useRoute().query.word
     if ( word ) { word = 'word=' + word } else { word = '' }
     
-    //2. fetch history
-    let api_history = await $backendapi('GET', 'api/history?' + word)
-    history.value = api_history.data
-
-    //3. fetch quiz
-    let quizs = await $backendapi('GET', 'api/quiz?pages=5')
-    quiz.value = quizs.data
-
-    //4. scroll to bottom and load data
-    if ( !word ) {
+    if ( word ) {
+        //2. search single word
+        let api_history = await $backendapi('GET', 'api/history?' + word)
+        history.value = api_history.data
+    }
+    else {
+        //3. load data & scroll to bottom and load more
         let page = 1
         const observer = new IntersectionObserver((enteries) => {
             enteries.forEach(async (entry) => {
-                page += 1
                 let api_history = await $backendapi('GET', 'api/history' + '?&page=' + page)
                 history.value = history.value.concat(api_history.data)
+                page += 1
             })
         })
 
         observer.observe(document.getElementById('observer'))
-    }  
+    } 
+
+    //4. fetch quiz
+    let quizs = await $backendapi('GET', 'api/quiz?pages=5')
+    quiz.value = quizs.data
+
 })
 </script>
 
 <style scope lang="scss">
 #history { 
-    min-height: 600px;
     margin-top: 15px;
+    min-height: 1000px;
 
     .col-lg-3 {
         width: 100%;
