@@ -1,9 +1,9 @@
 <template>
-    <CategoryComp />
+    <ClassificationComp />
     <CarouselComp />
     <div class="container">
         <div class="row">
-            <h5 id="Individual"><i class="fa-solid fa-person"></i>{{ $t('Individual') }}</h5>
+            <h5 id="Individual"><i class="fa-solid fa-book"></i>{{ $route.query.classification  ? $t($route.query.classification) : 'All' }}</h5>
             <template v-for="item in data" :key="item.id">
                 <WordsComp v-if="item.type === 'word'" :data="item"/>
                 <QuizComp v-if="item.type === 'quiz'" :data="[item]"/>
@@ -23,8 +23,8 @@ onMounted( async () => {
     //load data & scroll to bottom and load more
     const observer = new IntersectionObserver((enteries) => {
         enteries.forEach(async (entry) => {
-            let newdata = await fetchData(classification)
-            data.value = data.value.concat(newdata)
+            let apidata = await fetchData(classification)
+            data.value = data.value.concat(apidata)
         })
     })
 
@@ -35,7 +35,7 @@ const fetchData = async (classification) => {
     //1. classification
     if ( typeof classification === 'undefined' ) { classification = '' }
     else { classification = '&classification=' + classification }
-
+    
     //2. words
     let api_words = await $backendapi('GET', '/api/words?pages=9' + classification)
     api_words.data = api_words.data.map(word => ({type: 'word',...word}))
