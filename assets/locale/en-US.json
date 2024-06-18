@@ -7,7 +7,12 @@
     "AddWord" : "Add New Word/Phrase",
     "Associate" : "Associate",
     "Birthdayday" : "Birthday",
+    "Classification" : "Classification",
     "Congratulations" : "Congratulations!",
+    "EditWord" : "Edit Word",
+    "EditQuiz" : "Edit Quiz",
+    "EnglishSentenceInfo" : "Enter english sentence, system will auto translate",
+    "EnglishSentence" : "English Sentence...",
     "Email" : "Email",
     "EmailConfirmation" : "Please confirm your email",
     "Female" : "Female",
@@ -32,8 +37,10 @@
     "OpenEdit" : "Open Edit",
     "Password" : "Password",
     "PhoneNumber" : "Phone Number",
+    "Phonetic" : "Phonetic",
     "Privacy" : "Privacy Policy",
     "Probability" : "Probability",
+    "Pos" : "PartOfSpeech",
     "Quiz" : "Quiz",
     "RePassword" : "Re Password",
     "ResetPassword" : "Reset Password",
@@ -42,6 +49,7 @@
     "Resend" : "Resend",
     "Search": "Search",
     "SearchHistory" : "History",
+    "Sentences" : "Sentences",
     "Signup" : "Sign Up",
     "ShowAnswer" : "Show Answer",
     "Submit" : "Submit",
@@ -49,6 +57,7 @@
     "TermsPrivacy" : "Terms & Privacy",
     "Unauthenticated" : "Unauthenticated",
     "UserStatistic" : "UserStatistic",
+    "Word" : "Word",
     
     "All" : "全部",
     "Beverage": "飲料",
@@ -73,9 +82,11 @@
     "transitive verb": "Transitive Verb",
     "verb" : "Verb",
 
+    "ErrorInvalidatClassification" : "Classification must in list",
     "ErrorInvalidatEmail" : "Please provide a valid email address.",
     "ErrorInvalidatFirstname" : "Minimum 2 characters",
     "ErrorInvalidatLastname" : "Minimum 2 characters",
     "ErrorInvalidatPassword" : "Minimum 8 characters, at least 1 letter and 1 number.",
-    "ErrorInvalidatPasswordsMatch" : "Password do not match"
+    "ErrorInvalidatPasswordsMatch" : "Password do not match",
+    "ErrorInvalidatPos" : "Pos must in list"
 }

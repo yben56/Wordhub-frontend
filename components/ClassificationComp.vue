@@ -1,5 +1,5 @@
 <template>
-    <div class="category">
+    <div class="classification">
         <div class="container">
             <a :class="{ 'active': Object.keys($route.query).length === 0 }" class="btn btn-sm" href="/">{{ $t('All') }}</a>
             <a :class="{ 'active': $route.query.classification == 'Food' }" class="btn btn-sm" href="?classification=Food">{{ $t('Food') }}</a>
@@ -22,7 +22,7 @@
 </template>
 
 <style scoped lang="scss">
-.category {
+.classification {
     padding: 15px 10px;
     margin: 10px -10px;
 
