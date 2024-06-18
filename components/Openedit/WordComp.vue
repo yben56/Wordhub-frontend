@@ -1,46 +1,35 @@
 <template>
-    <form @submit.prevent="validate" id="openeditword" class="row g-3">
+    <form @submit.prevent="submitForm" id="openeditword" class="row g-3">
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Word') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" v-model="word" required>
+            <input type="text" class="form-control form-control-sm" maxlength="50" required name="word" :value="data.word">
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" v-model="translation" required>
+            <input type="text" class="form-control form-control-sm" maxlength="50" required name="translation" :value="data.translation">
         </div>
         <div class="col-md-2">
             <label class="form-label">{{ $t('Phonetic') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" v-model="phonetic" required>
+            <input type="text" class="form-control form-control-sm" maxlength="50" required name="phonetic" :value="data.phonetic">
         </div>
         <div class="col-md-2">
             <label class="form-label">*{{ $t('Pos') }}</label>
-            <input :class="['form-control', 'form-control-sm', { 'is-invalid': posError, 'is-valid': !posError && submit }]" list="pos" v-model="pos" required>
-            <div class="invalid-feedback" v-if="errors[0]">{{ errors[0].message }}</div>
+            <input class="form-control form-control-sm" list="pos" required name="pos" :value="data.pos">
             <datalist id="pos">
                 <option v-for="value in pos_list" :value="value">{{ value }}</option>
             </datalist>
         </div>
-        <div class="col-md-3">
-            <label class="form-label">{{ $t('Classification') }}</label>            
-            <input :class="['form-control', 'form-control-sm', { 'is-invalid': classificatio1Error, 'is-valid': !classificatio1Error && submit }]" list="classification1" v-model="classification1" :placeholder="$t('Classification') + ' 1'">
-            <div class="invalid-feedback" v-if="errors[1]">{{ errors[1].message }}</div>
-            <datalist id="classification1">
-                <option v-for="value in classification_list" :value="value">{{ value }}</option>
-            </datalist>
-        </div>
-        <div class="col-md-3">
-            <label class="form-label opacity-0 d-none d-md-block">{{ $t('Classification') }}2</label>
-            <input class="form-control form-select-sm" list="classification2" v-model="classification2" :placeholder="$t('Classification') + ' 2'">
-            <div class="invalid-feedback" v-if="errors[2]">{{ errors[2].message }}</div>
-            <datalist id="classification2">
-                <option v-for="value in classification_list" :value="value">{{ value }}</option>
-            </datalist>
-        </div>
-        <div class="col-md-3">
-            <label class="form-label opacity-0 d-none d-md-block">{{ $t('Classification') }}3</label>
-            <input class="form-control form-select-sm" list="classification3" v-model="classification3" :placeholder="$t('Classification') + ' 3'">
-            <div class="invalid-feedback" v-if="errors[3]">{{ errors[3].message }}</div>
-            <datalist id="classification3">
+        
+        <div class="col-md-3" v-for="(item, index) in data.classification" :key="index">
+            <label class="form-label" :class="{'opacity-0 d-none d-md-block' : index != 0 }">{{ $t('Classification') }}</label>         
+            <input
+                class="form-control form-control-sm"
+                list="classification"
+                :placeholder="$t('Classification') + (index + 1)"
+                name="classification[]"
+                :value="item"
+            >
+            <datalist id="classification">
                 <option v-for="value in classification_list" :value="value">{{ value }}</option>
             </datalist>
         </div>
@@ -49,9 +38,14 @@
                 {{ $t('Sentences') }} 
                 <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
             </label>
-            <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" v-model="sentence1">
-            <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" v-model="sentence2">
+            <div v-for="(item, index) in data.sentences" :key="index">
+                <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" name="sentences[]" :value="item.en">
+            </div>
         </div>
+        <div class="col-md-12">
+				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
+				<span class="info text-danger">{{ info }}</span>
+			</div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary w-100 p-2 submit">{{ $t('Submit')}}</button>
         </div>
@@ -61,83 +55,54 @@
 <script setup>
 import pos_list from '@/assets/json/pos.json'
 import classification_list from '@/assets/json/classification.json'
-
 import { useI18n } from 'vue-i18n'
 
+const { $backendapi } = useNuxtApp()
 const { t } = useI18n()
+const props = defineProps(['data'])
+const   submit = ref(false),
+	    spin = ref(false),
+		info = ref('')
 
-const	word = ref(''),
-        translation = ref(''),
-        phonetic = ref(''),
-        pos = ref(''),
-        posError = ref(false),
-        classification1 = ref(''),
-        classification1Error = ref(false),
-        classification2 = ref(''),
-        classification3 = ref(''),
-        sentence1 = ref(''),
-        sentence2 = ref(''),
-        errors = ref([])
-
-const validate = () => {
-	errors.value = []
-
-	//1. pos validate
-	if ( !pos_list.includes(pos.value) ) {
-        posError.value = true
-		errors.value.push({
-			'message': t('ErrorInvalidatPos')
-		})
-	} else {
-        posError.value = false
-		errors.value.push({'message': ''})
-	}
-
-    //2. classification validate
-	if ( !classification_list.includes(classification1.value) ) {
-        classification1Error.value = true
-		errors.value.push({
-			'message': t('ErrorInvalidatClassification')
-		})
-	} else {
-        classification1Error.value = false
-		errors.value.push({'message': ''})
-	}
-
-
-    /*
-	//3. submit btn been clicked
-	submit.value = true 
-
-	//4. Only trigger when validation success
-	if ( !emailError.value && !passwordError.value ) {
-		//submitForm()
-	}
-        */
-}
-
-const submitForm = async () => {
+const submitForm = async (e) => {
 	spin.value = true
 	info.value = ''
 
-	//1.
-	const api = await signIn('credentials', {
-		redirect: false,
-		email: email.value,
-		password: password.value
-	})
+    //1. form data
+    const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData.entries())
+
+    //2. classification & sentences
+    if ( formData.has('classification[]') ) {
+        data.classification = formData.getAll('classification[]')
+        data.classification = data.classification.filter(Boolean)
+        delete data['classification[]']
+    }
+
+    if ( formData.has('sentences[]') ) {
+        data.sentences = formData.getAll('sentences[]')
+        data.sentences = data.sentences.filter(Boolean)
+        delete data['sentences[]']
+    }
+
+    //3. api
+    let api = await $backendapi(
+        'PUT',
+        '/api/openedit/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
+        JSON.stringify(data)
+    )
 
 	spin.value = false
-
-	//2. error
+    
+	//4. error
 	if ( api.error ) {
 		const error = JSON.parse(api.error)
 		
-		//3. active
+		//5. active
 		if ( error.status == 403 ) { resend.value = true }
 		else { resend.value = false }
 
-		//4.
+		//6.
 		if ( error.status !== 200 ) {
 			info.value = error.message
 		}
@@ -145,8 +110,14 @@ const submitForm = async () => {
 		return
 	}
 
-	//5. success
-	window.location.reload()
+    let countdown = 4
+    setInterval(() => {
+        countdown--
+        info.value = t('OpeneditUpdateSuccessfuly') + ' ' +countdown
+        if ( countdown === 0 ) {
+            window.location.href='/Word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1]
+        }
+    }, 1000)
 }
 </script>
 

@@ -31,10 +31,6 @@ onMounted( async () => {
 #word { 
     margin-top: 30px;
 
-    .col-lg-3 {
-        width: 100%;
-    }
-
     h5 {
         font-weight: bold;
         margin-left: 10px;

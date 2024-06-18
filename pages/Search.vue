@@ -61,14 +61,10 @@ onMounted( async () => {
 })
 </script>
 
-<style scope lang="scss">
+<style lang="scss" scoped>
     #search { 
         min-height: 1000px;
         margin-top: 30px;
-
-        .col-lg-3 {
-            width: 100%;
-        }
 
         h5 {
             font-weight: bold;

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3" v-for="(data, index) in props.data">
+    <div v-for="(data, index) in props.data">
         <div class="card mb-1">
             <p class="word">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
             <div v-for="(data, index) in data.result">

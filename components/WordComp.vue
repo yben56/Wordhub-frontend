@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3" v-for="(data, index) in props.data">
+    <div :class="{'col-lg-3' : $route.path == '/' }" v-for="(data, index) in props.data">
         <div class="card mb-1">
             <div>
                 <span class="word">{{ data.word }}</span>

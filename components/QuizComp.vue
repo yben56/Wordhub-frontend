@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3" v-for="(data, index) in props.data">
+    <div :class="{'col-lg-3' : $route.path == '/' }" v-for="(data, index) in props.data">
         <div class="card">
             <p class="word">
                 <a :href="'/search?q=' + data.word" target="blank">{{ data.word }}</a>
