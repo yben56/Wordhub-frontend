@@ -2,7 +2,7 @@
     <div class="container">
        <div class="row">
             <div id="openedit-update" class="col-9">
-                <OpeneditTabComp />
+                <OpeneditUpdateTabComp />
              
                     
             </div>

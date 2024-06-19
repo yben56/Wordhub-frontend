@@ -2,36 +2,33 @@
     <form @submit.prevent="submitForm" id="openeditword" class="row g-3">
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Word') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required name="word" :value="data.word">
+            <input type="text" class="form-control form-control-sm" maxlength="50" :disabled="disabled" required name="word" :value="data.word">
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required name="translation" :value="data.translation">
+            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" name="translation" :value="data.translation">
         </div>
         <div class="col-md-2">
             <label class="form-label">{{ $t('Phonetic') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required name="phonetic" :value="data.phonetic">
+            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" name="phonetic" :value="data.phonetic">
         </div>
         <div class="col-md-2">
             <label class="form-label">*{{ $t('Pos') }}</label>
-            <input class="form-control form-control-sm" list="pos" required name="pos" :value="data.pos">
-            <datalist id="pos">
+            <select class="form-control form-control-sm" required :disabled="disabled" name="pos" :value="data.pos">
                 <option v-for="value in pos_list" :value="value">{{ value }}</option>
-            </datalist>
+            </select>
         </div>
         
         <div class="col-md-3" v-for="(item, index) in data.classification" :key="index">
             <label class="form-label" :class="{'opacity-0 d-none d-md-block' : index != 0 }">{{ $t('Classification') }}</label>         
-            <input
+            <select
                 class="form-control form-control-sm"
-                list="classification"
-                :placeholder="$t('Classification') + (index + 1)"
+                :disabled="disabled"
                 name="classification[]"
                 :value="item"
             >
-            <datalist id="classification">
-                <option v-for="value in classification_list" :value="value">{{ value }}</option>
-            </datalist>
+                <option v-for="(item, index) in classification_list" :value="index">{{ item }}</option>
+            </select>
         </div>
         <div class="col-md-12">
             <label class="form-label">
@@ -39,7 +36,7 @@
                 <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
             </label>
             <div v-for="(item, index) in data.sentences" :key="index">
-                <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" name="sentences[]" :value="item.en">
+                <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" name="sentences[]" :value="item.en">
             </div>
         </div>
         <div class="col-md-12">
@@ -47,7 +44,8 @@
 				<span class="info text-danger">{{ info }}</span>
 			</div>
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary w-100 p-2 submit">{{ $t('Submit')}}</button>
+            <button type="button" class="btn btn-danger w-100 p-2" v-if="disabled" @click="disabled=false">{{ $t('EditWord')}}</button>
+            <button type="submit" class="btn btn-primary w-100 p-2 submit" v-else>{{ $t('Submit')}}</button>
         </div>
     </form>
 </template>
@@ -60,7 +58,7 @@ import { useI18n } from 'vue-i18n'
 const { $backendapi } = useNuxtApp()
 const { t } = useI18n()
 const props = defineProps(['data'])
-const   submit = ref(false),
+const   disabled = ref(true),
 	    spin = ref(false),
 		info = ref('')
 
@@ -110,14 +108,8 @@ const submitForm = async (e) => {
 		return
 	}
 
-    let countdown = 4
-    setInterval(() => {
-        countdown--
-        info.value = t('OpeneditUpdateSuccessfuly') + ' ' +countdown
-        if ( countdown === 0 ) {
-            window.location.href='/Word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1]
-        }
-    }, 1000)
+    info.value = t('OpeneditUpdateSuccessfuly')
+    disabled.value = true
 }
 </script>
 

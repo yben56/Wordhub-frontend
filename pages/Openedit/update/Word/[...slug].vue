@@ -2,7 +2,7 @@
     <div id="openedit-update" class="container">
        <div class="row">
             <div class="col-md-9">
-                <OpeneditTabComp />
+                <OpeneditUpdateTabComp />
                 <OpeneditInfoComp />
                 <OpeneditWordComp :data="word"/>
                 <br>
