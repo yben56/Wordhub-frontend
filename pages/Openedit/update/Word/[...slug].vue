@@ -8,8 +8,7 @@
                 <br>
             </div>
             <div class="col-lg-3">
-                <h5><i class="fa-solid fa-pen"></i>{{ $t('Quiz') }}</h5>
-                <QuizComp :data="quiz" />
+                
             </div>
        </div> 
     </div>
@@ -19,7 +18,6 @@
 const { $authorization, $backendapi } = useNuxtApp()
 
 const word = ref([])
-const quiz = ref([])
 
 onMounted( async () => {
     //1. api
@@ -31,10 +29,6 @@ onMounted( async () => {
 
     //3. update word value
     word.value = api.data
-
-    //4. quiz
-    let quizs = await $backendapi('GET', '/api/quiz?pages=2')
-    quiz.value = quizs.data
 })
 
 function ensureArrayLength(arr, length) {

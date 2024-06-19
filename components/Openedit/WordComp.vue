@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="submitForm" id="openeditword" class="row g-3">
         <div class="col-md-4">
-            <label class="form-label">*{{ $t('Word') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" :disabled="disabled" required name="word" :value="data.word">
+            <label class="form-label">{{ $t('Word') }}</label>
+            <input type="text" class="form-control form-control-sm" maxlength="50" disabled required name="word" :value="data.word">
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
@@ -35,8 +35,15 @@
                 {{ $t('Sentences') }} 
                 <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
             </label>
-            <div v-for="(item, index) in data.sentences" :key="index">
-                <input type="text" class="form-control form-control-sm mb-3" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" name="sentences[]" :value="item.en">
+            <div class="sentence mb-4" v-for="(item, index) in data.sentences" :key="index">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text btn-primary">{{ $t('English') }}</span>
+                    <input type="text" class="form-control" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" :name="'sentences['+index+'][en]'" :value="item.en">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text btn-danger">{{ $t('Chinese') }}</span>
+                    <input type="text" class="form-control" maxlength="200" :placeholder="$t('ChineseTranslate')" :disabled="disabled" :name="'sentences['+index+'][zh]'" :value="item.zh">
+                </div>
             </div>
         </div>
         <div class="col-md-12">
@@ -52,6 +59,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { friendlyJSONstringify } from '~/node_modules/@intlify/shared/dist/shared'
 
 const { $backendapi } = useNuxtApp()
 const pos_list = await $backendapi('GET', '/api/dictionarylist/pos')
@@ -65,51 +73,74 @@ const   disabled = ref(true),
 const submitForm = async (e) => {
 	spin.value = true
 	info.value = ''
-
+    
     //1. form data
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
 
-    //2. classification & sentences
+    //2. classification
     if ( formData.has('classification[]') ) {
         data.classification = formData.getAll('classification[]')
         data.classification = data.classification.filter(Boolean)
         delete data['classification[]']
     }
 
-    if ( formData.has('sentences[]') ) {
-        data.sentences = formData.getAll('sentences[]')
-        data.sentences = data.sentences.filter(Boolean)
-        delete data['sentences[]']
+    //3. sentences
+    const sentences = [];
+    for  (const [key, value] of Object.entries(data) ) {
+        const match = key.match(/sentences\[(\d+)\]\[(en|zh)\]/)
+
+        if ( match ) {
+            const index = parseInt(match[1], 10)
+            const lang = match[2]
+
+            if ( !sentences[index] ) {  sentences[index] = {} }
+            sentences[index][lang] = value
+        }
     }
 
-    //3. api
+    data['sentences'] = sentences.filter(sentence => sentence.en && sentence.zh)
+
+    //4. post data
+    const post_data = {
+        'translation' : data['translation'],
+        'phonetic' : data['phonetic'],
+        'pos' : data['pos'],
+        'classification' : data['classification'],
+        'sentences' : data['sentences']
+    }
+
+    //5. api
     let api = await $backendapi(
         'PUT',
         '/api/openedit/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
-        JSON.stringify(data)
+        JSON.stringify(post_data)
     )
 
 	spin.value = false
     
-	//4. error
+	//6. error
 	if ( api.error ) {
 		const error = JSON.parse(api.error)
 		
-		//5. active
+		//7. active
 		if ( error.status == 403 ) { resend.value = true }
 		else { resend.value = false }
 
-		//6.
+		//8.
 		if ( error.status !== 200 ) {
 			info.value = error.message
 		}
 
 		return
 	}
-
+    
+   
     info.value = t('OpeneditUpdateSuccessfuly')
     disabled.value = true
+
+    window.location.reload()
+    
 }
 </script>
 
@@ -122,6 +153,21 @@ const submitForm = async (e) => {
 
     .opacity-0 {
         opacity: 0;
+    }
+
+    .sentence div:first-child {
+        span, input {
+            border-bottom: none;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    .sentence div:last-child {
+        span, input {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
     }
 }
 </style>
