@@ -51,11 +51,11 @@
 </template>
 
 <script setup>
-import pos_list from '@/assets/json/pos.json'
-import classification_list from '@/assets/json/classification.json'
 import { useI18n } from 'vue-i18n'
 
 const { $backendapi } = useNuxtApp()
+const pos_list = await $backendapi('GET', '/api/dictionarylist/pos')
+const classification_list = await $backendapi('GET', '/api/dictionarylist/classification')
 const { t } = useI18n()
 const props = defineProps(['data'])
 const   disabled = ref(true),
