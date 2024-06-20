@@ -1,9 +1,9 @@
 <template>
     <div class="tab">
-        <a :class="{ 'active': $route.name === 'Openedit-update-Word-slug' }" class="btn btn-sm" :href="'/openedit/update/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+        <a :class="{ 'active': $route.name === 'Openedit-Word-slug' }" class="btn btn-sm" :href="'/openedit/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
             {{ $t('EditWord') }}
         </a>
-        <a :class="{ 'active': $route.name === 'Openedit-update-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/update/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+        <a :class="{ 'active': $route.name === 'Openedit-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
             {{ $t('EditQuiz') }}
         </a>
     </div>

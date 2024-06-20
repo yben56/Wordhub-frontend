@@ -6,7 +6,7 @@
                 <span v-if="data.phonetic" class="phonetic">/{{ data.phonetic }}/</span>
                 <i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i>
                 <div class="openedit float-end">
-                    <a :href="'/openedit/update/word/' + data.word + '/' + data.id" :title="$t('OpenEdit')">
+                    <a :href="'/openedit/word/' + data.word + '/' + data.id" :title="$t('OpenEdit')">
                         <i class="fa-solid fa-pen-to-square text-secondary"></i>
                     </a>
                 </div>

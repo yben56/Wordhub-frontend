@@ -113,7 +113,7 @@ const submitForm = async (e) => {
     //5. api
     let api = await $backendapi(
         'PUT',
-        '/api/openedit/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
+        '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
         JSON.stringify(post_data)
     )
 

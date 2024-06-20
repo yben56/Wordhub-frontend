@@ -21,7 +21,7 @@ const word = ref([])
 
 onMounted( async () => {
     //1. api
-    let api = await $backendapi('GET', '/api/openedit/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
+    let api = await $backendapi('GET', '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     
     //2. make sure classification & sentences have correct elements
     ensureArrayLength(api.data.classification, 4)
