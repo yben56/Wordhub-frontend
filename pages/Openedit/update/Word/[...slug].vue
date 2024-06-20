@@ -1,8 +1,8 @@
 <template>
-    <div id="openedit-update" class="container">
+    <div id="openedit-update-word" class="container">
        <div class="row">
             <div class="col-md-9">
-                <OpeneditUpdateTabComp />
+                <OpeneditTabComp />
                 <OpeneditInfoComp />
                 <OpeneditWordComp :data="word"/>
                 <br>
@@ -39,7 +39,7 @@ function ensureArrayLength(arr, length) {
 </script>
 
 <style lang="scss" scoped>
-#openedit-update {
+#openedit-update-word {
     margin-top: 30px;
 
     h5 {
