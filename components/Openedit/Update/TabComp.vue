@@ -1,15 +1,17 @@
 <template>
     <div class="tab">
-        <a :class="{ 'active': $route.name === 'Openedit-update-Word-slug' }" class="btn btn-sm" :href="'/openedit/update/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]"><i class="fa-solid fa-pen-to-square"></i> {{ $t('EditWord') }}</a>
-        <a :class="{ 'active': $route.name === 'Openedit-update-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/update/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]"><i class="fa-solid fa-pen-to-square"></i> {{ $t('EditQuiz') }}</a>
+        <a :class="{ 'active': $route.name === 'Openedit-update-Word-slug' }" class="btn btn-sm" :href="'/openedit/update/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+            {{ $t('EditWord') }}
+        </a>
+        <a :class="{ 'active': $route.name === 'Openedit-update-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/update/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+            {{ $t('EditQuiz') }}
+        </a>
     </div>
     <hr>
 </template>
 
 <style lang="scss">
-.tab {
-    margin-top: 25px;
-    
+.tab {   
     a {
         margin-right : 10px;
     }
