@@ -24,7 +24,7 @@ onMounted( async () => {
     let api = await $backendapi('GET', '/api/openedit/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     
     //2. make sure classification & sentences have correct elements
-    ensureArrayLength(api.data.classification, 3)
+    ensureArrayLength(api.data.classification, 4)
     ensureArrayLength(api.data.sentences, 5)
 
     //3. update word value

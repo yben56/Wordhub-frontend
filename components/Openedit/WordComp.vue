@@ -2,7 +2,7 @@
     <form @submit.prevent="submitForm" id="openeditword" class="row g-3">
         <div class="col-md-4">
             <label class="form-label">{{ $t('Word') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" disabled required name="word" :value="data.word">
+            <input type="text" class="form-control form-control-sm word" maxlength="50" readonly :disabled="disabled" required name="word" :value="data.word">
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
@@ -27,6 +27,7 @@
                 name="classification[]"
                 :value="item"
             >
+                <option value="" disabled>{{ $t('Classification') }} {{ index+1 }}</option>
                 <option v-for="(item, index) in classification_list" :value="index">{{ item }}</option>
             </select>
         </div>
@@ -35,12 +36,10 @@
                 {{ $t('Sentences') }} 
                 <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
             </label>
-            <div class="sentence mb-4" v-for="(item, index) in data.sentences" :key="index">
-                <div class="input-group input-group-sm">
+            <div class="sentence mb-4" v-for="(item, index) in apidata.sentences" :key="index">
+                <div class="input-group input-group-sm" :class="{ 'd-none' : !item && disabled }">
                     <span class="input-group-text btn-primary">{{ $t('English') }}</span>
                     <input type="text" class="form-control" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" :name="'sentences['+index+'][en]'" :value="item.en">
-                </div>
-                <div class="input-group input-group-sm">
                     <span class="input-group-text btn-danger">{{ $t('Chinese') }}</span>
                     <input type="text" class="form-control" maxlength="200" :placeholder="$t('ChineseTranslate')" :disabled="disabled" :name="'sentences['+index+'][zh]'" :value="item.zh">
                 </div>
@@ -66,6 +65,7 @@ const pos_list = await $backendapi('GET', '/api/dictionarylist/pos')
 const classification_list = await $backendapi('GET', '/api/dictionarylist/classification')
 const { t } = useI18n()
 const props = defineProps(['data'])
+const apidata = toRef(props , 'data')
 const   disabled = ref(true),
 	    spin = ref(false),
 		info = ref('')
@@ -135,7 +135,6 @@ const submitForm = async (e) => {
 		return
 	}
     
-   
     info.value = t('OpeneditUpdateSuccessfuly')
     disabled.value = true
 
@@ -151,23 +150,21 @@ const submitForm = async (e) => {
         color: #dc3545;
     }
 
+    .word {
+        background-color: transparent;
+        color: #6610f2;
+        cursor: not-allowed;
+    }
+
+    input:disabled, select:disabled  {
+        background-color: transparent;
+        border-radius: 0;
+        border: none;
+        border-bottom: solid 1px #ccc ;
+    }
+
     .opacity-0 {
         opacity: 0;
-    }
-
-    .sentence div:first-child {
-        span, input {
-            border-bottom: none;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-    }
-
-    .sentence div:last-child {
-        span, input {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
     }
 }
 </style>
