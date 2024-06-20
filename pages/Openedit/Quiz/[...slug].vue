@@ -3,7 +3,7 @@
        <div class="row">
             <div class="col-md-9">
                 <OpeneditTabComp />
-                <OpeneditQuizComp :data="quiz" />
+                <OpeneditQuizComp :data="quiz"/>
             </div>
             <div class="col-lg-3">
                 
@@ -21,8 +21,8 @@ onMounted( async () => {
     //1. api
     let api = await $backendapi('GET', '/api/openedit/quiz/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     
-    //2. update word value
-    quiz.value = api.data
+    //2. update word value (put true to 1st item)
+    quiz.value = api.data.quiz.sort((a, b) => b[2] - a[2])
 })
 </script>
 

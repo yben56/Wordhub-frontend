@@ -36,7 +36,7 @@
                 {{ $t('Sentences') }} 
                 <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
             </label>
-            <div class="sentence mb-4" v-for="(item, index) in apidata.sentences" :key="index">
+            <div class="sentence mb-4" v-for="(item, index) in data.sentences" :key="index">
                 <div class="input-group input-group-sm" :class="{ 'd-none' : !item && disabled }">
                     <span class="input-group-text btn-primary">{{ $t('English') }}</span>
                     <input type="text" class="form-control" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" :name="'sentences['+index+'][en]'" :value="item.en">
@@ -65,7 +65,6 @@ const pos_list = await $backendapi('GET', '/api/dictionarylist/pos')
 const classification_list = await $backendapi('GET', '/api/dictionarylist/classification')
 const { t } = useI18n()
 const props = defineProps(['data'])
-const apidata = toRef(props , 'data')
 const   disabled = ref(true),
 	    spin = ref(false),
 		info = ref('')
