@@ -7,7 +7,7 @@
             {{ $t('EditQuiz') }}
         </a>
     </div>
-    <hr>
+    <hr class="mt-3">
 </template>
 
 <style lang="scss">
