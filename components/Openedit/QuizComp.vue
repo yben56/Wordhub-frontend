@@ -5,19 +5,19 @@
                 <label class="form-label mb-3" v-if="index == 0">正確答案</label>
                 <label class="form-label" v-else-if="index == 1">錯誤選項</label>
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text btn-primary">{{ $t('English') }}</span>
+                    <span class="input-group-text btn-primary" :class="{ 'disabled' : disabled }">{{ $t('English') }}</span>
                     <input type="text" class="form-control" maxlength="100" :disabled="disabled" v-model="item[0]">
-                    <span class="input-group-text btn-danger">{{ $t('Chinese') }}</span>
+                    <span class="input-group-text btn-danger" :class="{ 'disabled' : disabled }">{{ $t('Chinese') }}</span>
                     <input type="text" class="form-control" maxlength="100" :placeholder="$t('ChineseTranslate')" :disabled="disabled" v-model="item[1]">
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
 				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
 				<span class="info text-danger">{{ info }}</span>
 			</div>
         <div class="col-md-12">
-            <button type="button" class="btn btn-danger w-100 p-2" v-if="disabled" @click="disabled=false">{{ $t('EditWord')}}</button>
+            <button type="button" class="btn btn-danger w-100 p-2" v-if="disabled" @click="disabled=false, info=''">{{ $t('EditWord')}}</button>
             <button type="submit" class="btn btn-primary w-100 p-2 submit" v-else>{{ $t('Submit')}}</button>
         </div>
     </form>
@@ -64,8 +64,6 @@ const submitForm = async (e) => {
     
     info.value = t('OpeneditUpdateSuccessfuly')
     disabled.value = true
-
-    window.location.reload()
 }
 </script>
 
@@ -91,6 +89,10 @@ const submitForm = async (e) => {
 
     .opacity-0 {
         opacity: 0;
+    }
+
+    .disabled {
+        display: none;
     }
 }
 </style>
