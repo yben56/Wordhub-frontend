@@ -3,7 +3,7 @@
        <div class="row">
             <div class="col-md-9">
                 <OpeneditTabComp />
-                <OpeneditQuizComp />
+                <OpeneditQuizComp :data="quiz" />
             </div>
             <div class="col-lg-3">
                 
@@ -15,25 +15,15 @@
 <script setup>
 const { $authorization, $backendapi } = useNuxtApp()
 
-const word = ref([])
+const quiz = ref([])
 
 onMounted( async () => {
     //1. api
-    let api = await $backendapi('GET', '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
+    let api = await $backendapi('GET', '/api/openedit/quiz/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     
-    //2. make sure classification & sentences have correct elements
-    ensureArrayLength(api.data.classification, 4)
-    ensureArrayLength(api.data.sentences, 5)
-
-    //3. update word value
-    word.value = api.data
+    //2. update word value
+    quiz.value = api.data
 })
-
-function ensureArrayLength(arr, length) {
-    while ( arr.length < length ) {
-        arr.push('')
-    }
-}
 </script>
 
 <style lang="scss">
