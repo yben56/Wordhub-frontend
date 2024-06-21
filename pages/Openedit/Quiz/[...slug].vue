@@ -21,9 +21,20 @@ onMounted( async () => {
     //1. api
     let api = await $backendapi('GET', '/api/openedit/quiz/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
     
-    //2. update word value (put true to 1st item)
-    quiz.value = api.data.quiz.sort((a, b) => b[2] - a[2])
+    if ( api.message == 'Page not found.' ) {
+        quiz.value = [[useRoute().params.slug[0], '', true],['','',false],['','',false],['','',false]]
+    }
+    else {
+        //2. update word value (put true to 1st item)
+        quiz.value = api.data.quiz.sort((a, b) => b[2] - a[2])
+    }
 })
+
+function ensureArrayLength(arr, length) {
+    while ( arr.length < length ) {
+        arr.push('')
+    }
+}
 </script>
 
 <style lang="scss">

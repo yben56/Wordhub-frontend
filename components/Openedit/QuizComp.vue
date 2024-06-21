@@ -2,13 +2,13 @@
     <form @submit.prevent="submitForm" id="openeditquiz" class="row g-3">
         <div class="col-md-12">
             <div v-for="(item, index) in data" :key="index">
-                <label class="form-label mb-3" v-if="index == 0">正確答案</label>
-                <label class="form-label" v-else-if="index == 1">錯誤選項</label>
+                <label class="form-label mb-3" v-if="index == 0">{{ $t('OptionTrue') }}</label>
+                <label class="form-label" v-else-if="index == 1">{{ $t('OptionFalse') }}</label>
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text btn-primary" :class="{ 'disabled' : disabled }">{{ $t('English') }}</span>
-                    <input type="text" class="form-control" maxlength="100" :disabled="disabled" v-model="item[0]">
-                    <span class="input-group-text btn-danger" :class="{ 'disabled' : disabled }">{{ $t('Chinese') }}</span>
-                    <input type="text" class="form-control" maxlength="100" :placeholder="$t('ChineseTranslate')" :disabled="disabled" v-model="item[1]">
+                    <span class="input-group-text btn-primary" :class="{ 'disabled-span' : disabled }">{{ $t('English') }}</span>
+                    <input type="text" class="form-control" maxlength="100" :placeholder="$t('English...')" :disabled="disabled" :readonly=" index == 0" v-model="item[0]">
+                    <span class="input-group-text btn-danger" :class="{ 'disabled-span' : disabled }">{{ $t('Chinese') }}</span>
+                    <input type="text" class="form-control" :class="{ 'disabled-input' : disabled }" maxlength="100" :placeholder="$t('ChineseTranslate...')" :disabled="disabled" v-model="item[1]">
                 </div>
             </div>
         </div>
@@ -91,8 +91,12 @@ const submitForm = async (e) => {
         opacity: 0;
     }
 
-    .disabled {
+    .disabled-span {
         display: none;
+    }
+
+    .disabled-input {
+        margin-left: 10px
     }
 }
 </style>
