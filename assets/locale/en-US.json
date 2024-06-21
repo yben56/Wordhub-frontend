@@ -6,6 +6,7 @@
     "Chinese" : "Chinese",
 
     "Accuracy" : "Answer Accuracy",
+    "AddMore" : "Add More",
     "AddWord" : "Add New Word/Phrase",
     "Associate" : "Associate",
     "Birthdayday" : "Birthday",
@@ -16,7 +17,7 @@
     "EditQuiz" : "Edit Quiz",
     "English..." : "English...",
     "EnglishSentenceInfo" : "Enter english sentence, system will auto translate",
-    "EnglishSentence" : "English Sentence...",
+    "EnglishSentence..." : "English Sentence...",
     "Email" : "Email",
     "EmailConfirmation" : "Please confirm your email",
     "Female" : "Female",

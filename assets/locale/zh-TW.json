@@ -6,6 +6,7 @@
     "Chinese" : "中文",
 
     "Accuracy" : "回答正確率",
+    "AddMore" : "增加",
     "AddWord" : "新增單字/片語",
     "Associate" : "相關",
     "Birthday" : "生日",
@@ -16,7 +17,7 @@
     "EditQuiz" : "編輯小測試",
     "English..." : "英文...",
     "EnglishSentenceInfo" : "請輸入英文句子, 系統會自動生成翻譯",
-    "EnglishSentence" : "英文例句...",
+    "EnglishSentence..." : "英文例句...",
     "Email" : "電子郵件",
     "EmailConfirmation" : "請驗證你的Email",
     "Female" : "女",

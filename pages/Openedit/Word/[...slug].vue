@@ -25,7 +25,7 @@ onMounted( async () => {
     
     //2. make sure classification & sentences have correct elements
     ensureArrayLength(api.data.classification, 4)
-    ensureArrayLength(api.data.sentences, 5)
+    ensureArrayLength(api.data.sentences, 1)
 
     //3. update word value
     word.value = api.data

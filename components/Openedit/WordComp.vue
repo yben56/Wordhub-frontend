@@ -6,44 +6,42 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" name="translation" :value="data.translation">
+            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" v-model="data.translation">
         </div>
         <div class="col-md-2">
             <label class="form-label">{{ $t('Phonetic') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" name="phonetic" :value="data.phonetic">
+            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" v-model="data.phonetic">
         </div>
         <div class="col-md-2">
             <label class="form-label">*{{ $t('Pos') }}</label>
-            <select class="form-control form-control-sm" required :disabled="disabled" name="pos" :value="data.pos">
+            <select class="form-control form-control-sm" required :disabled="disabled" v-model="data.pos">
                 <option v-for="value in pos_list" :value="value">{{ value }}</option>
             </select>
         </div>
-        
         <div class="col-md-3" v-for="(item, index) in data.classification" :key="index">
             <label class="form-label" :class="{'opacity-0 d-none d-md-block' : index != 0 }">{{ $t('Classification') }}</label>         
-            <select
-                class="form-control form-control-sm"
-                :disabled="disabled"
-                name="classification[]"
-                :value="item"
-            >
-                <option value="" disabled>{{ $t('Classification') }} {{ index+1 }}</option>
+            <select class="form-control form-control-sm" :disabled="disabled" v-model="data.classification[index]">
+                <option value="">{{ $t('Classification') }} {{ index+1 }}</option>
                 <option v-for="(item, index) in classification_list" :value="index">{{ item }}</option>
             </select>
         </div>
         <div class="col-md-12">
-            <label class="form-label">
-                {{ $t('Sentences') }} 
-                <span class="sentences-info">({{ $t('EnglishSentenceInfo') }})</span>
-            </label>
+            <label class="form-label">{{ $t('Sentences') }}</label>
             <div class="sentence mb-4" v-for="(item, index) in data.sentences" :key="index">
                 <div class="input-group input-group-sm" :class="{ 'd-none' : !item && disabled }">
-                    <span class="input-group-text btn-primary">{{ $t('English') }}</span>
-                    <input type="text" class="form-control" maxlength="200" :placeholder="$t('EnglishSentence')" :disabled="disabled" :name="'sentences['+index+'][en]'" :value="item.en">
-                    <span class="input-group-text btn-danger">{{ $t('Chinese') }}</span>
-                    <input type="text" class="form-control" maxlength="200" :placeholder="$t('ChineseTranslate')" :disabled="disabled" :name="'sentences['+index+'][zh]'" :value="item.zh">
+                    <span class="input-group-text btn-primary" :class="{ 'disabled-span' : disabled }">{{ $t('English') }}</span>
+                    <input 
+                        type="text" maxlength="200" class="form-control" :class="{ 'disabled-input' : disabled }" 
+                        :placeholder="$t('EnglishSentence...')" :disabled="disabled" v-model="item['en']"
+                    >
+                    <span class="input-group-text btn-danger" :class="{ 'disabled-span' : disabled }">{{ $t('Chinese') }}</span>
+                    <input 
+                        type="text" maxlength="200" class="form-control" :class="{ 'disabled-input' : disabled }"
+                        :placeholder="$t('ChineseTranslate...')" :disabled="disabled" v-model="item['zh']"
+                    >
                 </div>
             </div>
+            <b class="btn text-danger" :class="{ 'disabled-btn' : disabled }" @click="addSentence" v-if="addmore">+{{ $t('AddMore') }}</b>
         </div>
         <div class="col-md-12">
 				<i v-if="spin" class="fa fa-refresh fa-spin"></i>
@@ -72,53 +70,32 @@ const   disabled = ref(true),
 const submitForm = async (e) => {
 	spin.value = true
 	info.value = ''
-    
-    //1. form data
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData.entries())
+
+    //1.
+    const postdata = {}
+    postdata.word = props.data.word
+    postdata.translation = props.data.translation
+    postdata.phonetic = props.data.phonetic
+    postdata.pos = props.data.pos
+    postdata.classification = props.data.classification
+    postdata.sentences = props.data.sentences
 
     //2. classification
-    if ( formData.has('classification[]') ) {
-        data.classification = formData.getAll('classification[]')
-        data.classification = data.classification.filter(Boolean)
-        delete data['classification[]']
-    }
+    postdata.classification = postdata.classification.filter(Boolean)
 
     //3. sentences
-    const sentences = [];
-    for  (const [key, value] of Object.entries(data) ) {
-        const match = key.match(/sentences\[(\d+)\]\[(en|zh)\]/)
+    postdata.sentences = postdata.sentences.filter(item => item.en !== '' || item.zh !== '')
 
-        if ( match ) {
-            const index = parseInt(match[1], 10)
-            const lang = match[2]
-
-            if ( !sentences[index] ) {  sentences[index] = {} }
-            sentences[index][lang] = value
-        }
-    }
-
-    data['sentences'] = sentences.filter(sentence => sentence.en && sentence.zh)
-
-    //4. post data
-    const post_data = {
-        'translation' : data['translation'],
-        'phonetic' : data['phonetic'],
-        'pos' : data['pos'],
-        'classification' : data['classification'],
-        'sentences' : data['sentences']
-    }
-
-    //5. api
+    //4. api
     let api = await $backendapi(
         'PUT',
         '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
-        JSON.stringify(post_data)
+        JSON.stringify(postdata)
     )
 
 	spin.value = false
     
-	//6. error
+	//5. error
 	if ( api.error ) {
 		const error = JSON.parse(api.error)
 		
@@ -136,19 +113,20 @@ const submitForm = async (e) => {
     
     info.value = t('OpeneditUpdateSuccessfuly')
     disabled.value = true
+}
 
-    window.location.reload()
-    
+const addmore = ref(true)
+const addSentence = () => {
+    if ( props.data.sentences.length < 10) {
+        props.data.sentences.push({'en':'','zh':''})
+    }
+
+    if ( props.data.sentences.length == 10 ) { addmore.value = false }
 }
 </script>
 
 <style lang="scss" scoped>
 #openeditword {
-    .sentences-info {
-        font-size: .875em;
-        color: #dc3545;
-    }
-
     .word {
         background-color: transparent;
         color: #6610f2;
@@ -164,6 +142,14 @@ const submitForm = async (e) => {
 
     .opacity-0 {
         opacity: 0;
+    }
+
+    .disabled-span, .disabled-btn {
+        display: none;
+    }
+
+    .disabled-input {
+        margin-left: 10px
     }
 }
 </style>
