@@ -85,6 +85,7 @@ const submitForm = async (e) => {
 
     //3. sentences
     postdata.sentences = postdata.sentences.filter(item => item.en !== '' || item.zh !== '')
+    if  ( postdata.sentences.length === 1 && postdata.sentences[0] === '' ) { postdata.sentences = [] } //prevent no sentence submit become ['']
 
     //4. api
     let api = await $backendapi(
@@ -110,7 +111,7 @@ const submitForm = async (e) => {
 
 		return
 	}
-    
+
     info.value = t('OpeneditUpdateSuccessfuly')
     disabled.value = true
 }
