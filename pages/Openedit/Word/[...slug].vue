@@ -15,8 +15,8 @@
 </template>
 
 <script setup>
+definePageMeta({ middleware: 'auth' })
 const { $authorization, $backendapi } = useNuxtApp()
-
 const word = ref([])
 
 onMounted( async () => {

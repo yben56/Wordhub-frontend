@@ -23,8 +23,7 @@
 </template>
 
 <script setup>
-const { status } = useAuth()
-const auth = computed(() => status.value === 'authenticated')
+definePageMeta({ middleware: 'auth' })
 
 const { $authorization, $backendapi } = useNuxtApp()
 const history = ref([])
