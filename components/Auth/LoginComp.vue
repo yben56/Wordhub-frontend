@@ -120,7 +120,7 @@ const submitForm = async () => {
 		const error = JSON.parse(api.error)
 		
 		//3. active
-		if ( error.status == 403 ) { resend.value = true }
+		if ( error.status == 401 ) { resend.value = true }
 		else { resend.value = false }
 
 		//4.
