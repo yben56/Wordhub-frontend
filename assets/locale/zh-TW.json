@@ -56,6 +56,7 @@
     "ResetPasswordSuccess" : "你已成功更新你的密碼, 請重新登入",
     "Resend" : "重新發送",
     "Search": "搜尋",
+    "SearchFuzzy" : "你是否要搜尋?",
     "SearchHistory" : "搜尋紀錄",
     "Sentences" : "句子",
     "Signup" : "註冊",

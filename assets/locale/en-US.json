@@ -55,6 +55,7 @@
     "ResetPasswordLinkSend" : "We have sent you a reset password link to your email. Please check your email inbox, including the spam or junk folder, to ensure you receive it.",
     "ResetPasswordSuccess" : "You have successfully update your password, Please relogin.",
     "Resend" : "Resend",
+    "SearchFuzzy" : "Fuzzy Search",
     "Search": "Search",
     "SearchHistory" : "History",
     "Sentences" : "Sentences",
