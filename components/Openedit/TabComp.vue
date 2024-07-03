@@ -1,11 +1,16 @@
 <template>
     <div class="tab">
-        <a :class="{ 'active': $route.name === 'Openedit-Word-slug' }" class="btn btn-sm" :href="'/openedit/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
-            {{ $t('EditWord') }}
-        </a>
-        <a :class="{ 'active': $route.name === 'Openedit-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
-            {{ $t('EditQuiz') }}
-        </a>
+        <div v-if="$route.params.slug !== undefined">
+            <a :class="{ 'active': $route.name === 'Openedit-Word-slug' }" class="btn btn-sm" :href="'/openedit/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+                {{ $t('EditWord') }}
+            </a>
+            <a :class="{ 'active': $route.name === 'Openedit-Quiz-slug' }" class="btn btn-sm" :href="'/openedit/quiz/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
+                {{ $t('EditQuiz') }}
+            </a>
+        </div>
+        <div v-else>
+            <a class="active btn btn-sm">{{ $t('EditWord') }}</a>
+        </div>
     </div>
     <hr class="mt-3">
 </template>
