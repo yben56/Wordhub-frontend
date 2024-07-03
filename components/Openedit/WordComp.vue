@@ -92,8 +92,8 @@ const submitForm = async (e) => {
         '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
         JSON.stringify(postdata)
     )
-    console.log(api)
-	spin.value = false
+
+    spin.value = false
     
 	//5. error
 	if ( api.error ) {
