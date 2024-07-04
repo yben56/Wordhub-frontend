@@ -1,8 +1,16 @@
 <template>
     <form @submit.prevent="submitForm" id="openeditword" class="row g-3">
         <div class="col-md-4">
-            <label class="form-label">{{ $t('Word') }}</label>
-            <input type="text" class="form-control form-control-sm word" maxlength="50" readonly :disabled="disabled" required name="word" :value="data.word">
+            <label class="form-label">*{{ $t('Word') }}</label>
+            <input
+                type="text"
+                class="form-control form-control-sm word"
+                maxlength="50"
+                :readonly="props.method == 'PUT'"
+                :disabled="disabled"
+                v-model="data.word"
+                required
+            >
         </div>
         <div class="col-md-4">
             <label class="form-label">*{{ $t('Translation') }}</label>
@@ -10,7 +18,7 @@
         </div>
         <div class="col-md-2">
             <label class="form-label">{{ $t('Phonetic') }}</label>
-            <input type="text" class="form-control form-control-sm" maxlength="50" required :disabled="disabled" v-model="data.phonetic">
+            <input type="text" class="form-control form-control-sm" maxlength="50" :disabled="disabled" v-model="data.phonetic">
         </div>
         <div class="col-md-2">
             <label class="form-label">*{{ $t('Pos') }}</label>
@@ -48,24 +56,25 @@
 				<span class="info text-danger">{{ info }}</span>
 			</div>
         <div class="col-md-12">
-            <button type="button" class="btn btn-danger w-100 p-2" v-if="disabled" @click="disabled=false">{{ $t('EditWord')}}</button>
+            <button type="button" class="btn btn-danger w-100 p-2" v-if="disabled" @click="disabled=false">
+                <span v-if="$route.params.slug.length == 2">{{ $t('EditWord')}}</span>
+                <span v-else>{{ $t('AddWord')}}</span>
+            </button>
             <button type="submit" class="btn btn-primary w-100 p-2 submit" v-else>{{ $t('Submit')}}</button>
         </div>
     </form>
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-import { friendlyJSONstringify } from '~/node_modules/@intlify/shared/dist/shared'
-
+const { t } = useI18n()
 const { $backendapi } = useNuxtApp()
 const pos_list = await $backendapi('GET', '/api/dictionarylist/pos')
 const classification_list = await $backendapi('GET', '/api/dictionarylist/classification')
-const { t } = useI18n()
-const props = defineProps(['data'])
-const   disabled = ref(true),
-	    spin = ref(false),
-		info = ref('')
+
+const props = defineProps(['data', 'method'])
+const disabled = ref(true)
+const spin = ref(false)
+const info = ref('')
 
 const submitForm = async (e) => {
 	spin.value = true
@@ -86,29 +95,40 @@ const submitForm = async (e) => {
     //3. sentences
     postdata.sentences = postdata.sentences.filter(item => item.en !== '' || item.zh !== '')
 
-    //4. api
-    let api = await $backendapi(
-        'PUT',
-        '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1],
-        JSON.stringify(postdata)
-    )
+    console.log(postdata)
+
+    //*
+    //4. url
+    let url = ''
+    if ( props.method == 'POST') {
+        url = 'api/openedit/word'
+    } else {
+        url = 'api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1]
+    }
+
+    //5. api
+    let api = await $backendapi(props.method, url, JSON.stringify(postdata))
 
     spin.value = false
-    
-	//5. error
+
 	if ( api.error ) {
-		const error = JSON.parse(api.error)
+        //6. error
+		info.value = api.message
+	} else {
+        //7. success, output message
 
-		//6.
-		if ( error.status !== 200 ) {
-			info.value = error.message
-		}
+        if ( props.method == 'POST') {
+            info.value = t('OpeneditAddSuccessfuly')
 
-		return
-	}
-    
-    info.value = t('OpeneditUpdateSuccessfuly')
+            //redirect
+            window.location.href = decodeURIComponent('/Word/' + api.data.word + '/' + api.data.wordid)
+        } else {
+            info.value = t('OpeneditUpdateSuccessfuly')
+        }
+    }
+
     disabled.value = true
+    //*/
 }
 
 const addmore = ref(true)
@@ -126,7 +146,6 @@ const addSentence = () => {
     .word {
         background-color: transparent;
         color: #6610f2;
-        cursor: not-allowed;
     }
 
     input:disabled, select:disabled  {

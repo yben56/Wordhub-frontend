@@ -1,6 +1,6 @@
 <template>
     <div class="tab">
-        <div v-if="$route.params.slug !== undefined">
+        <div v-if="$route.params.slug.length == 2">
             <a :class="{ 'active': $route.name === 'Openedit-Word-slug' }" class="btn btn-sm" :href="'/openedit/word/' + $route.params.slug[0] + '/' + $route.params.slug[1]">
                 {{ $t('EditWord') }}
             </a>
@@ -9,7 +9,7 @@
             </a>
         </div>
         <div v-else>
-            <a class="active btn btn-sm">{{ $t('EditWord') }}</a>
+            <a class="active btn btn-sm">{{ $t('AddWord') }}</a>
         </div>
     </div>
     <hr class="mt-3">
