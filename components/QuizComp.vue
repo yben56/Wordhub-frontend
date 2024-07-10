@@ -68,6 +68,7 @@
 </template>
 
 <script setup>
+const { $backendapi } = useNuxtApp()
 const { status, data: getSession } = useAuth()
 const auth = computed(() => status.value === 'authenticated')
 
@@ -101,19 +102,11 @@ const submitanswer = async (id, word) => {
     
     //3. send to api
     if ( auth.value ) {
-        await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
-            method : 'POST',
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept-Language' : 'zh-tw',
-                'Authorization' : 'Bearer ' + getSession.value.user.access_token
-            },
-            body : JSON.stringify({
-                wordid: id,
-                word: word,
-                correct: correct
-            })
-        })
+        await $backendapi('POST', 'api/answer', JSON.stringify({
+            wordid: id,
+            word: word,
+            correct: correct
+        }))
     }
 }
 </script>
