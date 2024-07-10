@@ -100,19 +100,21 @@ const submitanswer = async (id, word) => {
     })
     
     //3. send to api
-    let d = await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
-        method : 'POST',
-        headers : {
-            'Content-Type': 'application/json',
-            'Accept-Language' : 'zh-tw',
-            'Authorization' : 'Bearer ' + getSession.value.user.access_token
-        },
-        body : JSON.stringify({
-            wordid: id,
-            word: word,
-            correct: correct
+    if ( auth.value ) {
+        await fetch(useRuntimeConfig().public.BACKEND_API_BASE_URL + 'api/answer', {
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept-Language' : 'zh-tw',
+                'Authorization' : 'Bearer ' + getSession.value.user.access_token
+            },
+            body : JSON.stringify({
+                wordid: id,
+                word: word,
+                correct: correct
+            })
         })
-    })
+    }
 }
 </script>
 
