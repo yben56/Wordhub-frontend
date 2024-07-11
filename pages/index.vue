@@ -14,37 +14,77 @@
 </template>
 
 <script setup>
-const { $authorization, $backendapi } = useNuxtApp()
+const { $backendapi, $recommandation } = useNuxtApp()
+const { status } = useAuth()
+const auth = computed(() => status.value === 'authenticated')
 const route = useRoute()
 const data = ref([])
 const classification = route.query.classification
+let words_distribution = ref({})
+let isloading = ref(false)
 
 onMounted( async () => {
-    //load data & scroll to bottom and load more
+    //1. get words distribution
+    if ( auth.value ) {
+        let wd = await $backendapi('GET', 'api/words/distribution')
+        words_distribution.value = wd.data
+    }
+
+    //2. load data & scroll to bottom and load more
     const observer = new IntersectionObserver((enteries) => {
         enteries.forEach(async (entry) => {
-            let apidata = await fetchData(classification)
-            data.value = data.value.concat(apidata)
+            if ( !isloading.value ) {
+
+                isloading.value = true
+
+                try{
+                    if ( auth.value && Object.keys(words_distribution.value).length != 0 ) {
+                        //1. get random words from distribution
+                        let recommandation = $recommandation(words_distribution.value, 3)
+
+                        //2. update distribution
+                        words_distribution.value = recommandation.distribution
+                        let recommand = recommandation.recommand
+                        
+                        //3. fetch data from distribution 1st
+                        let apidata = await fetchData(classification, recommand)
+                        data.value = data.value.concat(apidata)
+                    } else {
+                        //guess mode, random data
+                        let apidata = await fetchData(classification)
+                        data.value = data.value.concat(apidata)
+                    } 
+                } catch (error) {
+                    console.error('Error fetching data:', error)
+                } finally {
+                    isloading.value = false
+                }
+            }
         })
     })
-
+    
     observer.observe(document.getElementById('observer'))
 })
 
-const fetchData = async (classification) => {
+const fetchData = async (classification, recommand = []) => {
     //1. classification
     if ( typeof classification === 'undefined' ) { classification = '' }
     else { classification = '&classification=' + classification }
-    
-    //2. words
-    let api_words = await $backendapi('GET', '/api/words?pages=9' + classification)
+
+    //2. recommand
+    if ( recommand.length > 0 ) {
+        recommand = '&' + recommand.map(item => `recommand[]=${encodeURIComponent(item)}`).join('&')
+    }
+
+    //3. words
+    let api_words = await $backendapi('GET', '/api/words?pages=9' + classification + recommand)
     api_words.data = api_words.data.map(word => ({type: 'word',...word}))
 
-    //3. quiz
+    //4. quiz
     let api_quiz = await $backendapi('GET', '/api/quiz?pages=3')
     api_quiz.data = api_quiz.data.map(quiz => ({type: 'quiz',...quiz}))
     
-    //4. merge
+    //5. merge
     return mergeArrays(api_words.data, api_quiz.data)
 }
 

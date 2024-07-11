@@ -10,6 +10,45 @@ const prounce = (word, heteronyms) => {
   event.preventDefault()
 }
 
+const recommandation = (distribution, num) => {
+  //1. get recommand words
+  let recommand = []
+
+  //2. num
+  num = (Object.keys(distribution).length < num) ? Object.keys(distribution).length : num
+
+  for ( let i = 0; i < num; i++ ) {
+    //3. sum
+    let sum = Object.values(distribution).reduce((acc, value) => acc + value, 0)
+
+    //4. distribution to frequency array
+    const frequency_distribution = [];
+
+    for (const [key, value] of Object.entries(distribution)) {
+      for (let i = 0; i < value; i++) {
+        frequency_distribution.push(key);
+      }
+    }
+
+    //5. rand number in range
+    let randnum =  Math.floor(Math.random() * sum)
+    
+    //6. select randword
+    let randword = frequency_distribution[randnum]
+
+    //7. del each the word already fetch
+    delete distribution[randword]
+
+    //8. push into recommand array
+    recommand.push(randword)
+  }
+
+  return {
+    'distribution' : distribution,
+    'recommand' : recommand
+  }
+}
+
 const backendapi = async (method, url, body=null) => {
 
   const { data: getSession } = useAuth()
@@ -43,6 +82,7 @@ export default defineNuxtPlugin(nuxtApp => {
     provide: {
       backendapi: backendapi,
       prounce: prounce,
+      recommandation: recommandation,
     }
   }
 })
