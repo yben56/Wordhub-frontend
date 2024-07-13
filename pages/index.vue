@@ -40,7 +40,7 @@ onMounted( async () => {
                 try{
                     if ( auth.value && Object.keys(words_distribution.value).length != 0 ) {
                         //1. get random words from distribution
-                        let recommandation = $recommandation(words_distribution.value, 3)
+                        let recommandation = $recommandation(words_distribution.value, 12)
 
                         //2. update distribution
                         words_distribution.value = recommandation.distribution
@@ -72,16 +72,23 @@ const fetchData = async (classification, recommand = []) => {
     else { classification = '&classification=' + classification }
 
     //2. recommand
+    let recommand_word = ''
+        let recommand_quiz = ''
+
     if ( recommand.length > 0 ) {
-        recommand = '&' + recommand.map(item => `recommand[]=${encodeURIComponent(item)}`).join('&')
+        recommand_word = recommand.slice(0, 9) //12 -> 9
+        recommand_quiz = recommand.slice(9) //12 -> 3
+        
+        recommand_word = '&recommand=' + JSON.stringify(recommand_word)
+        recommand_quiz = '&recommand=' + JSON.stringify(recommand_quiz)
     }
 
     //3. words
-    let api_words = await $backendapi('GET', '/api/words?pages=9' + classification + recommand)
+    let api_words = await $backendapi('GET', '/api/words?items=9' + classification + recommand_word)
     api_words.data = api_words.data.map(word => ({type: 'word',...word}))
 
     //4. quiz
-    let api_quiz = await $backendapi('GET', '/api/quiz?pages=3')
+    let api_quiz = await $backendapi('GET', '/api/quiz?items=3' + recommand_quiz)
     api_quiz.data = api_quiz.data.map(quiz => ({type: 'quiz',...quiz}))
     
     //5. merge
