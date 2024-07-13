@@ -73,7 +73,7 @@ const fetchData = async (classification, recommand = []) => {
 
     //2. recommand
     let recommand_word = ''
-        let recommand_quiz = ''
+    let recommand_quiz = ''
 
     if ( recommand.length > 0 ) {
         recommand_word = recommand.slice(0, 9) //12 -> 9
