@@ -84,11 +84,11 @@ const fetchData = async (classification, recommand = []) => {
     }
 
     //3. words
-    let api_words = await $backendapi('GET', '/api/words?items=9' + classification + recommand_word)
+    let api_words = await $backendapi('GET', 'api/words?items=9' + classification + recommand_word)
     api_words.data = api_words.data.map(word => ({type: 'word',...word}))
 
     //4. quiz
-    let api_quiz = await $backendapi('GET', '/api/quiz?items=3' + recommand_quiz)
+    let api_quiz = await $backendapi('GET', 'api/quiz?items=3' + recommand_quiz)
     api_quiz.data = api_quiz.data.map(quiz => ({type: 'quiz',...quiz}))
     
     //5. merge

@@ -2,13 +2,13 @@
     <div id="footer">
         <div class="container">
             <div class="row mb-3">
-                <i>-- Page design by: benjamin-w --</i>
+                <i>-- Ilogical Studio 2024 --</i>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <i class="fa-brands fa-square-facebook m-3"></i>
-                    <i class="fa-brands fa-square-twitter m-3"></i>
-                    <i class="fa-brands fa-youtube m-3"></i>
+                  <a class="me-3" href="/privacy">隱私權政策</a>
+                  <a class="me-3" href="/about">關於Wordhub</a>
+                  <a class="me-3" href="/disclaimer">免責聲明</a>
                 </div>
             </div>
         </div>
