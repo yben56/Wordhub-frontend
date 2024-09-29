@@ -76,9 +76,11 @@ const fetchData = async (classification, recommand = []) => {
     let recommand_quiz = ''
 
     if ( recommand.length > 0 ) {
-        recommand_word = recommand.slice(0, 9) //12 -> 9
-        recommand_quiz = recommand.slice(9) //12 -> 3
-        
+        let recommand_word_count = Math.ceil(recommand.length * 2 / 3)
+       
+        recommand_word = recommand.slice(0, recommand_word_count)
+        recommand_quiz = recommand.slice(recommand_word_count)
+
         recommand_word = '&recommand=' + JSON.stringify(recommand_word)
         recommand_quiz = '&recommand=' + JSON.stringify(recommand_quiz)
     }
