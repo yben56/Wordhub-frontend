@@ -40,8 +40,8 @@ onMounted( async () => {
                 try{
                     if ( auth.value && Object.keys(words_distribution.value).length != 0 ) {
                         //1. get random words from distribution
-                        let recommandation = $recommandation(words_distribution.value, 12)
-
+                        let recommandation = $recommandation(words_distribution.value, 9) //set 9 recommand words, backend will output 3 association words (total 12)
+                        
                         //2. update distribution
                         words_distribution.value = recommandation.distribution
                         let recommand = recommandation.recommand
