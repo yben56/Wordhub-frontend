@@ -26,13 +26,25 @@
                 <option v-for="value in pos_list" :value="value">{{ value }}</option>
             </select>
         </div>
-        <div class="col-md-3" v-for="(item, index) in data.classification" :key="index">
-            <label class="form-label" :class="{'opacity-0 d-none d-md-block' : index != 0 }">{{ $t('Classification') }}</label>         
-            <select class="form-control form-control-sm" :disabled="disabled" v-model="data.classification[index]">
-                <option value="">{{ $t('Classification') }} {{ index+1 }}</option>
-                <option v-for="(item, index) in classification_list" :value="index">{{ item }}</option>
-            </select>
+
+        <div class="col-md-12">
+            <label class="form-label">{{ $t('Classification') }} <i class="fa-solid fa-angle-down"></i></label>
+            <div class="classification-area pb-2" :class="{ 'disabled-span' : !disabled }">
+                <span class="badge bg-success me-2 p-2" v-for="item in data.classification">{{ $t(item) }}</span>
+            </div>
+            <div :class="{ 'disabled-span' : disabled }">
+                <div class="form-check mb-3 classification" v-for="(item, index) in classification_list">
+                    <span class="text-secondary">{{ index }} :</span>
+                    <div class="form-check form-check-inline" v-for="(k, i) in item">
+                        <div>
+                            <input class="form-check-input mt-1" type="checkbox" :value="i" v-model="data.classification">
+                            <label class="form-check-label">{{ k }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
         <div class="col-md-12">
             <label class="form-label">{{ $t('Sentences') }}</label>
             <div class="sentence mb-4" v-for="(item, index) in data.sentences" :key="index">
@@ -96,6 +108,7 @@ const submitForm = async (e) => {
     postdata.sentences = postdata.sentences.filter(item => item.en !== '' || item.zh !== '')
 
     console.log(postdata)
+    
 
     //*
     //4. url
@@ -148,7 +161,13 @@ const addSentence = () => {
         color: #6610f2;
     }
 
-    input:disabled, select:disabled  {
+    .classification {
+        .text-secondary {
+            margin-right: 15px;
+        }
+    }
+
+    input:disabled, select:disabled, .classification-area  {
         background-color: transparent;
         border-radius: 0;
         border: none;
@@ -159,7 +178,7 @@ const addSentence = () => {
         opacity: 0;
     }
 
-    .disabled-span, .disabled-btn {
+    .disabled-span, .disabled-btn, .disabled-badge {
         display: none;
     }
 

@@ -32,7 +32,7 @@ onMounted( async () => {
             'translation' : '',
             'phonetic' : '',
             'pos' : '',
-            'classification' : ['', '', '', ''],
+            'classification' : [],
             'sentences' : [{'en':'','zh':''}]
         }
     } else {
@@ -41,18 +41,13 @@ onMounted( async () => {
 
         let api = await $backendapi('GET', '/api/openedit/word/' + useRoute().params.slug[0] + '/' + useRoute().params.slug[1])
 
-        //3. make sure classification & sentences have correct elements
-        ensureClassificationLength(api.data.classification, 4)
+        //3. make sure sentences have correct elements
         ensureSentencesLength(api.data.sentences, 1)
 
         //4. update word value
         word.value = api.data
     }    
 })
-
-function ensureClassificationLength(arr, length) {
-    while ( arr.length < length ) { arr.push('') }
-}
 
 function ensureSentencesLength(arr, length) {
     while ( arr.length < length ) { arr.push({'en':'','zh':''}) }
