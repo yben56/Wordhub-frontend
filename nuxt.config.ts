@@ -37,6 +37,19 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/EmailConfirmation': { ssr: false }
+    '/': { ssr: false },
+    '/EmailConfirmation': { ssr: false },
+    '/ForgotPassword': { ssr: false },
+    '/Guest': { ssr: false },
+    '/History' : { ssr: false },
+    '/Info': { ssr: false },
+    '/Login': { ssr: false },
+    '/Protected': { ssr: false },
+    '/ResetPassword': { ssr: false },
+    '/Search': { ssr: false },
+    '/Signup': { ssr: false },
+    '/TermsPrivacy': { ssr: false },
+    '/openedit/word/**' : { ssr: false },
+    '/openedit/quiz/**' : { ssr: false },
   }
 })
