@@ -16,8 +16,8 @@ export default defineNuxtConfig({
     }
   },
   css: [
-    '@/assets/scss/app.scss',
-    '@/assets/scss/fonts.scss'
+    '@/assets/scss/App.scss',
+    '@/assets/scss/Fonts.scss'
   ],
   modules: [
     '@nuxtjs/i18n', 
@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     public: {
       BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL,
       PRONOUNCE_BASE_URL: process.env.PRONOUNCE_BASE_URL,
-    },
+    }
   },
   routeRules: {
     '/': { ssr: false },
