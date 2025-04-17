@@ -9,14 +9,14 @@
 				<li><a class="dropdown-item" href="/history"><i class="fa-solid fa-clock-rotate-left"></i> {{ $t('SearchHistory') }}</a></li>
 				<li><a class="dropdown-item" href="/openedit/word"><i class="fa-solid fa-pen-to-square"></i> {{ $t('AddWord') }}</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" @click="signOut({ callbackUrl: '/' })"><i class="fa-solid fa-right-from-bracket"></i> {{ $t('Logout') }}</a></li>
+				<li><a class="dropdown-item" @click="logout({ callbackUrl: '/' })"><i class="fa-solid fa-right-from-bracket"></i> {{ $t('Logout') }}</a></li>
 			</ul>
 		</div>
 	</div>
 </template>
 
 <script setup>
-const { signOut } = useAuth()
+const { logout } = useAuthStore()
 </script>
 
 <style scoped lang="scss">

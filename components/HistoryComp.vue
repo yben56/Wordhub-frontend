@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-const { $authorization, $backendapi } = useNuxtApp()
+const { $backendapi } = useNuxtApp()
 const props = defineProps(['data'])
 
 let deleteword = async (index, wordid) => {

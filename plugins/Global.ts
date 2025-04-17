@@ -51,7 +51,8 @@ const recommandation = (distribution, num) => {
 
 const backendapi = async (method, url, body=null) => {
 
-  const { data: getSession } = useAuth()
+  const auth = useAuthStore()
+  const access_token = auth.access_token || ''
   
   //1. url
   url = useRuntimeConfig().public.BACKEND_API_BASE_URL + url
@@ -62,19 +63,23 @@ const backendapi = async (method, url, body=null) => {
     'Accept-Language' : 'zh-tw',
   }
 
-  if ( getSession.value ) { headers['Authorization'] = 'Bearer ' + getSession.value.user.access_token }
+  if ( access_token ) { headers['Authorization'] = 'Bearer ' + access_token }
 
   //3. options
   let options = {
     method: method,
+    credentials: 'include',
     headers: headers
   }
 
-  if ( method != 'GET' ) { options['body'] = body }
+  if ( method != 'GET' ) { options['body'] = JSON.stringify(body) }
 
   //4.
-  let data = await fetch(url, options)
-  return await data.json()
+  let response = await fetch(url, options)
+  let data = await response.json()
+  data.status = response.status
+
+  return data
 }
 
 export default defineNuxtPlugin(nuxtApp => {

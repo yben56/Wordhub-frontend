@@ -15,8 +15,7 @@
 
 <script setup>
 const { $backendapi, $recommandation } = useNuxtApp()
-const { status } = useAuth()
-const auth = computed(() => status.value === 'authenticated')
+const auth = useAuthStore()
 const route = useRoute()
 const data = ref([])
 const classification = route.query.classification
@@ -25,7 +24,7 @@ let isloading = ref(false)
 
 onMounted( async () => {
     //1. get words distribution
-    if ( auth.value ) {
+    if ( auth.authenticated ) {
         let wd = await $backendapi('GET', 'api/words/distribution')
         words_distribution.value = wd.data
     }
@@ -38,7 +37,7 @@ onMounted( async () => {
                 isloading.value = true
 
                 try{
-                    if ( auth.value && Object.keys(words_distribution.value).length != 0 ) {
+                    if ( auth.authenticated && Object.keys(words_distribution.value).length != 0 ) {
                         //1. get random words from distribution
                         let recommandation = $recommandation(words_distribution.value, 9) //set 9 recommand words, backend will output 3 association words (total 12)
                         

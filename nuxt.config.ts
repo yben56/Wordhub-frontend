@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxtjs/i18n', 
-    '@sidebase/nuxt-auth',
+    '@pinia/nuxt',
   ],
   i18n: {
     vueI18n: '@/i18n.config.ts'
@@ -38,18 +38,20 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { ssr: false },
-    '/EmailConfirmation': { ssr: false },
-    '/ForgotPassword': { ssr: false },
-    '/Guest': { ssr: false },
-    '/History' : { ssr: false },
-    '/Info': { ssr: false },
-    '/Login': { ssr: false },
-    '/Protected': { ssr: false },
-    '/ResetPassword': { ssr: false },
-    '/Search': { ssr: false },
-    '/Signup': { ssr: false },
-    '/TermsPrivacy': { ssr: false },
+    '/emailconfirmation': { ssr: false },
+    '/forgotPassword': { ssr: false },
+    '/guest': { ssr: false },
+    '/history' : { ssr: false },
+    '/info': { ssr: false },
+    '/login': { ssr: false },
+    '/protected': { ssr: false },
+    '/resetPassword': { ssr: false },
+    '/search': { ssr: false },
+    '/signup': { ssr: false },
+    '/termsprivacy': { ssr: false },
     '/openedit/word/**' : { ssr: false },
     '/openedit/quiz/**' : { ssr: false },
+    '/answer' : { ssr: false },
+    '/word/**' : { ssr: false },
   }
 })

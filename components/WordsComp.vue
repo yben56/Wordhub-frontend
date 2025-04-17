@@ -15,7 +15,7 @@
                     <br />
                     <i class="fa-solid fa-pen accuracy"></i>
                     <span>{{ $t('Accuracy') }}: </span>
-                    <span v-if="auth">
+                    <span v-if="auth.authenticated">
                         <span class="probability">
                             {{ data.evaluation.correct }}/{{ data.evaluation.trials }}
                             ({{ data.evaluation.accuracy }})
@@ -32,9 +32,7 @@
 </template>
 
 <script setup>
-const { status } = useAuth()
-const auth = computed(() => status.value === 'authenticated')
-
+const auth = useAuthStore()
 const props = defineProps(['data'])
 const data = props.data
 </script>

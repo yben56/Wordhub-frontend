@@ -52,7 +52,7 @@
                 <br />
                 <i class="fa-solid fa-pen accuracy"></i>
                 <span>{{ $t('Accuracy') }}: </span>
-                <span v-if="auth">
+                <span v-if="auth.authenticated">
                     <span class="probability">
                         {{ data.evaluation.correct }}/{{ data.evaluation.trials }}
                         ({{ data.evaluation.accuracy }})
@@ -69,8 +69,7 @@
 
 <script setup>
 const { $backendapi } = useNuxtApp()
-const { status, data: getSession } = useAuth()
-const auth = computed(() => status.value === 'authenticated')
+const auth = useAuthStore()
 
 let props = defineProps(['data'])
 props.data.forEach(obj => { obj.answer = false }) //add answer false
@@ -101,7 +100,7 @@ const submitanswer = async (id, word) => {
     })
     
     //3. send to api
-    if ( auth.value ) {
+    if ( auth.authenticated ) {
         await $backendapi('POST', 'api/answer', JSON.stringify({
             wordid: id,
             word: word,

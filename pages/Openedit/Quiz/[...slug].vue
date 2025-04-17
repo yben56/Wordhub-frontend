@@ -13,8 +13,7 @@
 </template>
 
 <script setup>
-definePageMeta({ middleware: 'auth' })
-const { $authorization, $backendapi } = useNuxtApp()
+const { $backendapi } = useNuxtApp()
 const quiz = ref([])
 
 onMounted( async () => {

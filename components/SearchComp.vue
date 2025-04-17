@@ -4,8 +4,8 @@
             <p class="word">{{ data.word }}<i @click="$prounce(data.word, data.heteronyms)" class="fa-solid fa-volume-high"></i></p>
             <div v-for="(data, index) in data.result">
                 <p class="translate">
-                    <span class="pos text-danger">{{ $t(data.pos) }}: </span>
-                    <a :href="'/Word/' + data.word + '/' + data.id">{{ data.translation }}</a>
+                    <span class="pos text-danger">{{ data.pos }}: </span>
+                    <a :href="'/word/' + data.word + '/' + data.id">{{ data.translation }}</a>
                 </p>
             </div>
         </div>

@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-definePageMeta({ middleware: 'auth' })
 const { $backendapi } = useNuxtApp()
 const route = useRoute()
 const method = ref('')

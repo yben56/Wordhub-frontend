@@ -23,9 +23,7 @@
 </template>
 
 <script setup>
-definePageMeta({ middleware: 'auth' })
-
-const { $authorization, $backendapi } = useNuxtApp()
+const { $backendapi } = useNuxtApp()
 const history = ref([])
 const quiz = ref([])
 

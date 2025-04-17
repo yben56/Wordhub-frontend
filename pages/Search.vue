@@ -29,8 +29,7 @@
 </template>
 
 <script setup>
-const { $authorization, $backendapi } = useNuxtApp()
-
+const { $backendapi } = useNuxtApp()
 const search = ref([])
 const associate = ref([])
 const quiz = ref([])

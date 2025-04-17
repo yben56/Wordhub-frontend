@@ -51,10 +51,12 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+const { $backendapi } = useNuxtApp()
+import { useAuthStore } from '@/stores/auth'
 
 const { t } = useI18n()
 const router = useRouter()
-const { signIn } = useAuth()
+const authStore = useAuthStore()
 
 const	email = ref(''),
 		password = ref(''),
@@ -106,9 +108,7 @@ const submitForm = async () => {
 	spin.value = true
 	info.value = ''
 
-	//1.
-	const api = await signIn('credentials', {
-		redirect: false,
+	let login = await $backendapi('POST', 'users/login', {
 		email: email.value,
 		password: password.value
 	})
@@ -116,22 +116,28 @@ const submitForm = async () => {
 	spin.value = false
 
 	//2. error
-	if ( api.error ) {
-		const error = JSON.parse(api.error)
-		
+	if ( login.error && login.status !== 200 ) {
+
 		//3. active
-		if ( error.status == 401 ) { resend.value = true }
+		if ( login.status == 401 ) { resend.value = true }
 		else { resend.value = false }
 
 		//4.
-		if ( error.status !== 200 ) {
-			info.value = error.message
+		if ( login.status !== 200 ) {
+			info.value = login.message
 		}
 
 		return
 	}
-
-	//5. success
+	
+	//5. store access token
+	authStore.setUser({
+		access_token: login.data.access_token,
+		access_token_exp: login.data.access_token_exp,
+		first_name: login.data.first_name,
+		profile_picture: login.data.profile_picture
+	})
+	
 	window.location.reload()
 }
 

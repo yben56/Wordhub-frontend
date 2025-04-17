@@ -21,7 +21,6 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "^8.1.1",
-    "@sidebase/nuxt-auth": "^0.7.2"
+    "@nuxtjs/i18n": "^8.1.1"
   }
 }

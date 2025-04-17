@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-const { $authorization, $backendapi } = useNuxtApp()
+const { $backendapi } = useNuxtApp()
 
 const word = ref([])
 const quiz = ref([])
